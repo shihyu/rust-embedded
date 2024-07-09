@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>工具 - The Embedded Rust Book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="../intro/tooling.html" class="active"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="../intro/install.html"><strong aria-hidden="true">1.4.</strong> 安裝</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="../intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="../intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 驗證工具鏈的安裝</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../start/index.html"><strong aria-hidden="true">2.</strong> 開始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="../start/hardware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="../start/registers.html"><strong aria-hidden="true">2.3.</strong> 存儲映射的寄存器</a></li><li class="chapter-item expanded "><a href="../start/semihosting.html"><strong aria-hidden="true">2.4.</strong> 半主機模式</a></li><li class="chapter-item expanded "><a href="../start/panicking.html"><strong aria-hidden="true">2.5.</strong> 運行時恐慌(Panicking)</a></li><li class="chapter-item expanded "><a href="../start/exceptions.html"><strong aria-hidden="true">2.6.</strong> 異常</a></li><li class="chapter-item expanded "><a href="../start/interrupts.html"><strong aria-hidden="true">2.7.</strong> 中斷</a></li><li class="chapter-item expanded "><a href="../start/io.html"><strong aria-hidden="true">2.8.</strong> IO</a></li></ol></li><li class="chapter-item expanded "><a href="../peripherals/index.html"><strong aria-hidden="true">3.</strong> 外設</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../peripherals/a-first-attempt.html"><strong aria-hidden="true">3.1.</strong> Rust嚐鮮</a></li><li class="chapter-item expanded "><a href="../peripherals/borrowck.html"><strong aria-hidden="true">3.2.</strong> 借用檢查器</a></li><li class="chapter-item expanded "><a href="../peripherals/singletons.html"><strong aria-hidden="true">3.3.</strong> 單例</a></li></ol></li><li class="chapter-item expanded "><a href="../static-guarantees/index.html"><strong aria-hidden="true">4.</strong> 靜態保障(static guarantees)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../static-guarantees/typestate-programming.html"><strong aria-hidden="true">4.1.</strong> 類型狀態編程</a></li><li class="chapter-item expanded "><a href="../static-guarantees/state-machines.html"><strong aria-hidden="true">4.2.</strong> 把外設當作狀態機</a></li><li class="chapter-item expanded "><a href="../static-guarantees/design-contracts.html"><strong aria-hidden="true">4.3.</strong> 設計約定</a></li><li class="chapter-item expanded "><a href="../static-guarantees/zero-cost-abstractions.html"><strong aria-hidden="true">4.4.</strong> 零成本抽象</a></li></ol></li><li class="chapter-item expanded "><a href="../portability/index.html"><strong aria-hidden="true">5.</strong> 可移植性</a></li><li class="chapter-item expanded "><a href="../concurrency/index.html"><strong aria-hidden="true">6.</strong> 併發</a></li><li class="chapter-item expanded "><a href="../collections/index.html"><strong aria-hidden="true">7.</strong> 容器</a></li><li class="chapter-item expanded "><a href="../design-patterns/index.html"><strong aria-hidden="true">8.</strong> 設計模式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../design-patterns/hal/index.html"><strong aria-hidden="true">8.1.</strong> HALs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../design-patterns/hal/checklist.html"><strong aria-hidden="true">8.1.1.</strong> 列表</a></li><li class="chapter-item expanded "><a href="../design-patterns/hal/naming.html"><strong aria-hidden="true">8.1.2.</strong> 命名</a></li><li class="chapter-item expanded "><a href="../design-patterns/hal/interoperability.html"><strong aria-hidden="true">8.1.3.</strong> 互操性</a></li><li class="chapter-item expanded "><a href="../design-patterns/hal/predictability.html"><strong aria-hidden="true">8.1.4.</strong> 可預見性</a></li><li class="chapter-item expanded "><a href="../design-patterns/hal/gpio.html"><strong aria-hidden="true">8.1.5.</strong> GPIO</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../c-tips/index.html"><strong aria-hidden="true">9.</strong> 給嵌入式C開發者的貼士</a></li><li class="chapter-item expanded "><a href="../interoperability/index.html"><strong aria-hidden="true">10.</strong> 互操性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../interoperability/c-with-rust.html"><strong aria-hidden="true">10.1.</strong> 使用C的Rust</a></li><li class="chapter-item expanded "><a href="../interoperability/rust-with-c.html"><strong aria-hidden="true">10.2.</strong> 使用Rust的C</a></li></ol></li><li class="chapter-item expanded "><a href="../unsorted/index.html"><strong aria-hidden="true">11.</strong> 沒有排序的主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unsorted/speed-vs-size.html"><strong aria-hidden="true">11.1.</strong> 優化: 速度與大小間的博弈</a></li><li class="chapter-item expanded "><a href="../unsorted/math.html"><strong aria-hidden="true">11.2.</strong> 執行數學運算</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../appendix/glossary.html">附錄A: 詞彙表</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Embedded Rust Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/xxchang/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="工具"><a class="header" href="#工具">工具</a></h1>
+<p>與微控制器打交道需要使用幾種不同的工具，因為我們要處理的架構與筆記本電腦不同，我們必須在 <em>遠程</em> 設備上運行和調試程序。我們將使用下面列舉出來的工具。當沒有指定一個最小版本時，最新的版本應該也可以用，但是我們還是列出了我們已經測過的那些版本。</p>
+<ul>
+<li>Rust 1.31, 1.31-beta, 或者一個更新的，支持ARM Cortex-M編譯的工具鏈。</li>
+<li><a href="https://github.com/rust-embedded/cargo-binutils"><code>cargo-binutils</code></a> ~0.1.4</li>
+<li><a href="https://www.qemu.org/"><code>qemu-system-arm</code></a>. 測試的版本: 3.0.0</li>
+<li>OpenOCD &gt;=0.8. 測試的版本: v0.9.0 and v0.10.0</li>
+<li>有ARM支持的GDB。強烈建議7.12或者更新的版本。測試版本: 7.10, 7.11 和 8.1</li>
+<li><a href="https://github.com/ashleygwilliams/cargo-generate"><code>cargo-generate</code></a> 或者 <code>git</code>。這些工具都是可選的，但是跟著這本書來使用它們，會更容易。</li>
+</ul>
+<p>下面的文檔將解釋我們為什麼使用這些工具。安裝指令可以在下一頁找到。</p>
+<h2 id="cargo-generate-或者-git"><a class="header" href="#cargo-generate-或者-git"><code>cargo-generate</code> 或者 <code>git</code></a></h2>
+<p>裸機編程是非標準Rust編程，為了得到正確的程序的內存佈局，需要對鏈接過程進行一些調整，這要求添加一些額外的文件(比如linker scripts)和配置(比如linker flags)。我們已經為你把這些打包進了一個模板裡了，你只需要補充缺失的信息(比如項目名和目標硬件的特性)。<br>
+我們的模板兼容<code>cargo-generate</code>:一個用來從模板生成新的Cargo項目的Cargo子命令。你也能使用<code>git</code>,<code>curl</code>,<code>wget</code>,或者你的網頁瀏覽器下載模板。</p>
+<h2 id="cargo-binutils"><a class="header" href="#cargo-binutils"><code>cargo-binutils</code></a></h2>
+<p><code>cargo-binutils</code>是一個Cargo命令的子集，它讓我們能輕鬆使用Rust工具鏈帶來的LLVM工具。這些工具包括LLVM版本的<code>objdump</code>，<code>nm</code>和<code>size</code>，用來查看二進制文件。<br>
+在GNU binutils之上使用這些工具的好處是，(a)無論你的操作系統是什麼，安裝這些LLVM工具都可以用同一條命令(<code>rustup component add llvm-tools-preview</code>)。(b)像是<code>objdump</code>這樣的工具，支持所有<code>rustc</code>支持的架構--從ARM到x86_64--因為它們都有一樣的LLVM後端。</p>
+<h2 id="qemu-system-arm"><a class="header" href="#qemu-system-arm"><code>qemu-system-arm</code></a></h2>
+<p>QEMU是一個仿真器。在這個例子裡，我們使用能完全仿真ARM系統的改良版QEMU。我們使用QEMU在主機上運行嵌入式程序。多虧了它，你可以在沒有任何硬件的情況下，嘗試這本書的部分示例。</p>
+<h1 id="用於調試嵌入式rust的工具"><a class="header" href="#用於調試嵌入式rust的工具">用於調試嵌入式Rust的工具</a></h1>
+<h2 id="概述"><a class="header" href="#概述">概述</a></h2>
+<p>在Rust中調試嵌入式系統需要用到專業的工具，這包括用於管理調試進程的軟件，用於觀察和控制程序執行的調試器，和用於便捷主機和嵌入式設備之間進行交互的硬件探測器．這個文檔會介紹像是Probe-rs和OpenOCD這樣的基礎軟件，以及像是GDB和Probe-rs Visual Studio Code擴展這樣常見的調試器．另外，該文檔會覆蓋像是Rusty-probe，ST-Link，J-Link，和MCU-Link這樣的硬件探測器，它們整合在一起可以高效地對嵌入式設備進行調試和編程．</p>
+<h2 id="驅動調試工具的軟件"><a class="header" href="#驅動調試工具的軟件">驅動調試工具的軟件</a></h2>
+<h3 id="probe-rs"><a class="header" href="#probe-rs">Probe-rs</a></h3>
+<p>Probe-rs是一個現代化的，以Rust開發的軟件，被設計用來配合嵌入式系統中的調試器一起工作．不像OpenOCD，Probe-rs設計的時候就考慮到了簡單性，目標是減少在其它調試解決方案中常見的配置重擔．
+它支持不同的探測器和目標架構，提供一個用於與嵌入式硬件交互的高層接口．Probe-rs直接集成了Rust工具鏈，並且通過擴展集成進了Visual Studio Code中，允許開發者精簡它們的調試工作流程．</p>
+<h3 id="openocd-open-on-chip-debugger"><a class="header" href="#openocd-open-on-chip-debugger">OpenOCD (Open On-Chip Debugger)</a></h3>
+<p>OpenOCD是一個用於調試，測試，和編程嵌入式系統的開源軟件工具．它提供了一個主機系統和嵌入式硬件之間的接口，支持不同的傳輸層，比如JTAG和SWD（Serial Wire Debug）．OpenOCD集成了GDB，其是一個調試器．OpenOCD受到了廣泛的支持，擁有大量的文檔和一個龐大的社區，但是配置可能會很複雜，特別是對於自定義的嵌入式設置．</p>
+<h2 id="debuggers"><a class="header" href="#debuggers">Debuggers</a></h2>
+<p>調試器允許開發者觀察和控制一個程序的執行，以辨別和糾正錯誤或者bugs．它提供像是設置斷點，一行一行地步進代碼，和研究變量的值以及內存的狀態等功能．調試器本質上是為了通過軟件開發和維護，使得開發者可以確保他們的代碼的行為在不同環境下就像他們預期的那樣運行．</p>
+<p>調試器可以知道如何：</p>
+<ul>
+<li>與映射到存儲上的寄存器交互．</li>
+<li>設置斷點．</li>
+<li>讀取和寫入映射到存儲上的寄存器．</li>
+<li>檢測什麼時候MCU因為一個調試時間被掛了起來．</li>
+<li>在遇到一個調試事件後繼續MCU的執行．</li>
+<li>擦出和寫入微控制器的FLASH．</li>
+</ul>
+<h3 id="probe-rs-visual-studio-code-extension"><a class="header" href="#probe-rs-visual-studio-code-extension">Probe-rs Visual Studio Code Extension</a></h3>
+<p>Probe-rs有一個Visual Studio Code的擴展，提供了不需要額外設置的無縫的調試體驗．通過它的幫助，開發者可以使用Rust特定的特性，像是漂亮的打印和詳細的錯誤信息，確保它們的調試過程可以與Rust的生態對齊．</p>
+<h3 id="gdb-gnu-debugger"><a class="header" href="#gdb-gnu-debugger">GDB (GNU Debugger)</a></h3>
+<p>GDB是一個多用途的調試工具，其允許開發者研究程序的狀態，無論其正在運行中還是程序崩潰後．對於嵌入式Rust，GDB通過OpenOCD或者其它的調試服務器鏈接到目標系統上去和嵌入式代碼交互．GDB是高度可配置的，並且支持像是遠程調試，變量檢測，和條件斷點．它可以被用於多個平臺，並對Rust特定的調試需求有廣泛的支持，比如好看的打印和與IDEs集成．</p>
+<h2 id="探測器"><a class="header" href="#探測器">探測器</a></h2>
+<p>硬件探頭是一個被用於嵌入式系統的開發和調試的設備，其可以使得主機和目標嵌入式設備間的通信變得簡單．它通常支持像是JTAG或者SWD這樣的協議，可以編程，調試和分析嵌入式系統上的微控制器或者微處理器．硬件探頭對於要設置斷點，步進代碼，和觀察內存與處理器的寄存器的開發者來說很重要，可以讓開發者們高效地實時地分析和修復問題．</p>
+<h3 id="rusty-probe"><a class="header" href="#rusty-probe">Rusty-probe</a></h3>
+<p>Rusty-probe是一個開源的基於USB的硬件調試探測器，被設計用來輔助probe-rs一起工作．Rusy-Probe和probe-rs的結合為嵌入式Rust應用的開發者提供了一個易用的，成本高效的解決方案．</p>
+<h3 id="st-link"><a class="header" href="#st-link">ST-Link</a></h3>
+<p>ST-Link是一個由STMicroelectronics開發的常見的調試和編程探測器，其主要用於它們的STM32和STM8微控制器系列．它支持通過JTAG或者SWD接口進行調試和編程．因為STMicroelectronics的大量的開發板對其直接支持並且它集成進了主流的IDEs中，所以使得它成為使用STM微控制器的開發者的首選．</p>
+<h3 id="j-link"><a class="header" href="#j-link">J-Link</a></h3>
+<p>J-Link是由SEGGER微控制器開發的，它是一個魯棒和功能豐富的調試器，其支持大量的CPU內核和設備，不僅僅是ARM，比如RISC-V．因其高性能和可讀性而聞名，J-Link支持不同的通信接口，包括JTAG，SWD，和fine-pitch JTAG接口．它因其高級的特性而受到歡迎，比如在flash存儲中的無限的斷點和它與多種開發環境的兼容性．</p>
+<h3 id="mcu-link"><a class="header" href="#mcu-link">MCU-Link</a></h3>
+<p>MCU-Link是一個調試探測器，也可以作為編程器使用，由NXP Semiconductors提供．它支持不同的ARM Cortex微控制器且可以與像是MCUXpresso IDE這樣的開發工具進行無縫地交互．MCU-Link因其豐富的功能和易使用而聞名，使它成為像是愛好者，教育者，和專業的開發者們的可行的選項．</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../intro/no-std.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../intro/install.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../intro/no-std.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../intro/install.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

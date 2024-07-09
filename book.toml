@@ -1,10 +1,10 @@
 [book]
-authors = ["James Munns"]
-language = "zh-CN"
+authors = ["Jason"]
+language = "zh-TW"
 multilingual = false
 src = "src"
 title = "The Embedded Rust Book"
 
 [output.html]
-# git-repository-url = "https://github.com/rust-embedded/book"
-git-repository-url = "https://github.com/xxchang/book"
+default-theme = "rust"
+git-repository-url = "https://shihyu.github.io/rust-embedded"
