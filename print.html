@@ -1,0 +1,3668 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Embedded Rust Book</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro/index.html"><strong aria-hidden="true">1.</strong> 引言</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/hardware.html"><strong aria-hidden="true">1.1.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="intro/no-std.html"><strong aria-hidden="true">1.2.</strong> no_std</a></li><li class="chapter-item expanded "><a href="intro/tooling.html"><strong aria-hidden="true">1.3.</strong> 工具</a></li><li class="chapter-item expanded "><a href="intro/install.html"><strong aria-hidden="true">1.4.</strong> 安裝</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro/install/linux.html"><strong aria-hidden="true">1.4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="intro/install/macos.html"><strong aria-hidden="true">1.4.2.</strong> MacOS</a></li><li class="chapter-item expanded "><a href="intro/install/windows.html"><strong aria-hidden="true">1.4.3.</strong> Windows</a></li><li class="chapter-item expanded "><a href="intro/install/verify.html"><strong aria-hidden="true">1.4.4.</strong> 驗證工具鏈的安裝</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="start/index.html"><strong aria-hidden="true">2.</strong> 開始</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="start/qemu.html"><strong aria-hidden="true">2.1.</strong> QEMU</a></li><li class="chapter-item expanded "><a href="start/hardware.html"><strong aria-hidden="true">2.2.</strong> 硬件</a></li><li class="chapter-item expanded "><a href="start/registers.html"><strong aria-hidden="true">2.3.</strong> 存儲映射的寄存器</a></li><li class="chapter-item expanded "><a href="start/semihosting.html"><strong aria-hidden="true">2.4.</strong> 半主機模式</a></li><li class="chapter-item expanded "><a href="start/panicking.html"><strong aria-hidden="true">2.5.</strong> 運行時恐慌(Panicking)</a></li><li class="chapter-item expanded "><a href="start/exceptions.html"><strong aria-hidden="true">2.6.</strong> 異常</a></li><li class="chapter-item expanded "><a href="start/interrupts.html"><strong aria-hidden="true">2.7.</strong> 中斷</a></li><li class="chapter-item expanded "><a href="start/io.html"><strong aria-hidden="true">2.8.</strong> IO</a></li></ol></li><li class="chapter-item expanded "><a href="peripherals/index.html"><strong aria-hidden="true">3.</strong> 外設</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="peripherals/a-first-attempt.html"><strong aria-hidden="true">3.1.</strong> Rust嚐鮮</a></li><li class="chapter-item expanded "><a href="peripherals/borrowck.html"><strong aria-hidden="true">3.2.</strong> 借用檢查器</a></li><li class="chapter-item expanded "><a href="peripherals/singletons.html"><strong aria-hidden="true">3.3.</strong> 單例</a></li></ol></li><li class="chapter-item expanded "><a href="static-guarantees/index.html"><strong aria-hidden="true">4.</strong> 靜態保障(static guarantees)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="static-guarantees/typestate-programming.html"><strong aria-hidden="true">4.1.</strong> 類型狀態編程</a></li><li class="chapter-item expanded "><a href="static-guarantees/state-machines.html"><strong aria-hidden="true">4.2.</strong> 把外設當作狀態機</a></li><li class="chapter-item expanded "><a href="static-guarantees/design-contracts.html"><strong aria-hidden="true">4.3.</strong> 設計約定</a></li><li class="chapter-item expanded "><a href="static-guarantees/zero-cost-abstractions.html"><strong aria-hidden="true">4.4.</strong> 零成本抽象</a></li></ol></li><li class="chapter-item expanded "><a href="portability/index.html"><strong aria-hidden="true">5.</strong> 可移植性</a></li><li class="chapter-item expanded "><a href="concurrency/index.html"><strong aria-hidden="true">6.</strong> 併發</a></li><li class="chapter-item expanded "><a href="collections/index.html"><strong aria-hidden="true">7.</strong> 容器</a></li><li class="chapter-item expanded "><a href="design-patterns/index.html"><strong aria-hidden="true">8.</strong> 設計模式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="design-patterns/hal/index.html"><strong aria-hidden="true">8.1.</strong> HALs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="design-patterns/hal/checklist.html"><strong aria-hidden="true">8.1.1.</strong> 列表</a></li><li class="chapter-item expanded "><a href="design-patterns/hal/naming.html"><strong aria-hidden="true">8.1.2.</strong> 命名</a></li><li class="chapter-item expanded "><a href="design-patterns/hal/interoperability.html"><strong aria-hidden="true">8.1.3.</strong> 互操性</a></li><li class="chapter-item expanded "><a href="design-patterns/hal/predictability.html"><strong aria-hidden="true">8.1.4.</strong> 可預見性</a></li><li class="chapter-item expanded "><a href="design-patterns/hal/gpio.html"><strong aria-hidden="true">8.1.5.</strong> GPIO</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="c-tips/index.html"><strong aria-hidden="true">9.</strong> 給嵌入式C開發者的貼士</a></li><li class="chapter-item expanded "><a href="interoperability/index.html"><strong aria-hidden="true">10.</strong> 互操性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="interoperability/c-with-rust.html"><strong aria-hidden="true">10.1.</strong> 使用C的Rust</a></li><li class="chapter-item expanded "><a href="interoperability/rust-with-c.html"><strong aria-hidden="true">10.2.</strong> 使用Rust的C</a></li></ol></li><li class="chapter-item expanded "><a href="unsorted/index.html"><strong aria-hidden="true">11.</strong> 沒有排序的主題</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="unsorted/speed-vs-size.html"><strong aria-hidden="true">11.1.</strong> 優化: 速度與大小間的博弈</a></li><li class="chapter-item expanded "><a href="unsorted/math.html"><strong aria-hidden="true">11.2.</strong> 執行數學運算</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="appendix/glossary.html">附錄A: 詞彙表</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Embedded Rust Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/xxchang/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="引言"><a class="header" href="#引言">引言</a></h1>
+<p>歡迎閱讀嵌入式Rust:一本關於如何在裸機(比如，微處理器)上使用Rust編程語言的入門書籍。</p>
+<h2 id="嵌入式rust是為誰準備的"><a class="header" href="#嵌入式rust是為誰準備的">嵌入式Rust是為誰準備的</a></h2>
+<p>嵌入式Rust是為了那些既想要進行嵌入式編程，又想要使用Rust語言所提供的高級概念和安全保障的人們而準備的(參見<a href="https://doc.rust-lang.org/book/ch00-00-introduction.html">Who Rust Is For</a>)</p>
+<h2 id="本書範圍"><a class="header" href="#本書範圍">本書範圍</a></h2>
+<p>這本書的目的是：</p>
+<ul>
+<li>讓開發者快速上手Rust嵌入式開發，比如，如何設置一個開發環境。</li>
+<li>分享那些關於使用Rust進行嵌入式開發的，現存的，最好的實踐經驗，比如，如何最大程度上地利用好Rust語言的特性去寫更正確的嵌入式軟件</li>
+<li>某種程度下作為工具書，比如，如何在一個項目裡將C和Rust混合在一起使用</li>
+</ul>
+<p>雖然儘可能地嘗試讓這本書可以用於大多數場景，但是為了使讀者和作者更容易理解，在所有的示例中，這本書都使用了ARM Cortex-M架構。然而，這本書並不需要讀者熟悉這個架構，書中會在需要時對這個架構的特定細節進行解釋。</p>
+<h2 id="這本書是為誰準備的"><a class="header" href="#這本書是為誰準備的">這本書是為誰準備的</a></h2>
+<p>這本書適合那些有一些嵌入式背景或者有Rust背景的人，然而我相信每一個對Rust嵌入式編程好奇的人都能從這本書中獲得某些收穫。對於那些先前沒有任何經驗的人，我們建議你讀一下“要求和預備知識”部分。從其它資料中獲取、補充缺失的知識，這樣能提高你的閱讀體驗。你可以看看“其它資源”部分，以找到你感興趣的那些主題的資源。</p>
+<h3 id="要求和預備知識"><a class="header" href="#要求和預備知識">要求和預備知識</a></h3>
+<ul>
+<li>你可以輕鬆地使用Rust編程語言，且在一個桌面環境上寫過，運行過，調試過Rust應用。你應該也要熟悉<a href="https://doc.rust-lang.org/edition-guide/">2018 edition</a>的術語，因為這本書是面向Rust 2018的。</li>
+</ul>
+<ul>
+<li>你可以輕鬆地使用其它語言，比如C，C++或者Ada，開發和調試嵌入式系統，且熟悉如下的概念：
+<ul>
+<li>交叉編譯</li>
+<li>存儲映射的外設（Memory Mapped Peripherals）</li>
+<li>中斷</li>
+<li>I2C，SPI，串口等等常見的接口</li>
+</ul>
+</li>
+</ul>
+<h3 id="其它資源"><a class="header" href="#其它資源">其它資源</a></h3>
+<p>如果你還不熟悉上面提到的東西或者你對這本書中提到的某個特定主題感興趣，你也許能從這些資源中找到有用的信息。</p>
+<div class="table-wrapper"><table><thead><tr><th>主題</th><th>資源</th><th>描述</th></tr></thead><tbody>
+<tr><td>Rust</td><td><a href="https://doc.rust-lang.org/book/">Rust Book</a></td><td>如果你還不熟悉Rust，我們強烈建議你讀這本書．</td></tr>
+<tr><td>Rust, Embedded</td><td><a href="https://docs.rust-embedded.org/discovery/">Discovery Book</a></td><td>如果你從沒做過嵌入式編程，這本書可能是個更好的開端．</td></tr>
+<tr><td>Rust, Embedded</td><td><a href="https://docs.rust-embedded.org">Embedded Rust Bookshelf</a></td><td>在這裡，你可以找到由Rust的嵌入式工作組提供的許多其它資源．</td></tr>
+<tr><td>Rust, Embedded</td><td><a href="https://docs.rust-embedded.org/embedonomicon/">Embedonomicon</a></td><td>用Rust進行嵌入式編程的細節．</td></tr>
+<tr><td>Rust, Embedded</td><td><a href="https://docs.rust-embedded.org/faq.html">embedded FAQ</a></td><td>Rust在嵌入式上下文中遇到的常見問題．</td></tr>
+<tr><td>Rust, Embedded</td><td><a href="https://google.github.io/comprehensive-rust/bare-metal.html">Comprehensive Rust 🦀: Bare Metal</a></td><td>用於一天課時的裸機Rust開發課程的教學資料．</td></tr>
+<tr><td>Interrupts</td><td><a href="https://en.wikipedia.org/wiki/Interrupt">Interrupt</a></td><td>-</td></tr>
+<tr><td>Memory-mapped IO/Peripherals</td><td><a href="https://en.wikipedia.org/wiki/Memory-mapped_I/O">Memory-mapped I/O</a></td><td>-</td></tr>
+<tr><td>SPI, UART, RS232, USB, I2C, TTL</td><td><a href="https://electronics.stackexchange.com/questions/37814/usart-uart-rs232-usb-spi-i2c-ttl-etc-what-are-all-of-these-and-how-do-th">Stack Exchange about SPI, UART, and other interfaces</a></td><td>-</td></tr>
+</tbody></table>
+</div>
+<h3 id="翻譯"><a class="header" href="#翻譯">翻譯</a></h3>
+<p>這本書是已經被一些慷慨的志願者們翻譯了。如果你想要將你的翻譯列在這裡，請打開一個PR去添加它。</p>
+<ul>
+<li>
+<p><a href="https://tomoyuki-nakabayashi.github.io/book/">日文</a>
+(<a href="https://github.com/tomoyuki-nakabayashi/book">repository</a>)</p>
+</li>
+<li>
+<p><a href="https://xxchang.github.io/book/">中文</a>
+(<a href="https://github.com/xxchang/book">repository</a>)</p>
+</li>
+</ul>
+<h2 id="如何使用這本書"><a class="header" href="#如何使用這本書">如何使用這本書</a></h2>
+<p>這本書通常假設你是按順序閱讀的。之後的章節是建立在先前的章節中提到的概念之上的，先前章節可能不會深入一個主題的細節，因為在隨後的章節將會再次重溫這個主題。
+在大多數示例中這本書將使用<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>開發板。這個板子是基於ARM Cortex-M架構的，且基本功能與大多數基於這個架構的CPUs功能相似。微處理器的外設和其它實現細節在不同的廠家之間是不同的，甚至來自同一個廠家，不同處理器系列之間也是不同的。
+因此我們建議購買<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>開發板來嘗試這本書中的例子。</p>
+<h2 id="貢獻"><a class="header" href="#貢獻">貢獻</a></h2>
+<p>這本書的工作主要在<a href="https://github.com/rust-embedded/book">這個倉庫</a>裡管理，且主要由<a href="https://github.com/rust-embedded/wg#the-resources-team">resouces team</a>開發。</p>
+<p>如果你按著這本書的操作遇到了什麼麻煩，或者這本書的一些部分不夠清楚，或者很難進行下去，那這本書就是有個bug，這個bug應該被報道給這本書的<a href="https://github.com/rust-embedded/book/issues/">the issue tracker</a> 。</p>
+<p>修改拼寫錯誤和添加新內容的Pull requests非常歡迎！</p>
+<h2 id="二次使用這個材料"><a class="header" href="#二次使用這個材料">二次使用這個材料</a></h2>
+<p>這本書根據以下許可證發佈:</p>
+<ul>
+<li>本書中包含的代碼示例和獨立的Cargo項目均根據<a href="https://opensource.org/licenses/MIT">MIT License</a>和<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>發放許可的。</li>
+<li>本書中包含的文檔，圖片和表格均根據<a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA v4.0</a>發放許可的。</li>
+</ul>
+<p>總之：如果你想在你的工作中使用我們的文檔或者圖片，你需要：</p>
+<ul>
+<li>提供合適的授信 (i.e. 在你的幻燈片中提到本書，提供相關頁面的連接)</li>
+<li>提供<a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA v4.0</a>的許可證的鏈接</li>
+<li>指出你是否改變了材料的內容，在同一個許可證下，可以對材料進行任何改變</li>
+</ul>
+<p>也請告訴我這本書對你是否有幫助！</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="熟悉你的硬件"><a class="header" href="#熟悉你的硬件">熟悉你的硬件</a></h1>
+<p>先來熟悉下我們要用的硬件。</p>
+<h2 id="stm32f3discovery-the-f3"><a class="header" href="#stm32f3discovery-the-f3">STM32F3DISCOVERY (the "F3")</a></h2>
+<p align="center">
+<img title="F3" src="intro/../assets/f3.jpg">
+</p>
+<p>這個板子有什麼？</p>
+<ul>
+<li>
+<p>一個<a href="https://www.st.com/en/microcontrollers/stm32f303vc.html">STM32F303VCT6</a>微控制器。這個微控制器包含</p>
+<ul>
+<li>一個單核的ARM Cortex-M4F 處理器，支持單精度浮點運算，72MHz的最大時鐘頻率。</li>
+<li>256 KiB的"Flash"存儲。</li>
+<li>48 KiB的RAM</li>
+<li>多種多樣的外設，比如計時器，I2C，SPI和USART</li>
+<li>通用GPIO和在板子兩側的其它類型的引腳</li>
+<li>一個寫著“USB USER”的USB接口</li>
+</ul>
+</li>
+<li>
+<p>一個位於<a href="https://www.st.com/en/mems-and-sensors/lsm303dlhc.html">LSM303DLHC</a>芯片上的<a href="https://en.wikipedia.org/wiki/Accelerometer">加速度計</a>。</p>
+</li>
+<li>
+<p>一個位於<a href="https://www.st.com/en/mems-and-sensors/lsm303dlhc.html">LSM303DLHC</a>芯片上的<a href="https://en.wikipedia.org/wiki/Magnetometer">磁力計</a>。</p>
+</li>
+<li>
+<p>一個位於<a href="https://www.pololu.com/file/0J563/L3GD20.pdf">L3GD20</a>芯片上的<a href="https://en.wikipedia.org/wiki/Gyroscope">陀螺儀</a>.</p>
+</li>
+<li>
+<p>8個擺得像一個指南針形狀的user LEDs。</p>
+</li>
+<li>
+<p>一個二級微控制器: <a href="https://www.st.com/en/microcontrollers/stm32f103cb.html">STM32F103</a>。這個微控制器實際上是一個板載編程器/調試器的一部分，與名為“USB ST-LINK”的USB端口相連。</p>
+</li>
+</ul>
+<p>關於所列舉的功能的更多細節和開發板的更多規格請查閱<a href="https://www.st.com/en/evaluation-tools/stm32f3discovery.html">STMicroelectronics</a>網站。</p>
+<p>提醒一句: 如果想要為板子提供外部信號，請小心。微控制器STM32F303VCT6管腳的標稱電壓是3.3伏。更多信息請查看<a href="https://www.st.com/resource/en/datasheet/stm32f303vc.pdf">6.2 Absolute maximum ratings section in the manual</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="一個-no_std-rust環境"><a class="header" href="#一個-no_std-rust環境">一個 <code>no_std</code> Rust環境</a></h1>
+<p>嵌入式編程這個詞被廣泛用於許多不同的編程場景中。小到RAM和ROM只有KB的8位機(像是<a href="https://www.st.com/resource/en/datasheet/st72325j6.pdf">ST72325xx</a>)，大到一個具有32/64位4核Cortex-A53和1GB RAM的系統，比如樹莓派(<a href="https://en.wikipedia.org/wiki/Raspberry_Pi#Specifications">Model B 3+</a>)。當編寫代碼時，取決於你的目標環境和用例，將會有不同的限制和侷限。<br>
+通常嵌入式編程有兩類:</p>
+<h2 id="主機環境下"><a class="header" href="#主機環境下">主機環境下</a></h2>
+<p>這類環境與一個常見的PC環境類似。意味著向你提供了一個系統接口<a href="https://en.wikipedia.org/wiki/POSIX">比如 POSIX</a>，使你能和不同的系統進行交互，比如文件系統，網絡，內存管理，進程，等等。標準庫相應地依賴這些接口去實現了它們的功能。可能有某種sysroot並限制了對RAM/ROM的使用，可能還有一些特別的硬件或者I/O。總之感覺像是在專用的PC環境上編程一樣。</p>
+<h2 id="裸機環境下"><a class="header" href="#裸機環境下">裸機環境下</a></h2>
+<p>在一個裸機環境中，程序被加載前，環境中不存在代碼。沒有系統提供的軟件，我們不能加載標準庫。相反地，程序和它使用的crates只能使用硬件(裸機)去運行。使用<code>no-std</code>可以防止rust讀取標準庫。標準庫中與平臺無關的部分在<a href="https://doc.rust-lang.org/core/">libcore</a>中。libcore剔除了那些在一個嵌入式環境中非必要的東西。比如用於動態分配的內存分配器。如果你需要這些或者其它的某些功能，通常會有提供這些功能的crates。</p>
+<h3 id="libstd運行時"><a class="header" href="#libstd運行時">libstd運行時</a></h3>
+<p>就像之前提到的，使用<a href="https://doc.rust-lang.org/std/">libstd</a>需要一些系統集成，這不僅僅是因為<a href="https://doc.rust-lang.org/std/">libstd</a>使用了一個公共的方法訪問操作系統，它也提供了一個運行時環境。這個運行時環境，負責設置堆棧溢出保護，處理命令行參數，並在一個程序的主函數被激活前啟動一個主線程。在一個<code>no_std</code>環境中，這個運行時環境也是不可用的。</p>
+<h2 id="總結"><a class="header" href="#總結">總結</a></h2>
+<p><code>#![no_std]</code>是一個crate層級的屬性，它說明crate將連接至core-crate而不是std-crate。<a href="https://doc.rust-lang.org/core/">libcore</a> crate是std crate的一個的子集，其與平臺無關，它對程序將要運行的系統沒有做要求。比如，它提供了像是floats，strings和切片的APIs，暴露了像是與原子操作和SIMD指令相關的處理器功能的APIs。然而，它缺少涉及到平臺集成的那些APIs。由於這些特性，no_std和<a href="https://doc.rust-lang.org/core/">libcore</a>代碼可以用於任何引導程序(stage 0)像是bootloaders，固件或者內核。</p>
+<h3 id="概述"><a class="header" href="#概述">概述</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>特性</th><th>no_std</th><th>std</th></tr></thead><tbody>
+<tr><td>堆 (dynamic memory)</td><td>*</td><td>✓</td></tr>
+<tr><td>容器 (Vec, BTreeMap, etc)</td><td>**</td><td>✓</td></tr>
+<tr><td>棧溢出保護</td><td>✘</td><td>✓</td></tr>
+<tr><td>在進入main之前運行的初始化代碼</td><td>✘</td><td>✓</td></tr>
+<tr><td>libstd available</td><td>✘</td><td>✓</td></tr>
+<tr><td>libcore available</td><td>✓</td><td>✓</td></tr>
+<tr><td>編寫固件，內核，或者引導程序</td><td>✓</td><td>✘</td></tr>
+</tbody></table>
+</div>
+<p>* 只有在你使用了 <code>alloc</code> crate 並設置了一個適合的分配器後，比如<a href="https://github.com/rust-embedded/alloc-cortex-m">alloc-cortex-m</a>後可用．</p>
+<p>** 只有在你使用了 <code>collections</code> crate 並配置了一個全局默認的分配器後可用．</p>
+<p>** 由於缺少安全的隨機數產生器，所以無法使用HashMap和HashSet．</p>
+<h2 id="參見"><a class="header" href="#參見">參見</a></h2>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/1184-stabilize-no_std.md">RFC-1184</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="工具"><a class="header" href="#工具">工具</a></h1>
+<p>與微控制器打交道需要使用幾種不同的工具，因為我們要處理的架構與筆記本電腦不同，我們必須在 <em>遠程</em> 設備上運行和調試程序。我們將使用下面列舉出來的工具。當沒有指定一個最小版本時，最新的版本應該也可以用，但是我們還是列出了我們已經測過的那些版本。</p>
+<ul>
+<li>Rust 1.31, 1.31-beta, 或者一個更新的，支持ARM Cortex-M編譯的工具鏈。</li>
+<li><a href="https://github.com/rust-embedded/cargo-binutils"><code>cargo-binutils</code></a> ~0.1.4</li>
+<li><a href="https://www.qemu.org/"><code>qemu-system-arm</code></a>. 測試的版本: 3.0.0</li>
+<li>OpenOCD &gt;=0.8. 測試的版本: v0.9.0 and v0.10.0</li>
+<li>有ARM支持的GDB。強烈建議7.12或者更新的版本。測試版本: 7.10, 7.11 和 8.1</li>
+<li><a href="https://github.com/ashleygwilliams/cargo-generate"><code>cargo-generate</code></a> 或者 <code>git</code>。這些工具都是可選的，但是跟著這本書來使用它們，會更容易。</li>
+</ul>
+<p>下面的文檔將解釋我們為什麼使用這些工具。安裝指令可以在下一頁找到。</p>
+<h2 id="cargo-generate-或者-git"><a class="header" href="#cargo-generate-或者-git"><code>cargo-generate</code> 或者 <code>git</code></a></h2>
+<p>裸機編程是非標準Rust編程，為了得到正確的程序的內存佈局，需要對鏈接過程進行一些調整，這要求添加一些額外的文件(比如linker scripts)和配置(比如linker flags)。我們已經為你把這些打包進了一個模板裡了，你只需要補充缺失的信息(比如項目名和目標硬件的特性)。<br>
+我們的模板兼容<code>cargo-generate</code>:一個用來從模板生成新的Cargo項目的Cargo子命令。你也能使用<code>git</code>,<code>curl</code>,<code>wget</code>,或者你的網頁瀏覽器下載模板。</p>
+<h2 id="cargo-binutils"><a class="header" href="#cargo-binutils"><code>cargo-binutils</code></a></h2>
+<p><code>cargo-binutils</code>是一個Cargo命令的子集，它讓我們能輕鬆使用Rust工具鏈帶來的LLVM工具。這些工具包括LLVM版本的<code>objdump</code>，<code>nm</code>和<code>size</code>，用來查看二進制文件。<br>
+在GNU binutils之上使用這些工具的好處是，(a)無論你的操作系統是什麼，安裝這些LLVM工具都可以用同一條命令(<code>rustup component add llvm-tools-preview</code>)。(b)像是<code>objdump</code>這樣的工具，支持所有<code>rustc</code>支持的架構--從ARM到x86_64--因為它們都有一樣的LLVM後端。</p>
+<h2 id="qemu-system-arm"><a class="header" href="#qemu-system-arm"><code>qemu-system-arm</code></a></h2>
+<p>QEMU是一個仿真器。在這個例子裡，我們使用能完全仿真ARM系統的改良版QEMU。我們使用QEMU在主機上運行嵌入式程序。多虧了它，你可以在沒有任何硬件的情況下，嘗試這本書的部分示例。</p>
+<h1 id="用於調試嵌入式rust的工具"><a class="header" href="#用於調試嵌入式rust的工具">用於調試嵌入式Rust的工具</a></h1>
+<h2 id="概述-1"><a class="header" href="#概述-1">概述</a></h2>
+<p>在Rust中調試嵌入式系統需要用到專業的工具，這包括用於管理調試進程的軟件，用於觀察和控制程序執行的調試器，和用於便捷主機和嵌入式設備之間進行交互的硬件探測器．這個文檔會介紹像是Probe-rs和OpenOCD這樣的基礎軟件，以及像是GDB和Probe-rs Visual Studio Code擴展這樣常見的調試器．另外，該文檔會覆蓋像是Rusty-probe，ST-Link，J-Link，和MCU-Link這樣的硬件探測器，它們整合在一起可以高效地對嵌入式設備進行調試和編程．</p>
+<h2 id="驅動調試工具的軟件"><a class="header" href="#驅動調試工具的軟件">驅動調試工具的軟件</a></h2>
+<h3 id="probe-rs"><a class="header" href="#probe-rs">Probe-rs</a></h3>
+<p>Probe-rs是一個現代化的，以Rust開發的軟件，被設計用來配合嵌入式系統中的調試器一起工作．不像OpenOCD，Probe-rs設計的時候就考慮到了簡單性，目標是減少在其它調試解決方案中常見的配置重擔．
+它支持不同的探測器和目標架構，提供一個用於與嵌入式硬件交互的高層接口．Probe-rs直接集成了Rust工具鏈，並且通過擴展集成進了Visual Studio Code中，允許開發者精簡它們的調試工作流程．</p>
+<h3 id="openocd-open-on-chip-debugger"><a class="header" href="#openocd-open-on-chip-debugger">OpenOCD (Open On-Chip Debugger)</a></h3>
+<p>OpenOCD是一個用於調試，測試，和編程嵌入式系統的開源軟件工具．它提供了一個主機系統和嵌入式硬件之間的接口，支持不同的傳輸層，比如JTAG和SWD（Serial Wire Debug）．OpenOCD集成了GDB，其是一個調試器．OpenOCD受到了廣泛的支持，擁有大量的文檔和一個龐大的社區，但是配置可能會很複雜，特別是對於自定義的嵌入式設置．</p>
+<h2 id="debuggers"><a class="header" href="#debuggers">Debuggers</a></h2>
+<p>調試器允許開發者觀察和控制一個程序的執行，以辨別和糾正錯誤或者bugs．它提供像是設置斷點，一行一行地步進代碼，和研究變量的值以及內存的狀態等功能．調試器本質上是為了通過軟件開發和維護，使得開發者可以確保他們的代碼的行為在不同環境下就像他們預期的那樣運行．</p>
+<p>調試器可以知道如何：</p>
+<ul>
+<li>與映射到存儲上的寄存器交互．</li>
+<li>設置斷點．</li>
+<li>讀取和寫入映射到存儲上的寄存器．</li>
+<li>檢測什麼時候MCU因為一個調試時間被掛了起來．</li>
+<li>在遇到一個調試事件後繼續MCU的執行．</li>
+<li>擦出和寫入微控制器的FLASH．</li>
+</ul>
+<h3 id="probe-rs-visual-studio-code-extension"><a class="header" href="#probe-rs-visual-studio-code-extension">Probe-rs Visual Studio Code Extension</a></h3>
+<p>Probe-rs有一個Visual Studio Code的擴展，提供了不需要額外設置的無縫的調試體驗．通過它的幫助，開發者可以使用Rust特定的特性，像是漂亮的打印和詳細的錯誤信息，確保它們的調試過程可以與Rust的生態對齊．</p>
+<h3 id="gdb-gnu-debugger"><a class="header" href="#gdb-gnu-debugger">GDB (GNU Debugger)</a></h3>
+<p>GDB是一個多用途的調試工具，其允許開發者研究程序的狀態，無論其正在運行中還是程序崩潰後．對於嵌入式Rust，GDB通過OpenOCD或者其它的調試服務器鏈接到目標系統上去和嵌入式代碼交互．GDB是高度可配置的，並且支持像是遠程調試，變量檢測，和條件斷點．它可以被用於多個平臺，並對Rust特定的調試需求有廣泛的支持，比如好看的打印和與IDEs集成．</p>
+<h2 id="探測器"><a class="header" href="#探測器">探測器</a></h2>
+<p>硬件探頭是一個被用於嵌入式系統的開發和調試的設備，其可以使得主機和目標嵌入式設備間的通信變得簡單．它通常支持像是JTAG或者SWD這樣的協議，可以編程，調試和分析嵌入式系統上的微控制器或者微處理器．硬件探頭對於要設置斷點，步進代碼，和觀察內存與處理器的寄存器的開發者來說很重要，可以讓開發者們高效地實時地分析和修復問題．</p>
+<h3 id="rusty-probe"><a class="header" href="#rusty-probe">Rusty-probe</a></h3>
+<p>Rusty-probe是一個開源的基於USB的硬件調試探測器，被設計用來輔助probe-rs一起工作．Rusy-Probe和probe-rs的結合為嵌入式Rust應用的開發者提供了一個易用的，成本高效的解決方案．</p>
+<h3 id="st-link"><a class="header" href="#st-link">ST-Link</a></h3>
+<p>ST-Link是一個由STMicroelectronics開發的常見的調試和編程探測器，其主要用於它們的STM32和STM8微控制器系列．它支持通過JTAG或者SWD接口進行調試和編程．因為STMicroelectronics的大量的開發板對其直接支持並且它集成進了主流的IDEs中，所以使得它成為使用STM微控制器的開發者的首選．</p>
+<h3 id="j-link"><a class="header" href="#j-link">J-Link</a></h3>
+<p>J-Link是由SEGGER微控制器開發的，它是一個魯棒和功能豐富的調試器，其支持大量的CPU內核和設備，不僅僅是ARM，比如RISC-V．因其高性能和可讀性而聞名，J-Link支持不同的通信接口，包括JTAG，SWD，和fine-pitch JTAG接口．它因其高級的特性而受到歡迎，比如在flash存儲中的無限的斷點和它與多種開發環境的兼容性．</p>
+<h3 id="mcu-link"><a class="header" href="#mcu-link">MCU-Link</a></h3>
+<p>MCU-Link是一個調試探測器，也可以作為編程器使用，由NXP Semiconductors提供．它支持不同的ARM Cortex微控制器且可以與像是MCUXpresso IDE這樣的開發工具進行無縫地交互．MCU-Link因其豐富的功能和易使用而聞名，使它成為像是愛好者，教育者，和專業的開發者們的可行的選項．</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="安裝工具"><a class="header" href="#安裝工具">安裝工具</a></h1>
+<p>這一頁包含的工具安裝指令與操作系統無關：</p>
+<h3 id="rust-工具鏈"><a class="header" href="#rust-工具鏈">Rust 工具鏈</a></h3>
+<p>跟著<a href="https://rustup.rs">https://rustup.rs</a>的指令安裝rustup。</p>
+<p><strong>注意</strong> 確保你的編譯器版本等於或者大於<code>1.31</code>版本。<code>rustc -V</code>應該返回一個比下列日期更新的日期。</p>
+<pre><code class="language-text">$ rustc -V
+rustc 1.31.1 (b6c32da9b 2018-12-18)
+</code></pre>
+<p>考慮到帶寬和磁盤的使用量，默認的安裝只支持主機環境的編譯。為了添加對ARM Cortex-M架構交叉編譯的支持，從下列編譯目標中選擇一個。對於這本書裡使用的STM32F3DISCOVERY板子，使用<code>thumbv7em-none-eabihf</code>作為目標。</p>
+<p>Cortex-M0, M0+, 和 M1 (ARMv6-M 架構):</p>
+<pre><code class="language-console">rustup target add thumbv6m-none-eabi
+</code></pre>
+<p>Cortex-M3 (ARMv7-M 架構):</p>
+<pre><code class="language-console">rustup target add thumbv7m-none-eabi
+</code></pre>
+<p>沒有硬件浮點單元的Cortex-M4和M7 (ARMv7E-M架構)</p>
+<pre><code class="language-console">rustup target add thumbv7em-none-eabi
+</code></pre>
+<p>具有硬件浮點單元的Cortex-M4F和M7F (ARMv7E-M架構)</p>
+<pre><code class="language-console">rustup target add thumbv7em-none-eabihf
+</code></pre>
+<p>Cortex-M23 (ARMv8-M架構):</p>
+<pre><code class="language-console">rustup target add thumbv8m.base-none-eabi
+</code></pre>
+<p>Cortex-M33和M35P (ARMv8-M架構):</p>
+<pre><code class="language-console">rustup target add thumbv8m.main-none-eabi
+</code></pre>
+<p>具有硬件浮點單元的Cortex-M33F和M35PF (ARMv8-M架構):</p>
+<pre><code class="language-console">rustup target add thumbv8m.main-none-eabihf
+</code></pre>
+<h3 id="cargo-binutils-1"><a class="header" href="#cargo-binutils-1"><code>cargo-binutils</code></a></h3>
+<pre><code class="language-text">cargo install cargo-binutils
+
+rustup component add llvm-tools-preview
+</code></pre>
+<p>WINDOWS: 需要預先安裝 C++ Build Tools for Visual Studio 2019。https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&amp;rel=16</p>
+<h3 id="cargo-generate"><a class="header" href="#cargo-generate"><code>cargo-generate</code></a></h3>
+<p>我們隨後將使用這個來從模板生成一個項目。</p>
+<pre><code class="language-console">cargo install cargo-generate
+</code></pre>
+<p>注意:在某些Linux發行版上(e.g. Ubuntu) 在安裝cargo-generate之前，你可能需要安裝<code>libssl-dev</code>和<code>pkg-config</code></p>
+<h3 id="特定於操作系統的指令"><a class="header" href="#特定於操作系統的指令">特定於操作系統的指令</a></h3>
+<p>現在根據你使用的操作系統，來執行對應的指令:</p>
+<ul>
+<li><a href="intro/install/linux.html">Linux</a></li>
+<li><a href="intro/install/windows.html">Windows</a></li>
+<li><a href="intro/install/macos.html">macOS</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linux"><a class="header" href="#linux">Linux</a></h1>
+<p>這部分是在某些Linux發行版下的安裝指令。</p>
+<h2 id="依賴包"><a class="header" href="#依賴包">依賴包</a></h2>
+<ul>
+<li>Ubuntu 18.04 或者更新的版本 / Debian stretch 或者更新的版本</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong> <code>gdb-multiarch</code> 是你將用來調試你的ARM Cortex-M程序的GDB命令</p>
+</blockquote>
+<!-- Debian stretch -->
+<!-- GDB 7.12 -->
+<!-- OpenOCD 0.9.0 -->
+<!-- QEMU 2.8.1 -->
+<!-- Ubuntu 18.04 -->
+<!-- GDB 8.1 -->
+<!-- OpenOCD 0.10.0 -->
+<!-- QEMU 2.11.1 -->
+<pre><code class="language-console">sudo apt install gdb-multiarch openocd qemu-system-arm
+</code></pre>
+<ul>
+<li>Ubuntu 14.04 and 16.04</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong> <code>arm-none-eabi-gdb</code> 是你將用來調試你的ARM Cortex-M程序的GDB命令</p>
+</blockquote>
+<!-- Ubuntu 14.04 -->
+<!-- GDB 7.6 (!) -->
+<!-- OpenOCD 0.7.0 (?) -->
+<!-- QEMU 2.0.0 (?) -->
+<pre><code class="language-console">sudo apt install gdb-arm-none-eabi openocd qemu-system-arm
+</code></pre>
+<ul>
+<li>Fedora 27 或者更新的版本</li>
+</ul>
+<!-- Fedora 27 -->
+<!-- GDB 7.6 (!) -->
+<!-- OpenOCD 0.10.0 -->
+<!-- QEMU 2.10.2 -->
+<pre><code class="language-console">sudo dnf install gdb openocd qemu-system-arm
+</code></pre>
+<ul>
+<li>Arch Linux</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong> <code>arm-none-eabi-gdb</code> 是你將用來調試你的ARM Cortex-M程序的GDB命令</p>
+</blockquote>
+<pre><code class="language-console">sudo pacman -S arm-none-eabi-gdb qemu-system-arm openocd
+</code></pre>
+<h2 id="udev-規則"><a class="header" href="#udev-規則">udev 規則</a></h2>
+<p>這個規則可以讓你在不使用超級用戶權限的情況下，使用OpenOCD和Discovery開發板。</p>
+<p>生成包含下列內容的 <code>/etc/udev/rules.d/70-st-link.rules</code> 文件</p>
+<pre><code class="language-text"># STM32F3DISCOVERY rev A/B - ST-LINK/V2
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", TAG+="uaccess"
+
+# STM32F3DISCOVERY rev C+ - ST-LINK/V2-1
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", TAG+="uaccess"
+</code></pre>
+<p>然後重新加載所有的udev規則</p>
+<pre><code class="language-console">sudo udevadm control --reload-rules
+</code></pre>
+<p>如果你已經把開發板插入到筆記本中了，請拔下它然後再插上它。</p>
+<p>你可以通過運行這個命令檢查權限:</p>
+<pre><code class="language-console">lsusb
+</code></pre>
+<p>終端可能有如下顯示</p>
+<pre><code class="language-text">(..)
+Bus 001 Device 018: ID 0483:374b STMicroelectronics ST-LINK/V2.1
+(..)
+</code></pre>
+<p>記住bus和device號，使用這些數字組合成一個像是 <code>/dev/bus/usb/&lt;bus&gt;/&lt;device&gt;</code> 這樣的路徑。然後像這樣使用這個路徑:</p>
+<pre><code class="language-console">ls -l /dev/bus/usb/001/018
+</code></pre>
+<pre><code class="language-text">crw-------+ 1 root root 189, 17 Sep 13 12:34 /dev/bus/usb/001/018
+</code></pre>
+<pre><code class="language-console">getfacl /dev/bus/usb/001/018 | grep user
+</code></pre>
+<pre><code class="language-text">user::rw-
+user:you:rw-
+</code></pre>
+<p>權限後的 <code>+</code> 指出存在一個擴展權限。<code>getfacl</code> 命令顯示，<code>user</code>也就是<code>你</code>，可以使用這個設備。</p>
+<p>現在，去往<a href="intro/install/verify.html">下個章節</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="macos"><a class="header" href="#macos">macOS</a></h1>
+<p>所有的工具都可以使用<a href="http://brew.sh/">Homebrew</a>或者<a href="https://www.macports.org/">MacPorts</a>來安裝：</p>
+<h2 id="使用homebrew安裝工具"><a class="header" href="#使用homebrew安裝工具">使用<a href="http://brew.sh/">Homebrew</a>安裝工具</a></h2>
+<pre><code class="language-text">$ # GDB
+$ brew install armmbed/formulae/arm-none-eabi-gcc
+
+$ # OpenOCD
+$ brew install openocd
+
+$ # QEMU
+$ brew install qemu
+</code></pre>
+<blockquote>
+<p><strong>注意</strong> 如果OpenOCD崩潰了，你可能需要用以下方法安裝最新版本:</p>
+</blockquote>
+<pre><code class="language-text">$ brew install --HEAD openocd
+</code></pre>
+<h2 id="使用macports安裝工具"><a class="header" href="#使用macports安裝工具">使用<a href="https://www.macports.org/">MacPorts</a>安裝工具</a></h2>
+<pre><code class="language-text">$ # GDB
+$ sudo port install arm-none-eabi-gcc
+
+$ # OpenOCD
+$ sudo port install openocd
+
+$ # QEMU
+$ sudo port install qemu
+</code></pre>
+<p>這是全部內容，請轉入<a href="intro/install/verify.html">下個章節</a>．</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="windows"><a class="header" href="#windows">Windows</a></h1>
+<h2 id="arm-none-eabi-gdb"><a class="header" href="#arm-none-eabi-gdb"><code>arm-none-eabi-gdb</code></a></h2>
+<p>ARM提供了用於Windows的<code>.exe</code>安裝程序。從<a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads">這裡</a>獲取, 然後按照說明操作。
+在完成安裝之前，勾選/選擇"Add path to environment variable"選項。
+然後驗證環境變量是否添加到 <code>%PATH%</code>中:</p>
+<pre><code class="language-text">$ arm-none-eabi-gdb -v
+GNU gdb (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 8.1.0.20180315-git
+(..)
+</code></pre>
+<h2 id="openocd"><a class="header" href="#openocd">OpenOCD</a></h2>
+<p>OpenOCD 官方沒有提供Windows的二進制版本， 若你沒有心情去折騰編譯，<a href="https://xpack.github.io/openocd/">這裡</a>有xPack提供的一個二進制發佈.。按照說明進行安裝。然後更新你的<code>%PATH%</code> 環境變量，將安裝目錄包括進去。 (<code>C:\Users\USERNAME\AppData\Roaming\xPacks\@xpack-dev-tools\openocd\0.10.0-13.1\.content\bin\</code>,
+如果使用簡易安裝)</p>
+<p>使用以下命令驗證OpenOCD是否在你的<code>%PATH%</code>環境變量中 :</p>
+<pre><code class="language-text">$ openocd -v
+Open On-Chip Debugger 0.10.0
+(..)
+</code></pre>
+<h2 id="qemu"><a class="header" href="#qemu">QEMU</a></h2>
+<p>從<a href="https://www.qemu.org/download/#windows">官網</a>獲取QEMU。</p>
+<h2 id="st-link-usb-driver"><a class="header" href="#st-link-usb-driver">ST-LINK USB driver</a></h2>
+<p>你還需要安裝這個 <a href="http://www.st.com/en/embedded-software/stsw-link009.html">USB驅動</a> 否則OpenOCD將無法工作。按照安裝程序的說明，確保你安裝了正確版本（32位或64位）的驅動程序。</p>
+<p>以上是全部內容！轉到 <a href="intro/install/verify.html">下個章節</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="安裝驗證"><a class="header" href="#安裝驗證">安裝驗證</a></h1>
+<p>在這個章節中我們將檢查工具和驅動是否已經被正確地安裝和配置了。</p>
+<p>使用一個micro USB線纜將你的筆記本/個人電腦連接到discovery開發板上。discovery開發板有兩個USB連接器；使用標記著"USB ST-LINK"的那個，它位於開發板邊緣的中間位置。</p>
+<p>也要檢查下ST-LINK的短路帽是否被安裝了。看下面的圖；ST-LINK短路帽用紅色圈起來了。</p>
+<p align="center">
+<img title="Connected discovery board" src="intro/install/../../assets/verify.jpeg">
+</p>
+<p>現在運行下面的命令:</p>
+<pre><code class="language-console">openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
+</code></pre>
+<blockquote>
+<p><strong>注意</strong>: 舊版的openocd, 包括從2017發佈的0.10.0, 不包含新的(且更適合的)<code>interface/stlink.cfg</code>文件； 你需要使用<code>interface/stlink-v2.cfg</code> 或者 <code>interface/stlink-v2-1.cfg</code>。</p>
+</blockquote>
+<p>你應該看到了下面的輸出，且程序應該阻塞住了控制檯:</p>
+<pre><code class="language-text">Open On-Chip Debugger 0.10.0
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select &lt;transport&gt;'.
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+none separate
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : clock speed 950 kHz
+Info : STLINK v2 JTAG v27 API v2 SWIM v15 VID 0x0483 PID 0x374B
+Info : using stlink api v2
+Info : Target voltage: 2.919881
+Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
+</code></pre>
+<p>內容可能並不是一模一樣，但是在最後一行，你應該看到了breakpoints和watchpoints，如果你看到了，那就終止OpenOCD進程然後進入<a href="intro/install/../../start/index.html">下個章節</a></p>
+<p>如果你沒看到"breakpoints"這行，嘗試下下列命令中的某一個命令。</p>
+<pre><code class="language-console">openocd -f interface/stlink-v2.cfg -f target/stm32f3x.cfg
+</code></pre>
+<pre><code class="language-console">openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
+</code></pre>
+<p>如果這些命令的某條起作用了，那意味著你使用的discovery開發板是一箇舊的版本。那也不成問題，但是你要記住這件事，因為隨後你的配置可能有點不同。你可以移到<a href="intro/install/../../start/index.html">下個章節</a>了。</p>
+<p>如果這些命令在普通用戶模式下都沒用，嘗試下使用root模式運行它們(e.g. <code>sudo openocd ..</code>)。如果命令在root模式下起作用，需要檢查下<a href="intro/install/linux.html#udev-rules">udev rules</a>是否被正確地設置了。</p>
+<p>如果這些都試了，OpenOCD還不工作，請打開一個<a href="https://github.com/rust-embedded/book/issues">issue</a>，我們將幫助你！</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="開始"><a class="header" href="#開始">開始</a></h1>
+<p>在這部分裡，你將會經歷編寫，編譯，燒錄和調試嵌入式程序。大多數的例子都不需要特定的硬件就可以試試，因為我們將要向你展示一個開源硬件仿真器，QEMU的基本使用。唯一需要硬件的部分，那就是，<a href="start/./hardware.html">硬件</a>那一章，我們會使用OpenOCD去編程一個<a href="http://www.st.com/en/evaluation-tools/stm32f3discovery.html">STM32F3DISCOVERY</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="qemu-1"><a class="header" href="#qemu-1">QEMU</a></h1>
+<p>我們將開始為<a href="http://www.ti.com/product/LM3S6965">LM3S6965</a>編寫程序，一個Cortex-M3微控制器。因為它能使用<a href="https://wiki.qemu.org/Documentation/Platforms/ARM#Supported_in_qemu-system-arm">QEMU仿真</a>，所以我們選擇它作為我們的第一個目標，本節中，不需要使用硬件，我們注意力可以集中在工具和開發過程上。</p>
+<p><strong>重要</strong>
+在這個引導裡，我們將使用"app"這個名字來代指項目名。無論何時你看到單詞"app"，你應該用你選擇的項目名來替代"app"。或者你也可以選擇把你的項目命名為"app"，避免要替換掉。</p>
+<h2 id="生成一個非標準的-rust-program"><a class="header" href="#生成一個非標準的-rust-program">生成一個非標準的 Rust program</a></h2>
+<p>我們將使用<a href="https://github.com/rust-embedded/cortex-m-quickstart"><code>cortex-m-quickstart</code></a>項目模板來生成一個新項目。生成的項目將包含一個最基本的應用:對於一個新的嵌入式rust應用來說，是一個很好的開始。另外，項目將包含一個<code>example</code>文件夾，文件夾中有許多獨立的應用，突出了一些關鍵的嵌入式rust的功能。</p>
+<h3 id="使用-cargo-generate"><a class="header" href="#使用-cargo-generate">使用 <code>cargo-generate</code></a></h3>
+<p>首先安裝 cargo-generate</p>
+<pre><code class="language-console">cargo install cargo-generate
+</code></pre>
+<p>然後生成一個新項目</p>
+<pre><code class="language-console">cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
+</code></pre>
+<pre><code class="language-text"> Project Name: app
+ Creating project called `app`...
+ Done! New project created /tmp/app
+</code></pre>
+<pre><code class="language-console">cd app
+</code></pre>
+<h3 id="使用-git"><a class="header" href="#使用-git">使用 <code>git</code></a></h3>
+<p>克隆倉庫</p>
+<pre><code class="language-console">git clone https://github.com/rust-embedded/cortex-m-quickstart app
+cd app
+</code></pre>
+<p>然後補充<code>Cargo.toml</code>文件中的佔位符</p>
+<pre><code class="language-toml">[package]
+authors = ["{{authors}}"] # "{{authors}}" -&gt; "John Smith"
+edition = "2018"
+name = "{{project-name}}" # "{{project-name}}" -&gt; "app"
+version = "0.1.0"
+
+# ..
+
+[[bin]]
+name = "{{project-name}}" # "{{project-name}}" -&gt; "app"
+test = false
+bench = false
+</code></pre>
+<h3 id="要麼使用"><a class="header" href="#要麼使用">要麼使用</a></h3>
+<p>抓取最新的 <code>cortex-m-quickstart</code> 模板，解壓它。</p>
+<pre><code class="language-console">curl -LO https://github.com/rust-embedded/cortex-m-quickstart/archive/master.zip
+unzip master.zip
+mv cortex-m-quickstart-master app
+cd app
+</code></pre>
+<p>或者你可以瀏覽<a href="https://github.com/rust-embedded/cortex-m-quickstart"><code>cortex-m-quickstart</code></a>，點擊綠色的 "Clone or download" 按鈕，然後點擊 "Download ZIP" 。</p>
+<p>然後像在 “使用 <code>git</code>” 那裡的第二部分寫的那樣填充 <code>Cargo.toml</code> 。</p>
+<h2 id="項目概覽"><a class="header" href="#項目概覽">項目概覽</a></h2>
+<p>這是<code>src/main.rs</code>中源碼最重要的部分。</p>
+<pre><code class="language-rust ignore">#![no_std]
+#![no_main]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+
+#[entry]
+fn main() -&gt; ! {
+    loop {
+        // your code goes here
+    }
+}</code></pre>
+<p>這個程序與標準Rust程序有一點不同，讓我們走近點看看。</p>
+<p><code>#![no_std]</code>指出這個程序將 <em>不會</em> 鏈接標準crate<code>std</code>。反而它將會鏈接到它的子集: <code>core</code> crate。</p>
+<p><code>#![no_main]</code>指出這個程序將不會使用標準的且被大多數Rust程序使用的<code>main</code>接口。使用<code>no_main</code>的主要理由是，在<code>no_std</code>上下文中使用<code>main</code>接口需要 nightly 版的 Rust。</p>
+<p><code>use panic_halt as _;</code>。這個crate提供了一個<code>panic_handler</code>，它定義了程序陷入<code>panic</code>時的行為。我們將會在這本書的<a href="start/panicking.html">運行時恐慌(Panicking)</a>章節中覆蓋更多的細節。</p>
+<p><a href="https://docs.rs/cortex-m-rt-macros/latest/cortex_m_rt_macros/attr.entry.html"><code>#[entry]</code></a> 是一個由<a href="https://crates.io/crates/cortex-m-rt"><code>cortex-m-rt</code></a>提供的屬性，它用來標記程序的入口。當我們不使用標準的<code>main</code>接口時，我們需要其它方法來指示程序的入口，那就是<code>#[entry]</code>。</p>
+<p><code>fn main() -&gt; !</code>。我們的程序將會是運行在目標板子上的 <em>唯一</em> 的進程，因此我們不想要它結束！我們使用一個<a href="https://doc.rust-lang.org/rust-by-example/fn/diverging.html">發散函數</a> (函數簽名中的 <code>-&gt; !</code> )來確保在編譯時就是這麼回事兒。</p>
+<h2 id="交叉編譯"><a class="header" href="#交叉編譯">交叉編譯</a></h2>
+<p>下一步是為Cortex-M3架構<em>交叉</em>編譯程序。如果你知道編譯目標(<code>$TRIPLE</code>)應該是什麼，運行<code>cargo build --target $TRIPLE</code>就可以了。幸運地，模板中的<code>.cargo/config.toml</code>有這個答案:</p>
+<pre><code class="language-console">tail -n6 .cargo/config.toml
+</code></pre>
+<pre><code class="language-toml">[build]
+# Pick ONE of these compilation targets
+# target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
+target = "thumbv7m-none-eabi"    # Cortex-M3
+# target = "thumbv7em-none-eabi"   # Cortex-M4 and Cortex-M7 (no FPU)
+# target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
+</code></pre>
+<p>為了交叉編譯Cortex-M3架構我們不得不使用<code>thumbv7m-none-eabi</code>。當安裝Rust工具時，target不會自動被安裝，如果還沒有添加，現在可以去添加那個target到工具鏈上。</p>
+<pre><code class="language-console">rustup target add thumbv7m-none-eabi
+</code></pre>
+<p>因為<code>thumbv7m-none-eabi</code>編譯目標在你的<code>.cargo/config.toml</code>中被設置成默認值，下面的兩個命令是一樣的效果:</p>
+<pre><code class="language-console">cargo build --target thumbv7m-none-eabi
+cargo build
+</code></pre>
+<h2 id="檢查"><a class="header" href="#檢查">檢查</a></h2>
+<p>現在在<code>target/thumbv7m-none-eabi/debug/app</code>中有一個非主機環境的ELF二進制文件。我們能使用<code>cargo-binutils</code>檢查它。</p>
+<p>使用<code>cargo-readobj</code>我們能打印ELF頭，確認這是一個ARM二進制。</p>
+<pre><code class="language-console">cargo readobj --bin app -- --file-headers
+</code></pre>
+<p>注意:</p>
+<ul>
+<li><code>--bin app</code> 是一個用來查看二進制項<code>target/$TRIPLE/debug/app</code>的語法糖</li>
+<li><code>--bin app</code> 需要時也會重新編譯二進制項。</li>
+</ul>
+<pre><code class="language-text">ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0x0
+  Type:                              EXEC (Executable file)
+  Machine:                           ARM
+  Version:                           0x1
+  Entry point address:               0x405
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          153204 (bytes into file)
+  Flags:                             0x5000200
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         2
+  Size of section headers:           40 (bytes)
+  Number of section headers:         19
+  Section header string table index: 18
+</code></pre>
+<p><code>cargo-size</code> 能打印二進制項的linker section的大小。</p>
+<pre><code class="language-console">cargo size --bin app --release -- -A
+</code></pre>
+<p>我們使用<code>--release</code>查看優化後的版本</p>
+<pre><code class="language-text">app  :
+section             size        addr
+.vector_table       1024         0x0
+.text                 92       0x400
+.rodata                0       0x45c
+.data                  0  0x20000000
+.bss                   0  0x20000000
+.debug_str          2958         0x0
+.debug_loc            19         0x0
+.debug_abbrev        567         0x0
+.debug_info         4929         0x0
+.debug_ranges         40         0x0
+.debug_macinfo         1         0x0
+.debug_pubnames     2035         0x0
+.debug_pubtypes     1892         0x0
+.ARM.attributes       46         0x0
+.debug_frame         100         0x0
+.debug_line          867         0x0
+Total              14570
+</code></pre>
+<blockquote>
+<p>ELF linker sections的複習</p>
+<ul>
+<li><code>.text</code> 包含程序指令</li>
+<li><code>.rodata</code> 包含像是字符串這樣的常量</li>
+<li><code>.data</code> 包含靜態分配的初始值<em>非</em>零的變量</li>
+<li><code>.bss</code> 也包含靜態分配的初始值<em>是</em>零的變量</li>
+<li><code>.vector_table</code> 是一個我們用來存儲向量(中斷)表的<em>非</em>標準的section</li>
+<li><code>.ARM.attributes</code> 和 <code>.debug_*</code> sections包含元數據，當燒錄二進制文件時，它們不會被加載到目標上。</li>
+</ul>
+</blockquote>
+<p><strong>重要</strong>: ELF文件包含像是調試信息這樣的元數據，因此它們在<em>硬盤上的尺寸</em>沒有正確地反應處程序被燒錄到設備上時將佔據的空間的大小。要<em>一直</em>使用<code>cargo-size</code>檢查一個二進制項的大小。</p>
+<p><code>cargo-objdump</code> 能用來反編譯二進制項。</p>
+<pre><code class="language-console">cargo objdump --bin app --release -- --disassemble --no-show-raw-insn --print-imm-hex
+</code></pre>
+<blockquote>
+<p><strong>注意</strong> 如果上面的命令抱怨 <code>Unknown command line argument</code> 看下面的bug報告:https://github.com/rust-embedded/book/issues/269</p>
+</blockquote>
+<blockquote>
+<p><strong>注意</strong> 在你的系統上這個輸出可能不一樣。rustc, LLVM 和庫的新版本能產出不同的彙編。我們截取了一些指令</p>
+</blockquote>
+<pre><code class="language-text">app:  file format ELF32-arm-little
+
+Disassembly of section .text:
+main:
+     400: bl  #0x256
+     404: b #-0x4 &lt;main+0x4&gt;
+
+Reset:
+     406: bl  #0x24e
+     40a: movw  r0, #0x0
+     &lt; .. 截斷了更多的指令 .. &gt;
+
+DefaultHandler_:
+     656: b #-0x4 &lt;DefaultHandler_&gt;
+
+UsageFault:
+     657: strb  r7, [r4, #0x3]
+
+DefaultPreInit:
+     658: bx  lr
+
+__pre_init:
+     659: strb  r7, [r0, #0x1]
+
+__nop:
+     65a: bx  lr
+
+HardFaultTrampoline:
+     65c: mrs r0, msp
+     660: b #-0x2 &lt;HardFault_&gt;
+
+HardFault_:
+     662: b #-0x4 &lt;HardFault_&gt;
+
+HardFault:
+     663: &lt;unknown&gt;
+</code></pre>
+<h2 id="運行"><a class="header" href="#運行">運行</a></h2>
+<p>接下來，讓我們看一個嵌入式程序是如何在QEMU上運行的！此刻我們將使用 <code>hello</code> 示例，來做些真正的事。</p>
+<p>為了方便起見，這是<code>examples/hello.rs</code>的源碼:</p>
+<pre><code class="language-rust ignore">//! 使用semihosting在主機調試臺上打印 "Hello, world!"
+
+#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::{debug, hprintln};
+
+#[entry]
+fn main() -&gt; ! {
+    hprintln!("Hello, world!").unwrap();
+
+    // 退出 QEMU
+    // NOTE 不要在硬件上運行這個;它會打破OpenOCD的狀態
+    debug::exit(debug::EXIT_SUCCESS);
+
+    loop {}
+}</code></pre>
+<p>這個程序使用被叫做semihosting的東西去打印文本到主機調試臺上。當使用的是真實的硬件時，需要一個調試對話這個程序才能工作，但是當使用的是QEMU時這就可以工作了。</p>
+<p>讓我們開始編譯示例</p>
+<pre><code class="language-console">cargo build --example hello
+</code></pre>
+<p>輸出的二進制項將位於<code>target/thumbv7m-none-eabi/debug/examples/hello</code>。</p>
+<p>為了在QEMU上運行這個二進制項，執行下列的命令:</p>
+<pre><code class="language-console">qemu-system-arm \
+  -cpu cortex-m3 \
+  -machine lm3s6965evb \
+  -nographic \
+  -semihosting-config enable=on,target=native \
+  -kernel target/thumbv7m-none-eabi/debug/examples/hello
+</code></pre>
+<pre><code class="language-text">Hello, world!
+</code></pre>
+<p>這個命令應該在打印文本之後成功地退出 (exit code = 0)。你可以使用下列的指令檢查下:</p>
+<pre><code class="language-console">echo $?
+</code></pre>
+<pre><code class="language-text">0
+</code></pre>
+<p>讓我們看看QEMU命令:</p>
+<ul>
+<li>
+<p><code>qemu-system-arm</code>。這是QEMU仿真器。這些QEMU二進制項有一些變體，這個仿真器能做ARM機器的全系統仿真。</p>
+</li>
+<li>
+<p><code>-cpu cortex-m3</code>。這告訴QEMU去仿真一個Cortex-M3 CPU。指定CPU模型會讓我們捕捉到一些誤編譯錯誤:比如，運行一個為Cortex-M4F編譯的程序，它具有一個硬件FPU，在執行時將會使QEMU報錯。</p>
+</li>
+<li>
+<p><code>-machine lm3s6965evb</code>。這告訴QEMU去仿真 LM3S6965EVB，一個包含LM3S6965微控制器的評估板。</p>
+</li>
+<li>
+<p><code>-nographic</code>。這告訴QEMU不要啟動它的GUI。</p>
+</li>
+<li>
+<p><code>-semihosting-config (..)</code>。這告訴QEMU使能半主機模式。半主機模式允許被仿真的設備，使用主機的stdout，stderr，和stdin，並在主機上創建文件。</p>
+</li>
+<li>
+<p><code>-kernel $file</code>。這告訴QEMU在仿真機器上加載和運行哪個二進制項。</p>
+</li>
+</ul>
+<p>輸入這麼長的QEMU命令太費功夫了！我們可以設置一個自定義運行器(runner)簡化步驟。<code>.cargo/config.toml</code> 有一個被註釋掉的，可以調用QEMU的運行器。讓我們去掉註釋。</p>
+<pre><code class="language-console">head -n3 .cargo/config.toml
+</code></pre>
+<pre><code class="language-toml">[target.thumbv7m-none-eabi]
+# uncomment this to make `cargo run` execute programs on QEMU
+runner = "qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel"
+</code></pre>
+<p>這個運行器只會應用於 <code>thumbv7m-none-eabi</code> 目標，它是我們的默認編譯目標。現在 <code>cargo run</code> 將會編譯程序且在QEMU上運行它。</p>
+<pre><code class="language-console">cargo run --example hello --release
+</code></pre>
+<pre><code class="language-text">   Compiling app v0.1.0 (file:///tmp/app)
+    Finished release [optimized + debuginfo] target(s) in 0.26s
+     Running `qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel target/thumbv7m-none-eabi/release/examples/hello`
+Hello, world!
+</code></pre>
+<h2 id="調試"><a class="header" href="#調試">調試</a></h2>
+<p>對於嵌入式開發來說，調試非常重要。讓我們來看下如何調試它。</p>
+<p>因為我們想要調試的程序所運行的機器上並沒有運行一個調試器程序(GDB或者LLDB)，所以調試一個嵌入式設備就涉及到了 <em>遠程</em> 調試</p>
+<p>遠程調試涉及一個客戶端和一個服務器。在QEMU的情況中，客戶端將是一個GDB(或者LLDM)進程且服務器將會是運行著嵌入式程序的QEMU進程。</p>
+<p>在這部分，我們要使用我們已經編譯的 <code>hello</code> 示例。</p>
+<p>調試的第一步是在調試模式中啟動QEMU：</p>
+<pre><code class="language-console">qemu-system-arm \
+  -cpu cortex-m3 \
+  -machine lm3s6965evb \
+  -nographic \
+  -semihosting-config enable=on,target=native \
+  -gdb tcp::3333 \
+  -S \
+  -kernel target/thumbv7m-none-eabi/debug/examples/hello
+</code></pre>
+<p>這個命令將不打印任何東西到調試臺上，且將會阻塞住終端。此刻我們還傳遞了兩個額外的標誌。</p>
+<ul>
+<li><code>-gdb tcp::3333</code>。這告訴QEMU在3333的TCP端口上等待一個GDB連接。</li>
+<li><code>-S</code>。這告訴QEMU在啟動時，凍結機器。沒有這個，在我們有機會啟動調試器之前，程序有可能已經到達了主程序的底部了!</li>
+</ul>
+<p>接下來我們在另一個終端啟動GDB，且告訴它去加載示例的調試符號。</p>
+<pre><code class="language-console">gdb-multiarch -q target/thumbv7m-none-eabi/debug/examples/hello
+</code></pre>
+<p><strong>注意</strong>: 你可能需要另一個gdb版本而不是 <code>gdb-multiarch</code>，取決於你在安裝章節中安裝了哪個。這個可能是 <code>arm-none-eabi-gdb</code> 或者只是 <code>gdb</code>。</p>
+<p>然後在GDB shell中，我們連接QEMU，QEMU正在等待一個在3333 TCP端口上的連接。</p>
+<pre><code class="language-console">target remote :3333
+</code></pre>
+<pre><code class="language-text">Remote debugging using :3333
+Reset () at $REGISTRY/cortex-m-rt-0.6.1/src/lib.rs:473
+473     pub unsafe extern "C" fn Reset() -&gt; ! {
+</code></pre>
+<p>你將看到，進程被掛起了，程序計數器正指向一個名為 <code>Reset</code> 的函數。那是 reset 句柄：Cortex-M 內核在啟動時執行的中斷函數。</p>
+<blockquote>
+<p>注意在一些配置中，可能不會像上面一樣，顯示<code>Reset() at $REGISTRY/cortex-m-rt-0.6.1/src/lib.rs:473</code>，gdb可能打印一些警告，比如:</p>
+<p><code>core::num::bignum::Big32x40::mul_small () at src/libcore/num/bignum.rs:254</code>
+<code>    src/libcore/num/bignum.rs: No such file or directory.</code></p>
+<p>那是一個已知的小bug，你可以安全地忽略這些警告，你非常大可能已經進入Reset()了。</p>
+</blockquote>
+<p>這個reset句柄最終將調用我們的主函數，讓我們使用一個斷點和<code>continue</code>命令跳過所有的步驟。為了設置斷點，讓我們首先看下我們想要在我們代碼哪裡打斷點，使用<code>list</code>指令</p>
+<pre><code class="language-console">list main
+</code></pre>
+<p>這將顯示從examples/hello.rs文件來的源代碼。</p>
+<pre><code class="language-text">6       use panic_halt as _;
+7
+8       use cortex_m_rt::entry;
+9       use cortex_m_semihosting::{debug, hprintln};
+10
+11      #[entry]
+12      fn main() -&gt; ! {
+13          hprintln!("Hello, world!").unwrap();
+14
+15          // exit QEMU
+</code></pre>
+<p>我們想要在"Hello, world!"之前添加一個斷點，在13行那裡。我們可以使用<code>break</code>命令</p>
+<pre><code class="language-console">break 13
+</code></pre>
+<p>我們現在能使用<code>continue</code>命令指示gdb運行到我們的主函數。</p>
+<pre><code class="language-console">continue
+</code></pre>
+<pre><code class="language-text">Continuing.
+
+Breakpoint 1, hello::__cortex_m_rt_main () at examples\hello.rs:13
+13          hprintln!("Hello, world!").unwrap();
+</code></pre>
+<p>我們現在靠近打印"Hello, world!"的代碼。讓我們使用<code>next</code>命令繼續前進。</p>
+<pre><code class="language-console">next
+</code></pre>
+<pre><code class="language-text">16          debug::exit(debug::EXIT_SUCCESS);
+</code></pre>
+<p>在這裡，你應該看到 "Hello, world!" 被打印到正在運行 <code>qemu-system-arm</code> 的終端上。</p>
+<pre><code class="language-text">$ qemu-system-arm (..)
+Hello, world!
+</code></pre>
+<p>再次調用<code>next</code>將會終止QEMU進程。</p>
+<pre><code class="language-console">next
+</code></pre>
+<pre><code class="language-text">[Inferior 1 (Remote target) exited normally]
+</code></pre>
+<p>你現在能退出GDB的會話了。</p>
+<pre><code class="language-console">quit
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="硬件"><a class="header" href="#硬件">硬件</a></h1>
+<p>現在你應該有點熟悉工具和開發過程了。在這部分我們將切換到真正的硬件上；步驟非常相似。讓我們深入下去。</p>
+<h2 id="認識你的硬件"><a class="header" href="#認識你的硬件">認識你的硬件</a></h2>
+<p>在我們開始之前，你需要了解下你的目標設備的一些特性，因為你將用它們來配置項目:</p>
+<ul>
+<li>ARM 內核。比如 Cortex-M3 。</li>
+<li>ARM 內核包括一個FPU嗎?Cortex-M4<strong>F</strong>和Cortex-M7<strong>F</strong>有。</li>
+<li>目標設備有多少Flash和RAM？比如 256KiB的Flash和32KiB的RAM。</li>
+<li>Flash和RAM映射在地址空間的什麼位置?比如 RAM通常位於 <code>0x2000_0000</code> 地址處。</li>
+</ul>
+<p>你可以在你的設備的數據手冊和參考手冊上找到這些信息。</p>
+<p>這部分，要使用我們的參考硬件，STM32F3DISCOVERY。這個板子包含一個STM32F303VCT6微控制器。這個微控制器擁有:</p>
+<ul>
+<li>一個Cortex-M4F核心，它包含一個單精度FPU。</li>
+<li>位於 0x0800_0000 地址的256KiB的Flash。</li>
+<li>位於 0x2000_0000 地址的40KiB的RAM。(這裡還有其它的RAM區域，但是為了方便起見，我們將忽略它)。</li>
+</ul>
+<h2 id="配置"><a class="header" href="#配置">配置</a></h2>
+<p>我們將使用一個新的模板實例從零開始。對於新手，請參考<a href="start/qemu.html">先前的QEMU</a>章節，瞭解如何在沒有<code>cargo-generate</code>的情況下完成配置。</p>
+<pre><code class="language-text">$ cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
+ Project Name: app
+ Creating project called `app`...
+ Done! New project created /tmp/app
+
+$ cd app
+</code></pre>
+<p>第一步是在<code>.cargo/config.toml</code>中設置一個默認編譯目標。</p>
+<pre><code class="language-console">tail -n5 .cargo/config.toml
+</code></pre>
+<pre><code class="language-toml"># Pick ONE of these compilation targets
+# target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
+# target = "thumbv7m-none-eabi"    # Cortex-M3
+# target = "thumbv7em-none-eabi"   # Cortex-M4 and Cortex-M7 (no FPU)
+target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
+</code></pre>
+<p>我們將使用 <code>thumbv7em-none-eabihf</code>，因為它包括了Cortex-M4F內核．</p>
+<blockquote>
+<p><strong>注意</strong>：你可能還記得先前的章節，我們必須要安裝所有的目標平臺，這個平臺是一個新的．
+所以，不要忘了為這個平臺運行安裝步驟 <code>rustup target add thumbv7em-none-eabihf</code> ．</p>
+</blockquote>
+<p>第二步是將存儲區域信息(memory region information)輸入<code>memory.x</code>。</p>
+<pre><code class="language-text">$ cat memory.x
+/* Linker script for the STM32F303VCT6 */
+MEMORY
+{
+  /* NOTE 1 K = 1 KiBi = 1024 bytes */
+  FLASH : ORIGIN = 0x08000000, LENGTH = 256K
+  RAM : ORIGIN = 0x20000000, LENGTH = 40K
+}
+</code></pre>
+<blockquote>
+<p><strong>注意</strong>：如果你因為某些理由，在對某個編譯目標首次編譯後，改變了<code>memory.x</code>文件，需要在<code>cargo build</code>之前執行<code>cargo clean</code>。因為<code>cargo build</code>可能不會跟蹤<code>memory.x</code>的更新。</p>
+</blockquote>
+<p>我們將再次使用hello示例作為開始，但是首先我們必須做一個小改變。</p>
+<p>在<code>examples/hello.rs</code>中，確保<code>debug::exit()</code>調用被註釋掉了或者移除掉了。它只能用於在QEMU中運行的情況。</p>
+<pre><code class="language-rust ignore">#[entry]
+fn main() -&gt; ! {
+    hprintln!("Hello, world!").unwrap();
+
+    // 退出 QEMU
+    // 注意 不要在硬件上運行這個；它會打破OpenOCD的狀態
+    // debug::exit(debug::EXIT_SUCCESS);
+
+    loop {}
+}</code></pre>
+<p>你可以像你之前做的一樣，使用<code>cargo build</code>檢查編譯程序，使用<code>cargo-binutils</code>觀察二進制項。<code>cortex-m-rt</code>庫可以處理所有讓芯片運行起來所需的魔法，幾乎所有的Cortex-M CPUs都按同樣的方式啟動。</p>
+<pre><code class="language-console">cargo build --example hello
+</code></pre>
+<h2 id="調試-1"><a class="header" href="#調試-1">調試</a></h2>
+<p>調試會看起來有點不一樣。事實上，取決於不同的目標設備，第一步可能看起來不一樣。在這個章節裡，我們將展示，調試一個在STM32F3DISCOVERY上運行的程序，所需要的步驟。這作為一個參考。關於調試有關的設備特定的信息，可以看<a href="https://github.com/rust-embedded/debugonomicon">the Debugonomicon</a>。</p>
+<p>像之前一樣，我們將進行遠程調試，客戶端將是一個GDB進程。不同的是，OpenOCD將是服務器。</p>
+<p>像是在<a href="start/../intro/install/verify.html">安裝驗證</a>中做的那樣，把你的筆記本/個人電腦和discovery開發板連接起來，檢查ST-LINK的短路帽是否被安裝了。</p>
+<p>在一個終端上運行 <code>openocd</code> 連接到你的開發板上的 ST-LINK 。從模板的根目錄運行這個命令；<code>openocd</code> 將會選擇 <code>openocd.cfg</code> 文件，它指出了所使用的接口文件(interface file)和目標文件(target file)。</p>
+<pre><code class="language-console">cat openocd.cfg
+</code></pre>
+<pre><code class="language-text"># Sample OpenOCD configuration for the STM32F3DISCOVERY development board
+
+# Depending on the hardware revision you got you'll have to pick ONE of these
+# interfaces. At any time only one interface should be commented out.
+
+# Revision C (newer revision)
+source [find interface/stlink.cfg]
+
+# Revision A and B (older revisions)
+# source [find interface/stlink-v2.cfg]
+
+source [find target/stm32f3x.cfg]
+</code></pre>
+<blockquote>
+<p><strong>注意</strong> 如果你在<a href="start/../intro/install/verify.html">安裝驗證</a>章節中，發現你的discovery開發板是一個更舊的版本，那麼你應該修改你的 <code>openocd.cfg</code> 文件，註釋掉 <code>interface/stlink.cfg</code>，讓它去使用 <code>interface/stlink-v2.cfg</code> 。</p>
+</blockquote>
+<pre><code class="language-text">$ openocd
+Open On-Chip Debugger 0.10.0
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select &lt;transport&gt;'.
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+none separate
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : clock speed 950 kHz
+Info : STLINK v2 JTAG v27 API v2 SWIM v15 VID 0x0483 PID 0x374B
+Info : using stlink api v2
+Info : Target voltage: 2.913879
+Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
+</code></pre>
+<p>在另一個終端，也是從模板的根目錄，運行GDB。</p>
+<pre><code class="language-text">gdb-multiarch -q target/thumbv7em-none-eabihf/debug/examples/hello
+</code></pre>
+<p><strong>注意</strong>: 像之前一樣，你可能需要另一個版本的gdb而不是<code>gdb-multiarch</code>，取決於你在之前的章節安裝了什麼工具。這也可能使用的是<code>arm-none-eabi-gdb</code>或者只是<code>gdb</code> 。</p>
+<p>接下來把GDB連接到OpenOCD，它正在等待一個在端口3333上的TCP鏈接。</p>
+<pre><code class="language-console">(gdb) target remote :3333
+Remote debugging using :3333
+0x00000000 in ?? ()
+</code></pre>
+<p>接下來使用<code>load</code>命令，繼續 <em>flash</em>(加載) 程序到微控制器上。</p>
+<pre><code class="language-console">(gdb) load
+Loading section .vector_table, size 0x400 lma 0x8000000
+Loading section .text, size 0x1518 lma 0x8000400
+Loading section .rodata, size 0x414 lma 0x8001918
+Start address 0x08000400, load size 7468
+Transfer rate: 13 KB/sec, 2489 bytes/write.
+</code></pre>
+<p>程序現在被加載了。這個程序使用半主機模式，因此在我們調用半主機模式之前，我們必須告訴OpenOCD使能半主機。你可以使用 <code>monitor</code> 命令，發送命令給OpenOCD 。</p>
+<pre><code class="language-console">(gdb) monitor arm semihosting enable
+semihosting is enabled
+</code></pre>
+<blockquote>
+<p>通過調用 <code>monitor help</code> 命令，你能看到所有的OpenOCD命令。</p>
+</blockquote>
+<p>像我們之前一樣，使用一個斷點和 <code>continue</code> 命令我們可以跳過所有的步驟到 <code>main</code> 。</p>
+<pre><code class="language-console">(gdb) break main
+Breakpoint 1 at 0x8000490: file examples/hello.rs, line 11.
+Note: automatically using hardware breakpoints for read-only addresses.
+
+(gdb) continue
+Continuing.
+
+Breakpoint 1, hello::__cortex_m_rt_main_trampoline () at examples/hello.rs:11
+11      #[entry]
+</code></pre>
+<blockquote>
+<p><strong>注意</strong> 如果在你使用了上面的<code>continue</code>命令後，GDB阻塞住了終端而不是停在了斷點處，你可能需要檢查下<code>memory.x</code>文件中的存儲分區的信息，對於你的設備來說是否被正確的設置了起始位置<strong>和</strong>大小 。</p>
+</blockquote>
+<p>使用<code>step</code>步進main函數里。</p>
+<pre><code class="language-console">(gdb) step
+halted: PC: 0x08000496
+hello::__cortex_m_rt_main () at examples/hello.rs:13
+13          hprintln!("Hello, world!").unwrap();
+</code></pre>
+<p>在使用了<code>next</code>讓函數繼續執行之後，你應該看到 "Hello, world!" 被打印到了OpenOCD控制檯上。</p>
+<pre><code class="language-text">$ openocd
+(..)
+Info : halted: PC: 0x08000e6c
+Hello, world!
+Info : halted: PC: 0x08000d62
+Info : halted: PC: 0x08000d64
+Info : halted: PC: 0x08000d66
+Info : halted: PC: 0x08000d6a
+Info : halted: PC: 0x08000a0c
+Info : halted: PC: 0x08000d70
+Info : halted: PC: 0x08000d72
+</code></pre>
+<p>消息只打印一次，然後進入定義在19行的無限循環中: <code>loop {}</code></p>
+<p>使用 <code>quit</code> 命令，你現在可以退出 GDB 了。</p>
+<pre><code class="language-console">(gdb) quit
+A debugging session is active.
+
+        Inferior 1 [Remote target] will be detached.
+
+Quit anyway? (y or n)
+</code></pre>
+<p>現在調試比之前多了點步驟，因此我們要把所有步驟打包進一個名為 <code>openocd.gdb</code> 的GDB腳本中。這個文件在 <code>cargo generate</code> 步驟中被生成，因此不需要任何修改了。讓我們看一下:</p>
+<pre><code class="language-console">cat openocd.gdb
+</code></pre>
+<pre><code class="language-text">target extended-remote :3333
+
+# print demangled symbols
+set print asm-demangle on
+
+# detect unhandled exceptions, hard faults and panics
+break DefaultHandler
+break HardFault
+break rust_begin_unwind
+
+monitor arm semihosting enable
+
+load
+
+# start the process but immediately halt the processor
+stepi
+</code></pre>
+<p>現在運行 <code>&lt;gdb&gt; -x openocd.gdb target/thumbv7em-none-eabihf/debug/examples/hello</code> 將會立即把GDB和OpenOCD連接起來，使能半主機，加載程序和啟動進程。</p>
+<p>另外，你能將 <code>&lt;gdb&gt; -x openocd.gdb</code> 放進一個自定義的 runner 中，使 <code>cargo run</code> 能編譯程序並啟動一個GDB會話。這個 runner 在 <code>.cargo/config.toml</code> 中，但是它被註釋掉了。</p>
+<pre><code class="language-console">head -n10 .cargo/config.toml
+</code></pre>
+<pre><code class="language-toml">[target.thumbv7m-none-eabi]
+# uncomment this to make `cargo run` execute programs on QEMU
+# runner = "qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel"
+
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+# uncomment ONE of these three option to make `cargo run` start a GDB session
+# which option to pick depends on your system
+runner = "arm-none-eabi-gdb -x openocd.gdb"
+# runner = "gdb-multiarch -x openocd.gdb"
+# runner = "gdb -x openocd.gdb"
+</code></pre>
+<pre><code class="language-text">$ cargo run --example hello
+(..)
+Loading section .vector_table, size 0x400 lma 0x8000000
+Loading section .text, size 0x1e70 lma 0x8000400
+Loading section .rodata, size 0x61c lma 0x8002270
+Start address 0x800144e, load size 10380
+Transfer rate: 17 KB/sec, 3460 bytes/write.
+(gdb)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="存儲映射的寄存器memory-mapped-registers"><a class="header" href="#存儲映射的寄存器memory-mapped-registers">存儲映射的寄存器(Memory-Mapped Registers)</a></h1>
+<p>嵌入式系統想要繼續執行下去，只有通過執行常規的Rust代碼並在RAM間移動數據才行。如果我們想要獲取或者發出信息(點亮一個LED，發現一個按鈕按下或者在總線上與芯片外設通信)，我們不得不深入瞭解外設和它們的"存儲映射的寄存器"。</p>
+<p>你可能會發現，訪問你的微控制器外設所需要的代碼，已經存在於下面的某個抽象層中了。</p>
+<p align="center">
+<img title="Common crates" src="start/../assets/crates.png">
+</p>
+<ul>
+<li>Micro-architecture Crate(微架構庫) - 這個庫擁有任何對於微控制器的處理器內核來說經常會用到的程序，也包括在這些微控制器中的通用外設。比如 <a href="https://crates.io/crates/cortex-m">cortex-m</a> crate提供給你可以使能和關閉中斷的函數，其對於所有的Cortex-M微控制器都是一樣的。它也提供你訪問'SysTick'外設的能力，在所有的Cortex-M微控制器中都包括了這個外設功能。</li>
+<li>Peripheral Access Crate(PAC)(外設訪問庫) - 這個庫是對各種存儲器封裝的寄存器再進行的一次淺陋封裝，特定於所使用的微控制器的產品號。比如，<a href="https://crates.io/crates/tm4c123x">tm4c123x</a>針對TI的Tiva-C TM4C123系列，<a href="https://crates.io/crates/stm32f30x">stm32f30x</a>針對ST的STM32F30x系列。這塊，根據微控制器的技術手冊寫的每個外設操作指令，直接和寄存器交互。</li>
+<li>HAL Crate - 這些crates為你的處理器提供了一個更友好的API，通常是通過實現在<a href="https://crates.io/crates/embedded-hal">embedded-hal</a>中定義的一些常用的traits來實現的。比如，這個crate可能提供一個<code>Serial</code>結構體，它的構造函數需要一組合適的GPIO端口和一個波特率，它為發送數據提供了 <code>write_byte</code> 函數。查看 <a href="start/../portability/index.html">可移植性</a> 可以看到更多關於 <a href="https://crates.io/crates/embedded-hal">embedded-hal</a> 的信息。</li>
+<li>Board Crate(開發板庫) - 這些Crate通過預配置不同的外設和GPIO管腳再進行了一層抽象以適配你正在使用的特定的開發者工具或者開發板，比如對於STM32F3DISCOVERY開發板來說，是<a href="https://crates.io/crates/stm32f3-discovery">stm32f3-discovery</a></li>
+</ul>
+<h2 id="開發板crate-board-crate"><a class="header" href="#開發板crate-board-crate">開發板Crate (Board Crate)</a></h2>
+<p>如果你是嵌入式Rust新手，board crate是一個完美的開始。它們很好地抽象出了，在開始學習這個項目時，需要耗費心力瞭解的硬件細節，使得標準工作，像是打開或者關閉LED，變得簡單。不同的板子間，它們提供的功能變化很大。因為這本書是不假設我們使用的是何種板子，所以這本書不會提到board crate。</p>
+<p>如果你想要用STM32F3DISCOVERY開發板做實驗，強烈建議看一下<a href="https://crates.io/crates/stm32f3-discovery">stm32f3-discovery</a>開發板crate，它提供了閃爍LEDs，訪問它的指南針，藍牙和其它的功能。<a href="https://rust-embedded.github.io/discovery/">Discovery</a>書對於一個board crate的用法提供一個很好的介紹。</p>
+<p>但是如果你正在使用一個還沒有提供專用的board crate的系統，或者你需要的一些功能，現存的crates不提供，那我們需要從底層的微架構crates開始。</p>
+<h2 id="micro-architecture-crate"><a class="header" href="#micro-architecture-crate">Micro-architecture crate</a></h2>
+<p>讓我們看一下SysTick外設，SysTick外設存在於所有的Cortex-M微控制器中。我們能在<a href="https://crates.io/crates/cortex-m">cortex-m</a> crate中找到一個相當底層的API，我們能像這樣使用它：</p>
+<pre><code class="language-rust ignore">#![no_std]
+#![no_main]
+use cortex_m::peripheral::{syst, Peripherals};
+use cortex_m_rt::entry;
+use panic_halt as _;
+
+#[entry]
+fn main() -&gt; ! {
+    let peripherals = Peripherals::take().unwrap();
+    let mut systick = peripherals.SYST;
+    systick.set_clock_source(syst::SystClkSource::Core);
+    systick.set_reload(1_000);
+    systick.clear_current();
+    systick.enable_counter();
+    while !systick.has_wrapped() {
+        // Loop
+    }
+
+    loop {}
+}</code></pre>
+<p><code>SYST</code>結構體上的功能，相當接近ARM技術手冊為這個外設定義的功能。在這個API中沒有關於 '延遲X毫秒' 的功能 - 我們不得不通過使用一個 <code>while</code> 循環來粗略地實現它。注意，我們調用了<code>Peripherals::take()</code>才能訪問我們的<code>SYST</code>結構體 - 這是一個特別的程序，保障了在我們的整個程序中只存在一個<code>SYST</code>結構體實例，更多的信息可以看<a href="start/../peripherals/index.html">外設</a>部分。</p>
+<h2 id="使用一個外設訪問crate-pac"><a class="header" href="#使用一個外設訪問crate-pac">使用一個外設訪問Crate (PAC)</a></h2>
+<p>如果我們把自己只侷限於每個Cortex-M擁有的基本外設，那我們的嵌入式軟件開發將不會走得太遠。我們準備需要寫一些特定於我們正在使用的微控制器的代碼。在這個例子裡，讓我們假設我們有一個TI的TM4C123 - 一個有256KiB Flash的中等規模的80MHz的Cortex-M4。我們用<a href="https://crates.io/crates/tm4c123x">tm4c123x</a> crate去使用這個芯片。</p>
+<pre><code class="language-rust ignore">#![no_std]
+#![no_main]
+
+use panic_halt as _; // panic handler
+
+use cortex_m_rt::entry;
+use tm4c123x;
+
+#[entry]
+pub fn init() -&gt; (Delay, Leds) {
+    let cp = cortex_m::Peripherals::take().unwrap();
+    let p = tm4c123x::Peripherals::take().unwrap();
+
+    let pwm = p.PWM0;
+    pwm.ctl.write(|w| w.globalsync0().clear_bit());
+    // Mode = 1 =&gt; Count up/down mode
+    pwm._2_ctl.write(|w| w.enable().set_bit().mode().set_bit());
+    pwm._2_gena.write(|w| w.actcmpau().zero().actcmpad().one());
+    // 528 cycles (264 up and down) = 4 loops per video line (2112 cycles)
+    pwm._2_load.write(|w| unsafe { w.load().bits(263) });
+    pwm._2_cmpa.write(|w| unsafe { w.compa().bits(64) });
+    pwm.enable.write(|w| w.pwm4en().set_bit());
+}
+</code></pre>
+<p>我們訪問 <code>PWM0</code> 外設的方法和我們之前訪問 <code>SYST</code> 的方法一樣，除了我們調用的是 <code>tm4c123x::Peripherals::take()</code> 之外。因為這個crate是使用<a href="https://crates.io/crates/svd2rust">svd2rust</a>自動生成的，訪問我們寄存器位段的函數的參數是一個閉包，而不是一個數值參數。雖然這看起來像是有了更多的代碼，但是Rust編譯器能使用這個閉包為我們執行一系列檢查，且產生的機器碼十分接近手寫的彙編碼！如果自動生成的代碼不能確保某個訪問函數其所有可能的參數都能發揮作用(比如，如果寄存器被SVD定義為32位，但是沒有說明某些32位值是否有特殊作用)，那麼該函數需要被標記為 <code>unsafe</code> 。我們能在上面看到這樣的例子，我們使用 <code>bits()</code> 函數設置 <code>load</code> 和 <code>compa</code> 子域。</p>
+<h3 id="reading"><a class="header" href="#reading">Reading</a></h3>
+<p><code>read()</code> 函數返回一個對象，這個對象提供了對這個寄存器中不同子域的只讀訪問，由廠商提供的這個芯片的SVD文件定義。在 <a href="https://docs.rs/tm4c123x/0.7.0/tm4c123x/pwm0/ctl/struct.R.html">tm4c123x documentation</a> 中你能找到在這個特別的返回類型 <code>R</code> 上所有可用的函數，其與特定芯片中的特定外設的特定寄存器有關。</p>
+<pre><code class="language-rust ignore">if pwm.ctl.read().globalsync0().is_set() {
+    // Do a thing
+}</code></pre>
+<h3 id="writing"><a class="header" href="#writing">Writing</a></h3>
+<p><code>write()</code>函數使用一個只有一個參數的閉包。通常我們把這個參數叫做 <code>w</code>。然後這個參數提供對這個寄存器中不同的子域的讀寫訪問，由廠商關於這個芯片的SVD文件提供。再一次，在 <a href="https://docs.rs/tm4c123x/0.7.0/tm4c123x/pwm0/ctl/struct.W.html">tm4c123x documentation</a> 中你能找到 <code>W</code> 所有可用的函數，其與特定芯片中的特定外設的特定寄存器有關。注意,所有我們沒有設置的子域將會被設置成一個默認值 - 將會丟失任何在這個寄存器中的現存的內容。</p>
+<pre><code class="language-rust ignore">pwm.ctl.write(|w| w.globalsync0().clear_bit());</code></pre>
+<h3 id="modifying"><a class="header" href="#modifying">Modifying</a></h3>
+<p>如果我們希望只改變這個寄存器中某個特定的子域而讓其它子域不變，我們能使用<code>modify</code>函數。這個函數使用一個具有兩個參數的閉包 - 一個用來讀取，一個用來寫入。通常我們分別稱它們為 <code>r</code> 和 <code>w</code> 。 <code>r</code> 參數能被用來查看這個寄存器現在的內容，<code>w</code> 參數能被用來修改寄存器的內容。</p>
+<pre><code class="language-rust ignore">pwm.ctl.modify(|r, w| w.globalsync0().clear_bit());</code></pre>
+<p><code>modify</code> 函數在這裡真正展示了閉包的能量。在C中，我們經常需要讀取一些臨時值，修改成正確的比特，然後再把值寫回。這意味著出現錯誤的範圍非常大。</p>
+<pre><code class="language-C">uint32_t temp = pwm0.ctl.read();
+temp |= PWM0_CTL_GLOBALSYNC0;
+pwm0.ctl.write(temp);
+uint32_t temp2 = pwm0.enable.read();
+temp2 |= PWM0_ENABLE_PWM4EN;
+pwm0.enable.write(temp); // 哦 不! 錯誤的變量!
+</code></pre>
+<h2 id="使用一個hal-crate"><a class="header" href="#使用一個hal-crate">使用一個HAL crate</a></h2>
+<p>一個芯片的HAL crate是通過為PAC暴露的基礎結構體們實現一個自定義Trait來發揮作用的。經常這個trait將會為某個外設定義一個被稱作 <code>constrain()</code> 的函數，或者為像是有多個管腳的GPIO端口這類東西定義一個<code>split()</code>函數。這個函數將會使用基礎的外設結構體，然後返回一個具有更高抽象的API的新對象。這個API還可以做一些事，比如讓Serial port的 <code>new</code> 函數變成需要某個<code>Clock</code>結構體的函數，這個結構體只能通過調用配置PLLs並設置所有的時鐘頻率的函數來生成。在這時，生成一個Serial port對象而不先配置時鐘速率是不可能的，對於Serial port對象來說錯誤地將波特率轉換為時鐘滴答數也是不會發生的。一些crates甚至為每個GPIO管腳的狀態定義了特定的 traits，在把管腳傳遞進外設前，要求用戶去把一個管腳設置成正確的狀態(通過選擇Alternate Function模式) 。所有這些都沒有運行時開銷的！</p>
+<p>讓我們看一個例子:</p>
+<pre><code class="language-rust ignore">#![no_std]
+#![no_main]
+
+use panic_halt as _; // panic handler
+
+use cortex_m_rt::entry;
+use tm4c123x_hal as hal;
+use tm4c123x_hal::prelude::*;
+use tm4c123x_hal::serial::{NewlineMode, Serial};
+use tm4c123x_hal::sysctl;
+
+#[entry]
+fn main() -&gt; ! {
+    let p = hal::Peripherals::take().unwrap();
+    let cp = hal::CorePeripherals::take().unwrap();
+
+    // 將SYSCTL結構體封裝成一個有更高抽象API的對象
+    let mut sc = p.SYSCTL.constrain();
+    // 選擇我們的晶振配置
+    sc.clock_setup.oscillator = sysctl::Oscillator::Main(
+        sysctl::CrystalFrequency::_16mhz,
+        sysctl::SystemClock::UsePll(sysctl::PllOutputFrequency::_80_00mhz),
+    );
+    // 設置PLL
+    let clocks = sc.clock_setup.freeze();
+
+    // 把GPIO_PORTA結構體封裝成一個有更高抽象API的對象
+    // 注意它需要借用 `sc.power_control` 因此它能自動開啟GPIO外設。
+    let mut porta = p.GPIO_PORTA.split(&amp;sc.power_control);
+
+    // 激活UART
+    let uart = Serial::uart0(
+        p.UART0,
+        // 傳送管腳
+        porta
+            .pa1
+            .into_af_push_pull::&lt;hal::gpio::AF1&gt;(&amp;mut porta.control),
+        // 接收管腳
+        porta
+            .pa0
+            .into_af_push_pull::&lt;hal::gpio::AF1&gt;(&amp;mut porta.control),
+        // 不需要RTS或者CTS
+        (),
+        (),
+        // 波特率
+        115200_u32.bps(),
+        // 輸出處理
+        NewlineMode::SwapLFtoCRLF,
+        // 我們需要時鐘頻率去計算波特率除法器(divisors)
+        &amp;clocks,
+        // 我們需要這個去啟動UART外設
+        &amp;sc.power_control,
+    );
+
+    loop {
+        writeln!(uart, "Hello, World!\r\n").unwrap();
+    }
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="半主機模式"><a class="header" href="#半主機模式">半主機模式</a></h1>
+<p>半主機模式是一種可以讓嵌入式設備在主機上進行I/O操作的的機制，主要被用來記錄信息到主機控制檯上。半主機模式需要一個debug會話，除此之外幾乎沒有其它要求了，因此它非常易於使用。缺點是它非常慢：每個寫操作需要幾毫秒的時間，其取決於你的硬件調試器(e.g. ST-LINK)。</p>
+<p><a href="https://crates.io/crates/cortex-m-semihosting"><code>cortex-m-semihosting</code></a> crate 提供了一個API去在Cortex-M設備上執行半主機操作。下面的程序是"Hello, world!"的半主機版本。</p>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::hprintln;
+
+#[entry]
+fn main() -&gt; ! {
+    hprintln!("Hello, world!").unwrap();
+
+    loop {}
+}</code></pre>
+<p>如果你在硬件上運行這個程序，你將會在OpenOCD的logs中看到"Hello, world!"信息。</p>
+<pre><code class="language-text">$ openocd
+(..)
+Hello, world!
+(..)
+</code></pre>
+<p>你首先需要從GDB使能OpenOCD中的半主機模式。</p>
+<pre><code class="language-console">(gdb) monitor arm semihosting enable
+semihosting is enabled
+</code></pre>
+<p>QEMU理解半主機操作，因此上面的程序不需要啟動一個debug會話，也能在<code>qemu-system-arm</code>中工作。注意你需要傳遞<code>-semihosting-config</code>標誌給QEMU去使能支持半主機模式；這些標識已經被包括在模板的<code>.cargo/config.toml</code>文件中了。</p>
+<pre><code class="language-text">$ # this program will block the terminal
+$ cargo run
+     Running `qemu-system-arm (..)
+Hello, world!
+</code></pre>
+<p><code>exit</code>半主機操作也能被用於終止QEMU進程。重要：<strong>不要</strong>在硬件上使用<code>debug::exit</code>；這個函數會關閉你的OpenOCD對話，這樣你就不能執行其它的程序調試操作了，除了重啟它。</p>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::debug;
+
+#[entry]
+fn main() -&gt; ! {
+    let roses = "blue";
+
+    if roses == "red" {
+        debug::exit(debug::EXIT_SUCCESS);
+    } else {
+        debug::exit(debug::EXIT_FAILURE);
+    }
+
+    loop {}
+}</code></pre>
+<pre><code class="language-text">$ cargo run
+     Running `qemu-system-arm (..)
+
+$ echo $?
+1
+</code></pre>
+<p>最後一個提示：你可以將運行時恐慌(panicking)的行為設置成 <code>exit(EXIT_FAILURE)</code>。這會允許你編寫可以在QEMU上運行通過的 <code>no_std</code> 測試。</p>
+<p>為了方便，<code>panic-semihosting</code> crate有一個 "exit" 特性。當它使能的時候，在主機stderr上打印恐慌(painc)信息後會調用 <code>exit(EXIT_FAILURE)</code> 。</p>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+use panic_semihosting as _; // features = ["exit"]
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::debug;
+
+#[entry]
+fn main() -&gt; ! {
+    let roses = "blue";
+
+    assert_eq!(roses, "red");
+
+    loop {}
+}</code></pre>
+<pre><code class="language-text">$ cargo run
+     Running `qemu-system-arm (..)
+panicked at 'assertion failed: `(left == right)`
+  left: `"blue"`,
+ right: `"red"`', examples/hello.rs:15:5
+
+$ echo $?
+1
+</code></pre>
+<p><strong>注意</strong>: 為了在<code>panic-semihosting</code>上使能這個特性，編輯你的<code>Cargo.toml</code>依賴，<code>panic-semihosting</code>改寫成:</p>
+<pre><code class="language-toml">panic-semihosting = { version = "VERSION", features = ["exit"] }
+</code></pre>
+<p><code>VERSION</code>是想要的版本。關於依賴features的更多信息查看Cargo book的<a href="https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html"><code>specifying dependencies</code></a>部分。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="運行時恐慌panicking"><a class="header" href="#運行時恐慌panicking">運行時恐慌(Panicking)</a></h1>
+<p>運行時恐慌是Rust語言的一個核心部分。像是索引這樣的內建的操作為了存儲安全性是運行時檢查的。當嘗試越界索引時，這會導致運行時恐慌(panic)。</p>
+<p>在標準庫中，運行時恐慌的行為被定義成：展開(unwinds)恐慌的線程的棧，除非用戶自己選擇在恐慌時終止程序。</p>
+<p>然而在沒有標準庫的程序中，運行時恐慌的行為是未被定義了的。通過聲明一個 <code>#[painc_handler]</code> 函數可以選擇一個運行時恐慌的行為。</p>
+<p>這個函數在一個程序的依賴圖中必須只出現一次，且必須有這樣的簽名: <code>fn(&amp;PanicInfo) -&gt; !</code>，<code>PanicInfo</code>是一個包含關於發生運行時恐慌的位置信息的結構體。</p>
+<p>鑑於嵌入式系統的範圍從面向用戶的系統到安全關鍵系統，沒有一個運行時恐慌行為能滿足所有場景，但是有許多常用的行為。這些常用的行為已經被打包進了一些crates中，這些crates中定義了 <code>#[panic_handler]</code>函數。比如:</p>
+<ul>
+<li><a href="https://crates.io/crates/panic-abort"><code>panic-abort</code></a>. 這個運行時恐慌會導致終止指令被執行。</li>
+<li><a href="https://crates.io/crates/panic-halt"><code>panic-halt</code></a>. 這個運行時恐慌會導致程序，或者現在的線程，通過進入一個無限循環中而掛起。</li>
+<li><a href="https://crates.io/crates/panic-itm"><code>panic-itm</code></a>. 運行時恐慌的信息會被ITM記錄，ITM是一個ARM Cortex-M的特殊的外設。</li>
+<li><a href="https://crates.io/crates/panic-semihosting"><code>panic-semihosting</code></a>. 使用半主機技術，運行時恐慌的信息被記錄到主機上。</li>
+</ul>
+<p>在crates.io上搜索 <a href="https://crates.io/keywords/panic-handler"><code>panic-handler</code></a>，你甚至可以找到更多的crates。</p>
+<p>僅僅通過鏈接到相關的crate中，一個程序就可以簡單地從這些行為中選擇一個運行時恐慌行為。將運行時恐慌的行為作為一行代碼放進一個應用的源碼中，不僅僅是因為可以作為文檔使用，而且能根據編譯配置改變運行時恐慌的行為。比如:</p>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+// dev配置: 更容易調試運行時恐慌; 可以在 `rust_begin_unwind` 上放一個斷點
+#[cfg(debug_assertions)]
+use panic_halt as _;
+
+// release配置: 最小化應用的二進制文件的大小
+#[cfg(not(debug_assertions))]
+use panic_abort as _;
+
+// ..</code></pre>
+<p>在這個例子裡，當使用dev配置編譯的時候(<code>cargo build</code>)，crate鏈接到 <code>panic-halt</code> crate上，但是當使用release配置編譯時(<code>cargo build --release</code>)，crate鏈接到<code>panic-abort</code> crate上。</p>
+<blockquote>
+<p><code>use panic_abort as _</code> 形式的 <code>use</code> 語句，被用來確保 <code>panic_abort</code> 運行時恐慌函數被包含進我們最終的可執行程序裡，同時讓編譯器清楚地知道我們不會從這個crate顯式地使用任何東西。沒有 <code>_</code> 重命名，編譯器將會警告我們有一個未使用的導入。有時候你可能會看到 <code>extern crate panic_abort</code>，這是Rust 2018之前的版本使用的更舊的寫法，現在應該只被用於 "sysroot" crates (與Rust一起發佈的crates)，比如 <code>proc_macro</code>，<code>alloc</code>，<code>std</code> 和 <code>test</code> 。</p>
+</blockquote>
+<h2 id="一個例子"><a class="header" href="#一個例子">一個例子</a></h2>
+<p>這裡有一個嘗試越界訪問數組的例子。操作的結果導致了一個運行時恐慌(panic)。</p>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+use panic_semihosting as _;
+
+use cortex_m_rt::entry;
+
+#[entry]
+fn main() -&gt; ! {
+    let xs = [0, 1, 2];
+    let i = xs.len();
+    let _y = xs[i]; // out of bounds access
+
+    loop {}
+}</code></pre>
+<p>這個例子選擇了<code>panic-semihosting</code>行為，運行時恐慌的信息會被打印至使用了半主機模式的主機控制檯上。</p>
+<pre><code class="language-text">$ cargo run
+     Running `qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb (..)
+panicked at 'index out of bounds: the len is 3 but the index is 4', src/main.rs:12:13
+</code></pre>
+<p>你可以嘗試將行為改成<code>panic-halt</code>，確保在這個案例裡沒有信息被打印。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="異常"><a class="header" href="#異常">異常</a></h1>
+<p>異常和中斷，是處理器用來處理異步事件和致命錯誤(e.g. 執行一個無效的指令)的一種硬件機制。異常意味著搶佔並涉及到異常處理程序，即響應觸發事件的信號的子程序。</p>
+<p><code>cortex-m-rt</code> crate提供了一個 <a href="https://docs.rs/cortex-m-rt-macros/latest/cortex_m_rt_macros/attr.exception.html"><code>exception</code></a> 屬性去聲明異常處理程序。</p>
+<pre><code class="language-rust ignore">// SysTick (System計時器)異常的異常處理函數
+#[exception]
+fn SysTick() {
+    // ..
+}</code></pre>
+<p>除了 <code>exception</code> 屬性，異常處理函數看起來和普通函數一樣，但是有一個很大的不同: <code>exception</code> 處理函數 <em>不能</em> 被軟件調用。在先前的例子中，語句 <code>SysTick();</code> 將會導致一個編譯錯誤。</p>
+<p>這麼做是有目的的，因為異常處理函數必須具有一個特性: 在異常處理函數中被聲明為<code>static mut</code>的變量能被安全(safe)地使用。</p>
+<pre><code class="language-rust ignore">#[exception]
+fn SysTick() {
+    static mut COUNT: u32 = 0;
+
+    // `COUNT` 被轉換到了 `&amp;mut u32` 類型且它用起來是安全的
+    *COUNT += 1;
+}</code></pre>
+<p>就像你可能已經知道的那樣，在一個函數里使用<code>static mut</code>變量，會讓函數變成<a href="https://en.wikipedia.org/wiki/Reentrancy_(computing)"><em>非可重入函數(non-reentrancy)</em></a>。從多個異常/中斷處理函數，或者從<code>main</code>函數和多個異常/中斷處理函數中，直接或者間接地調用一個非可重入(non-reentrancy)函數是未定義的行為。</p>
+<p>安全的Rust不能導致未定義的行為出現，所以非可重入函數必須被標記為 <code>unsafe</code>。然而，我剛說了<code>exception</code>處理函數能安全地使用<code>static mut</code>變量。這怎麼可能？因為<code>exception</code>處理函數 <em>不</em> 能被軟件調用因此重入(reentrancy)不會發生，所以這才變得可能。</p>
+<blockquote>
+<p>注意，<code>exception</code>屬性，通過將靜態變量封裝進<code>unsafe</code>塊中併為我們提供了名字相同的，類型為 <code>&amp;mut</code> 的，合適的新變量，轉換了函數中靜態變量的定義。因此我們可以通過 <code>*</code> 解引用訪問變量的值而不需要將它們打包進一個 <code>unsafe</code> 塊中。</p>
+</blockquote>
+<h2 id="一個完整的例子"><a class="header" href="#一個完整的例子">一個完整的例子</a></h2>
+<p>這裡有個例子，使用系統計時器大概每秒拋出一個 <code>SysTick</code> 異常。異常處理函數使用 <code>COUNT</code> 變量追蹤它自己被調用了多少次，然後使用半主機模式(semihosting)打印 <code>COUNT</code> 的值到主機控制檯上。</p>
+<blockquote>
+<p><strong>注意</strong>: 你能在任何Cortex-M設備上運行這個例子;你也能在QEMU運行它。</p>
+</blockquote>
+<pre><code class="language-rust ignore">#![deny(unsafe_code)]
+#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use core::fmt::Write;
+
+use cortex_m::peripheral::syst::SystClkSource;
+use cortex_m_rt::{entry, exception};
+use cortex_m_semihosting::{
+    debug,
+    hio::{self, HStdout},
+};
+
+#[entry]
+fn main() -&gt; ! {
+    let p = cortex_m::Peripherals::take().unwrap();
+    let mut syst = p.SYST;
+
+    // 配置系統的計時器每秒去觸發一個SysTick異常
+    syst.set_clock_source(SystClkSource::Core);
+    // 這是關於LM3S6965的配置，其有一個12MHz的默認CPU時鐘
+    syst.set_reload(12_000_000);
+    syst.clear_current();
+    syst.enable_counter();
+    syst.enable_interrupt();
+
+    loop {}
+}
+
+#[exception]
+fn SysTick() {
+    static mut COUNT: u32 = 0;
+    static mut STDOUT: Option&lt;HStdout&gt; = None;
+
+    *COUNT += 1;
+
+    // 惰性初始化(Lazy initialization)
+    if STDOUT.is_none() {
+        *STDOUT = hio::hstdout().ok();
+    }
+
+    if let Some(hstdout) = STDOUT.as_mut() {
+        write!(hstdout, "{}", *COUNT).ok();
+    }
+
+    // 重要信息 如果運行在真正的硬件上，去掉這個 `if` 塊，
+    // 否則你的調試器將會以一種不一致的狀態結束
+    if *COUNT == 9 {
+        // 這將終結QEMU進程
+        debug::exit(debug::EXIT_SUCCESS);
+    }
+}</code></pre>
+<pre><code class="language-console">tail -n5 Cargo.toml
+</code></pre>
+<pre><code class="language-toml">[dependencies]
+cortex-m = "0.5.7"
+cortex-m-rt = "0.6.3"
+panic-halt = "0.2.0"
+cortex-m-semihosting = "0.3.1"
+</code></pre>
+<pre><code class="language-text">$ cargo run --release
+     Running `qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb (..)
+123456789
+</code></pre>
+<p>如果你在Discovery開發板上運行這個例子，你將會在OpenOCD控制檯上看到輸出。還有，當計數到達9的時候，程序將 <em>會</em> 停止。</p>
+<h2 id="默認異常處理函數"><a class="header" href="#默認異常處理函數">默認異常處理函數</a></h2>
+<p><code>exception</code> 屬性真正做的是，<em>覆蓋</em> 了一個特定異常的默認異常處理函數。如果你不覆蓋一個特定異常的處理函數，它將會被 <code>DefaultHandler</code> 函數處理，其默認的是:</p>
+<pre><code class="language-rust ignore">fn DefaultHandler() {
+    loop {}
+}</code></pre>
+<p>這個函數是 <code>cortex-m-rt</code> crate提供的，且被標記為 <code>#[no_mangle]</code> 因此你能在 "DefaultHandler" 上放置一個斷點並捕獲 <em>unhandled</em> 異常。</p>
+<p>可以使用 <code>exception</code> 屬性覆蓋這個 <code>DefaultHandler</code>:</p>
+<pre><code class="language-rust ignore">#[exception]
+fn DefaultHandler(irqn: i16) {
+    // 自定義默認處理函數
+}</code></pre>
+<p><code>irqn</code> 參數指出了被服務的是哪個異常。一個負數值指出了被服務的是一個Cortex-M異常;0或者一個正數值指出了被服務的是一個設備特定的異常，也就是中斷。</p>
+<h2 id="硬錯誤hard-fault處理函數"><a class="header" href="#硬錯誤hard-fault處理函數">硬錯誤(Hard Fault)處理函數</a></h2>
+<p><code>HardFault</code>異常有點特別。當程序進入一個無法工作的狀態時，這個異常被觸發，因此它的處理函數 <em>不能</em> 返回，因為這麼做可能導致一個未定義的行為。在用戶定義的 <code>HardFault</code> 處理函數被調用之前，運行時crate還做了一些工作以改進調試功能。</p>
+<p>結果是，<code>HardFault</code>處理函數必須有下列的簽名: <code>fn(&amp;ExceptionFrame) -&gt; !</code> 。處理函數的參數是一個指針，它指向被異常推入棧中的寄存器。這些寄存器是異常被觸發那刻，處理器狀態的一個記錄，能被用來分析一個硬錯誤。</p>
+<p>這裡有個執行不合法操作的案例: 讀取一個不存在的存儲位置。</p>
+<blockquote>
+<p><strong>注意</strong>: 這個程序在QEMU上不能起作用，i.e. 它不會崩潰，因為 <code>qemu-system-arm -machine lm3s6965evb</code> 不對讀取存儲的操作進行檢查，且讀取無效存儲時將會開心地返回 <code>0</code>。</p>
+</blockquote>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use core::fmt::Write;
+use core::ptr;
+
+use cortex_m_rt::{entry, exception, ExceptionFrame};
+use cortex_m_semihosting::hio;
+
+#[entry]
+fn main() -&gt; ! {
+    // 讀取一個無效的存儲位置
+    unsafe {
+        ptr::read_volatile(0x3FFF_FFFE as *const u32);
+    }
+
+    loop {}
+}
+
+#[exception]
+fn HardFault(ef: &amp;ExceptionFrame) -&gt; ! {
+    if let Ok(mut hstdout) = hio::hstdout() {
+        writeln!(hstdout, "{:#?}", ef).ok();
+    }
+
+    loop {}
+}</code></pre>
+<p><code>HardFault</code>處理函數打印了<code>ExceptionFrame</code>值。如果你運行這個，你將會看到下面的東西打印到OpenOCD控制檯上。</p>
+<pre><code class="language-text">$ openocd
+(..)
+ExceptionFrame {
+    r0: 0x3ffffffe,
+    r1: 0x00f00000,
+    r2: 0x20000000,
+    r3: 0x00000000,
+    r12: 0x00000000,
+    lr: 0x080008f7,
+    pc: 0x0800094a,
+    xpsr: 0x61000000
+}
+</code></pre>
+<p><code>pc</code>值是異常時程序計數器(Program Counter)的值，它指向觸發了異常的指令。</p>
+<p>如果你看向程序的反彙編:</p>
+<pre><code class="language-text">$ cargo objdump --bin app --release -- -d --no-show-raw-insn --print-imm-hex
+(..)
+ResetTrampoline:
+ 8000942:       movw    r0, #0xfffe
+ 8000946:       movt    r0, #0x3fff
+ 800094a:       ldr     r0, [r0]
+ 800094c:       b       #-0x4 &lt;ResetTrampoline+0xa&gt;
+</code></pre>
+<p>你可以在反彙編中搜索程序計數器<code>0x0800094a</code>的值。你將會看到一個讀取操作(<code>ldr r0, [r0]</code>)導致了異常。<code>ExceptionFrame</code>的<code>r0</code>字段將告訴你，那時寄存器<code>r0</code>的值是<code>0x3fff_fffe</code> 。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="中斷"><a class="header" href="#中斷">中斷</a></h1>
+<p>雖然中斷和異常在很多方面都不一樣，但是它們的操作和使用幾乎是一樣的，且它們也能被同一個中斷控制器處理。然而異常是由Cortex-M微架構定義的，中斷在命名和功能上總是由特定廠商(經常甚至是芯片)實現的。</p>
+<p>中斷提供了更多的靈活性，當嘗試用一種高級的方法使用它們時，我們需要對這種靈活性進行解釋。但我們將不會在這本書裡涵蓋這些內容，最好把下面的東西記在心裡:</p>
+<ul>
+<li>中斷有可以編程的優先級，其決定了它們的處理函數的執行順序。</li>
+<li>中斷能嵌套且搶佔，i.e. 一箇中斷處理函數的執行可以被其它更高優先級的中斷打斷。</li>
+<li>通常需要清除掉導致中斷被觸發的原因，避免無限地再次進入中斷處理函數。</li>
+</ul>
+<p>運行時的初始化步驟總是相同的:</p>
+<ul>
+<li>設置外設在想要的事件發生時產生中斷請求</li>
+<li>在中斷控制器中設置需要的中斷處理函數的優先級</li>
+<li>在中斷控制器中使能中斷處理函數</li>
+</ul>
+<p>與異常相似，<code>cortex-m-rt</code> crate提供了一個<a href="https://docs.rs/cortex-m-rt-macros/0.1.5/cortex_m_rt_macros/attr.interrupt.html"><code>interrupt</code></a>屬性去聲明中斷處理函數。可用的中斷(及它們在中斷向量表中的位置)通常由<code>svd2rust</code>從一個SVD描述文件自動地生成。</p>
+<pre><code class="language-rust ignore">// Timer2中斷的中斷處理函數
+#[interrupt]
+fn TIM2() {
+    // ..
+    // 清除生成中斷請求的原因
+}</code></pre>
+<p>中斷處理函數和異常處理函數一樣看起來像是普通的函數(除了沒有入參)。然而由於特殊的調用規定，它不能被固件的其它部分直接調用。然而，可以在軟件中生成中斷請求，轉移到中斷處理函數中。</p>
+<p>與異常處理函數一樣，也能在中斷處理函數中聲明<code>static mut</code>變量且保持 <em>safe</em> 狀態。</p>
+<pre><code class="language-rust ignore">#[interrupt]
+fn TIM2() {
+    static mut COUNT: u32 = 0;
+
+    // `COUNT` 的類型是 `&amp;mut u32` 且它用起來安全
+    *COUNT += 1;
+}</code></pre>
+<p>關於這裡所說的機制的更多細節描述，請參考<a href="start/./exceptions.html">異常章節</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="io"><a class="header" href="#io">IO</a></h1>
+<blockquote>
+<p><strong>TODO</strong> Cover memory mapped I/O using registers.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="外設"><a class="header" href="#外設">外設</a></h1>
+<h2 id="什麼是外設"><a class="header" href="#什麼是外設">什麼是外設?</a></h2>
+<p>大多數微處理器不僅僅有一個CPU，RAM，或者Flash存儲器 - 它們還包含被用來與微處理器的外部系統進行交互的硅片部分，通過傳感器，電機控制器，或者人機接口比如一個顯示器或者鍵盤直接和間接地與周遭世界交互。這些組件統稱為外設。</p>
+<p>這些外設很有用，因為它們允許一個開發者將處理工作交給它們來做，避免了必須在軟件中處理每件事。就像一個桌面開發者如何將圖形處理工作讓給一個顯卡那樣，嵌入式開發者能將一些任務讓給外設去做，讓CPU可以把時間放在做其它更重要的事上，或者為了省電啥事也不做。</p>
+<p>如果你看向來自1970s或者1980s的舊型號的家庭電腦的主板(其實，昨日的桌面PCs與今日的嵌入式系統沒太大區別)，你將看到:</p>
+<ul>
+<li>一個處理器</li>
+<li>一個RAM芯片</li>
+<li>一個ROM芯片</li>
+<li>一個I/O控制器</li>
+</ul>
+<p>RAM芯片，ROM芯片和I/O控制器(這個系統中的外設)會通過一系列並行的跡(traces)又被稱為一個"總線"被加進處理器中。地址總線搬運地址信息，其用來選擇處理器希望跟總線上哪個設備通信，還有一個用來搬運實際數據的數據總線。在我們的嵌入式微控制器中，應用了相同的概念 - 只是所有的東西被打包到一片硅片上。</p>
+<p>然而，不像顯卡，顯卡通常有像是Vulkan，Metal，或者OpenGL這樣的一個軟件API。外設暴露給微控制器的是一個硬件接口，其被映射到一塊存儲區域。</p>
+<h2 id="線性的物理存儲空間"><a class="header" href="#線性的物理存儲空間">線性的物理存儲空間</a></h2>
+<p>在一個微控制器上，隨便往一些地址寫一些數據，比如 <code>0x4000_0000</code> 或者 <code>0x0000_0000</code>，可能也是一個完全有效的動作。</p>
+<p>在一個桌面系統上，訪問內存被MMU，或者內存管理單元緊緊地控制著。這個組件有兩個主要責任: 對部分內存加入訪問權限(防止一個進程讀取或者修改另一個進程的內存)；重映射物理內存的段到軟件中使用的虛擬內存範圍上。微控制器通常沒有一個MMU，反而在軟件中只使用真實的物理地址。</p>
+<p>雖然32位微控制器有一個從<code>0x0000_0000</code>到<code>0xFFFF_FFFF</code>的線性的物理地址空間，但是它們通常只使用幾百KiB的實際內存。有相當大部分的地址空間保留著。在早期的章節中，我們說到RAM被放置在地址<code>0x2000_0000</code>處。如果我們的RAM是64KiB大小(i.e. 最大地址為0xFFFF),那麼地址 <code>0x2000_0000</code>到<code>0x2000_FFFF</code>與我們的RAM有關。當我們寫入一個位於地址<code>0x2000_1234</code>的變量時，內部發生的是，一些邏輯發現了地址的上部(這個例子裡是0x2000)，然後激活RAM，以便能操作地址的下部(這個例子裡是0x1234)。在一個Cortex-M上，我們也也會把Flash ROM映射進地址 <code>0x000_0000</code> 到地址 <code>0x0007_FFFF</code> 上 (如果我們有一個512KiB Flash ROM)。微控制器設計者沒有忽略這兩個區域間的所有剩餘空間，反而將外設的接口映射到這些地址上。最後看起來像這樣:</p>
+<p><img src="peripherals/../assets/nrf52-memory-map.png" alt="" /></p>
+<p><a href="http://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.1.pdf">Nordic nRF52832 Datasheet (pdf)</a></p>
+<h2 id="存儲映射的外設"><a class="header" href="#存儲映射的外設">存儲映射的外設</a></h2>
+<p>乍一看，與這些外設交互很簡單 - 將正確的數據寫入正確的地址。比如，在一個串行端口上發送一個32位字，可以直接把那個32位字寫入某個存儲地址。串行端口外設然後能自動獲取和發出數據。</p>
+<p>這些外設的配置工作相似。不是調用一個函數去配置一個外設，而是暴露一塊地址空間作為硬件API。向一個SPI頻率控制寄存器寫入 <code>0x8000_0000</code>，SPI端口將會按照每秒8MB的速度發送數據。向同個地址寫入 <code>0x0200_0000</code>，SPI端口將會按照每秒125KiB的速度發送數據。這些配置寄存器看起來有點像這個:</p>
+<p><img src="peripherals/../assets/nrf52-spi-frequency-register.png" alt="" /></p>
+<p><a href="http://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.1.pdf">Nordic nRF52832 Datasheet (pdf)</a></p>
+<p>這個接口是關於如何與硬件交互的，其與被使用的語言無關，無論這個語言是彙編，C，或者Rust。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust嚐鮮"><a class="header" href="#rust嚐鮮">Rust嚐鮮</a></h1>
+<h2 id="寄存器"><a class="header" href="#寄存器">寄存器</a></h2>
+<p>讓我們看下 'SysTick' 外設 - 一個簡單的計時器，它存在於每個Cortex-M處理器內核中。通常你能在芯片廠商的數據手冊或者<em>技術參考手冊</em>中看到它們，但是下面的例子對所有ARM Cortex-M核心都是通用的，讓我們看下<a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0553a/Babieigh.html">ARM參考手冊</a>。我們能看到這裡有四個寄存器:</p>
+<div class="table-wrapper"><table><thead><tr><th>Offset</th><th>Name</th><th>Description</th><th>Width</th></tr></thead><tbody>
+<tr><td>0x00</td><td>SYST_CSR</td><td>控制和狀態寄存器</td><td>32 bits</td></tr>
+<tr><td>0x04</td><td>SYST_RVR</td><td>重裝載值寄存器</td><td>32 bits</td></tr>
+<tr><td>0x08</td><td>SYST_CVR</td><td>當前值寄存器</td><td>32 bits</td></tr>
+<tr><td>0x0C</td><td>SYST_CALIB</td><td>校準值寄存器</td><td>32 bits</td></tr>
+</tbody></table>
+</div>
+<h2 id="c語言風格的方法the-c-approach"><a class="header" href="#c語言風格的方法the-c-approach">C語言風格的方法(The C Approach)</a></h2>
+<p>在Rust中，我們可以像C語言一樣，用一個 <code>struct</code> 表示一組寄存器。</p>
+<pre><code class="language-rust ignore">#[repr(C)]
+struct SysTick {
+    pub csr: u32,
+    pub rvr: u32,
+    pub cvr: u32,
+    pub calib: u32,
+}</code></pre>
+<p>限定符 <code>#[repr(C)]</code> 告訴Rust編譯器像C編譯器一樣去佈局這個結構體。這非常重要，因為Rust允許結構體字段被重新排序，而C語言不允許。你可以想象下如果這些字段被編譯器悄悄地重新排了序，在調試時會給我們帶來多大的麻煩！有了這個限定符，我們就有了與上表對應的四個32位的字段。但當然，這個 <code>struct</code> 本身沒什麼用處 - 我們需要一個變量。</p>
+<pre><code class="language-rust ignore">let systick = 0xE000_E010 as *mut SysTick;
+let time = unsafe { (*systick).cvr };</code></pre>
+<h2 id="volatile訪問volatile-accesses"><a class="header" href="#volatile訪問volatile-accesses">volatile訪問(Volatile Accesses)</a></h2>
+<p>現在，上面的方法有一堆問題。</p>
+<ol>
+<li>每次想要訪問外設，不得不使用unsafe 。</li>
+<li>無法指定哪個寄存器是隻讀的或者讀寫的。</li>
+<li>程序中任何地方的任何一段代碼都可以通過這個結構體訪問硬件。</li>
+<li>最重要的是，實際上它並不能工作。</li>
+</ol>
+<p>現在的問題是編譯器很聰明。如果你往RAM同個地方寫兩次，一個接著一個，編譯器會注意到這個行為，且完全跳過第一個寫入操作。在C語言中，我們能標記變量為<code>volatile</code>去確保每個讀或寫操作按所想的那樣發生。在Rust中，我們將<em>訪問</em>操作標記為易變的(volatile)，而不是將變量標記為volatile。</p>
+<pre><code class="language-rust ignore">let systick = unsafe { &amp;mut *(0xE000_E010 as *mut SysTick) };
+let time = unsafe { core::ptr::read_volatile(&amp;mut systick.cvr) };</code></pre>
+<p>這樣，我們已經修復了一個問題，但是現在我們有了更多的 <code>unsafe</code> 代碼!幸運的是，有個第三方的crate可以幫助到我們 - <a href="https://crates.io/crates/volatile_register"><code>volatile_register</code></a></p>
+<pre><code class="language-rust ignore">use volatile_register::{RW, RO};
+
+#[repr(C)]
+struct SysTick {
+    pub csr: RW&lt;u32&gt;,
+    pub rvr: RW&lt;u32&gt;,
+    pub cvr: RW&lt;u32&gt;,
+    pub calib: RO&lt;u32&gt;,
+}
+
+fn get_systick() -&gt; &amp;'static mut SysTick {
+    unsafe { &amp;mut *(0xE000_E010 as *mut SysTick) }
+}
+
+fn get_time() -&gt; u32 {
+    let systick = get_systick();
+    systick.cvr.read()
+}</code></pre>
+<p>現在通過<code>read</code>和<code>write</code>方法，volatile accesses可以被自動執行。執行寫操作仍然是 <code>unsafe</code> 的，但是公平地講，硬件有一堆可變的狀態，對於編譯器來說沒有辦法知道是否這些寫操作是真正安全的，因此默認就這樣是個不錯的選擇。</p>
+<h2 id="rust風格的封裝"><a class="header" href="#rust風格的封裝">Rust風格的封裝</a></h2>
+<p>我們需要把這個<code>struct</code>封裝進一個更高抽象的API中，這個API對於用戶來說，可以安全地調用。作為驅動的作者，我們親手驗證不安全的代碼是否正確，然後為我們的用戶提供一個safe的API，因此用戶們不必擔心它(讓他們相信我們不會出錯!)。</p>
+<p>有可能可以這樣寫:</p>
+<pre><code class="language-rust ignore">use volatile_register::{RW, RO};
+
+pub struct SystemTimer {
+    p: &amp;'static mut RegisterBlock
+}
+
+#[repr(C)]
+struct RegisterBlock {
+    pub csr: RW&lt;u32&gt;,
+    pub rvr: RW&lt;u32&gt;,
+    pub cvr: RW&lt;u32&gt;,
+    pub calib: RO&lt;u32&gt;,
+}
+
+impl SystemTimer {
+    pub fn new() -&gt; SystemTimer {
+        SystemTimer {
+            p: unsafe { &amp;mut *(0xE000_E010 as *mut RegisterBlock) }
+        }
+    }
+
+    pub fn get_time(&amp;self) -&gt; u32 {
+        self.p.cvr.read()
+    }
+
+    pub fn set_reload(&amp;mut self, reload_value: u32) {
+        unsafe { self.p.rvr.write(reload_value) }
+    }
+}
+
+pub fn example_usage() -&gt; String {
+    let mut st = SystemTimer::new();
+    st.set_reload(0x00FF_FFFF);
+    format!("Time is now 0x{:08x}", st.get_time())
+}</code></pre>
+<p>現在，這種方法帶來的問題是，下列的代碼完全可以被編譯器接受:</p>
+<pre><code class="language-rust ignore">fn thread1() {
+    let mut st = SystemTimer::new();
+    st.set_reload(2000);
+}
+
+fn thread2() {
+    let mut st = SystemTimer::new();
+    st.set_reload(1000);
+}</code></pre>
+<p>雖然 <code>set_reload</code> 函數的 <code>&amp;mut self</code> 參數保證了沒有引用到其它的<code>SystemTimer</code>結構體，但是不能阻止用戶去創造第二個<code>SystemTimer</code>，其指向同個外設！如果作者足夠努力的話，他能發現所有這些'重複的'驅動實例，那麼按這種方式寫的代碼就可以工作，但是一旦代碼被散播一段時間，散播給多個模塊，驅動，開發者，它會越來越容易觸發此類錯誤。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="可變的全局狀態"><a class="header" href="#可變的全局狀態">可變的全局狀態</a></h2>
+<p>不幸的是，硬件本質上是個可變的全局狀態，Rust開發者可能會對此感到很害怕。因為硬件獨立於我們所寫的代碼的結構，能被真實世界在任何時候改變。</p>
+<h2 id="我們應該遵循什麼規則"><a class="header" href="#我們應該遵循什麼規則">我們應該遵循什麼規則?</a></h2>
+<p>我們如何才能做到可靠地與這些外設交互?</p>
+<ol>
+<li>總是使用 <code>volatile</code> 方法去讀或者寫外設存儲器。因為它隨時會改變。</li>
+<li>在軟件中，我們應該能共享任何數量的關於這些外設的只讀訪問</li>
+<li>如果某個軟件可以讀寫一個外設，它應該保有對那個外設的唯一引用。</li>
+</ol>
+<h2 id="借用檢查器"><a class="header" href="#借用檢查器">借用檢查器</a></h2>
+<p>這些規則最後兩個聽起來與借用檢查器在做的事情很像！</p>
+<p>思考一下，我們是否可以傳遞這些外設的所有權，或者提供對它們的可變或者不可變的引用？</p>
+<p>我們當然可以，但是對於借用檢查器來說，每個外設只有一個實例的話，Rust才可以正確地處理這件事。幸運的是，在硬件中，任何給定的外設，只有一個實例，但是我們該如何將它暴露在代碼的結構中呢？</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="單例"><a class="header" href="#單例">單例</a></h1>
+<blockquote>
+<p>在軟件工程中，單例模式是一個軟件設計模式，其限制了一個類到一個對象的實例化。</p>
+<p><em>Wikipedia: <a href="https://en.wikipedia.org/wiki/Singleton_pattern">Singleton Pattern</a></em></p>
+</blockquote>
+<h2 id="為什麼不可以使用全局變量"><a class="header" href="#為什麼不可以使用全局變量">為什麼不可以使用全局變量？</a></h2>
+<p>可以像這樣，我們可以使每個東西都變成公共靜態的(public static):</p>
+<pre><code class="language-rust ignore">static mut THE_SERIAL_PORT: SerialPort = SerialPort;
+
+fn main() {
+    let _ = unsafe {
+        THE_SERIAL_PORT.read_speed();
+    };
+}</code></pre>
+<p>但是這個帶來了一些問題。它是一個可變的全局變量，在Rust，與這些變量交互總是unsafe的。這些變量在你所有的程序間也是可見的，意味著借用檢查器不能幫你跟蹤這些變量的引用和所有權。</p>
+<h2 id="在rust中要怎麼做"><a class="header" href="#在rust中要怎麼做">在Rust中要怎麼做?</a></h2>
+<p>與其只是讓我們的外設變成一個全局變量，我們不如創造一個結構體，在這個例子裡其被叫做 <code>PERIPHERALS</code>，這個全局變量對於我們的每個外設，它都有一個與之對應的 <code>Option&lt;T&gt;</code> ．</p>
+<pre><code class="language-rust ignore">struct Peripherals {
+    serial: Option&lt;SerialPort&gt;,
+}
+impl Peripherals {
+    fn take_serial(&amp;mut self) -&gt; SerialPort {
+        let p = replace(&amp;mut self.serial, None);
+        p.unwrap()
+    }
+}
+static mut PERIPHERALS: Peripherals = Peripherals {
+    serial: Some(SerialPort),
+};</code></pre>
+<p>這個結構體允許我們獲得一個外設的實例。如果我們嘗試調用<code>take_serial()</code>獲得多個實例，我們的代碼將會拋出運行時恐慌(panic)！</p>
+<pre><code class="language-rust ignore">fn main() {
+    let serial_1 = unsafe { PERIPHERALS.take_serial() };
+    // 這裡造成運行時恐慌！
+    // let serial_2 = unsafe { PERIPHERALS.take_serial() };
+}</code></pre>
+<p>雖然與這個結構體交互是<code>unsafe</code>，然而一旦我們獲得了它包含的 <code>SerialPort</code>，我們將不再需要使用<code>unsafe</code>，或者<code>PERIPHERALS</code>結構體。</p>
+<p>這個帶來了少量的運行時開銷，因為我們必須打包 <code>SerialPort</code> 結構體進一個option中，且我們將需要調用一次 <code>take_serial()</code>，但是這種少量的前期成本，能使我們在接下來的程序中使用借用檢查器(borrow checker) 。</p>
+<h2 id="已存在的庫支持"><a class="header" href="#已存在的庫支持">已存在的庫支持</a></h2>
+<p>雖然我們在上面生成了我們自己的 <code>Peripherals</code> 結構體，但這並不是必須的。<code>cortex_m</code> crate 包含一個被叫做 <code>singleton!()</code> 的宏，它可以為你完成這個任務。</p>
+<pre><code class="language-rust ignore">use cortex_m::singleton;
+
+fn main() {
+    // OK 如果 `main` 只被執行一次
+    let x: &amp;'static mut bool =
+        singleton!(: bool = false).unwrap();
+}</code></pre>
+<p><a href="https://docs.rs/cortex-m/latest/cortex_m/macro.singleton.html">cortex_m docs</a></p>
+<p>另外，如果你使用 <a href="https://github.com/rtic-rs/cortex-m-rtic"><code>cortex-m-rtic</code></a>，它將獲取和定義這些外設的整個過程抽象了出來，你將獲得一個<code>Peripherals</code>結構體，其包含了所有你定義了的項的一個非 <code>Option&lt;T&gt;</code> 的版本。</p>
+<pre><code class="language-rust ignore">// cortex-m-rtic v0.5.x
+#[rtic::app(device = lm3s6965, peripherals = true)]
+const APP: () = {
+    #[init]
+    fn init(cx: init::Context) {
+        static mut X: u32 = 0;
+         
+        // Cortex-M外設
+        let core: cortex_m::Peripherals = cx.core;
+        
+        // 設備特定的外設
+        let device: lm3s6965::Peripherals = cx.device;
+    }
+}</code></pre>
+<h2 id="為什麼"><a class="header" href="#為什麼">為什麼？</a></h2>
+<p>但是這些單例模式是如何使我們的Rust代碼在工作方式上產生很大不同的?</p>
+<pre><code class="language-rust ignore">impl SerialPort {
+    const SER_PORT_SPEED_REG: *mut u32 = 0x4000_1000 as _;
+
+    fn read_speed(
+        &amp;self // &lt;------ 這個真的真的很重要
+    ) -&gt; u32 {
+        unsafe {
+            ptr::read_volatile(Self::SER_PORT_SPEED_REG)
+        }
+    }
+}</code></pre>
+<p>這裡有兩個重要因素:</p>
+<ul>
+<li>因為我們正在使用一個單例模式，所以我們只有一種方法或者地方去獲得一個 <code>SerialPort</code> 結構體。</li>
+<li>為了調用 <code>read_speed()</code> 方法，我們必須擁有一個 <code>SerialPort</code> 結構體的所有權或者一個引用。</li>
+</ul>
+<p>這兩個因素放在一起意味著，只有當我們滿足了借用檢查器的條件時，我們才有可能訪問硬件，也意味著在任何時候不可能存在多個對同一個硬件的可變引用(&amp;mut)！</p>
+<pre><code class="language-rust ignore">fn main() {
+    // 缺少對`self`的引用！將不會工作。
+    // SerialPort::read_speed();
+
+    let serial_1 = unsafe { PERIPHERALS.take_serial() };
+
+    // 你只能讀取你有權訪問的內容
+    let _ = serial_1.read_speed();
+}</code></pre>
+<h2 id="像對待數據一樣對待硬件"><a class="header" href="#像對待數據一樣對待硬件">像對待數據一樣對待硬件</a></h2>
+<p>另外，因為一些引用是可變的，一些是不可變的，就可以知道一個函數或者方法是否有能力修改硬件的狀態。比如，</p>
+<p>這個函數可以改變硬件的配置:</p>
+<pre><code class="language-rust ignore">fn setup_spi_port(
+    spi: &amp;mut SpiPort,
+    cs_pin: &amp;mut GpioPin
+) -&gt; Result&lt;()&gt; {
+    // ...
+}</code></pre>
+<p>這個不行:</p>
+<pre><code class="language-rust ignore">fn read_button(gpio: &amp;GpioPin) -&gt; bool {
+    // ...
+}</code></pre>
+<p>這允許我們在<strong>編譯時</strong>而不是運行時強制代碼是否應該或者不應該對硬件進行修改。要注意，這通常在只有一個應用的情況下起作用，但是對於裸機系統來說，我們的軟件將被編譯進一個單一應用中，因此這通常不是一個限制。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="靜態保障"><a class="header" href="#靜態保障">靜態保障</a></h1>
+<p>Rust的類型系統可以在編譯時防止數據競爭(看<a href="https://doc.rust-lang.org/core/marker/trait.Send.html"><code>Send</code></a>和<a href="https://doc.rust-lang.org/core/marker/trait.Sync.html"><code>Sync</code></a>特性(traits))。也可以在編譯時使用類型系統來完成一些檢查工作；減少某些例子中對運行時檢查的需要。</p>
+<p>當應用到嵌入式程序時，這些<em>靜態檢查</em>能被用來，比如，強制按需配置I/O接口。例如，可以設計一個初始化串行接口的API，這個API只有在配置好接口需要的管腳後才可以被正確地使用。</p>
+<p>也可以靜態檢查,是否是在正確配置了的外設上執行的操作，像是拉低一個管腳這種操作。比如嘗試修改一個被配置成浮空輸入模式的管腳的輸出狀態時，會觸發一個編譯時錯誤。</p>
+<p>並且，像是在前面章節看到的，所有權的概念能被應用到外設上確保一個程序只有某些部分可以修改一個外設。與將這個外設當做全局可變的狀態相比，<em>訪問控制</em>(assess control)使得軟件更容易推理。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="類型狀態編程typestate-programming"><a class="header" href="#類型狀態編程typestate-programming">類型狀態編程(Typestate Programming)</a></h1>
+<p><a href="https://en.wikipedia.org/wiki/Typestate_analysis">typestates</a>的概念是指將有關對象當前狀態的信息編碼進該對象的類型中。雖然這聽起來有點神秘，如果你在Rust中用過<a href="https://doc.rust-lang.org/1.0.0/style/ownership/builders.html">建造者模式</a>，你就已經開始使用類型狀態編程了！</p>
+<pre><pre class="playground"><code class="language-rust">pub mod foo_module {
+    #[derive(Debug)]
+    pub struct Foo {
+        inner: u32,
+    }
+
+    pub struct FooBuilder {
+        a: u32,
+        b: u32,
+    }
+
+    impl FooBuilder {
+        pub fn new(starter: u32) -&gt; Self {
+            Self {
+                a: starter,
+                b: starter,
+            }
+        }
+
+        pub fn double_a(self) -&gt; Self {
+            Self {
+                a: self.a * 2,
+                b: self.b,
+            }
+        }
+
+        pub fn into_foo(self) -&gt; Foo {
+            Foo {
+                inner: self.a + self.b,
+            }
+        }
+    }
+}
+
+fn main() {
+    let x = foo_module::FooBuilder::new(10)
+        .double_a()
+        .into_foo();
+
+    println!("{:#?}", x);
+}</code></pre></pre>
+<p>在這個例子裡，不能直接生成一個<code>Foo</code>對象。必須先生成一個<code>FooBuilder</code>，並且恰當地初始化<code>FooBuilder</code>後，才能獲取到需要的<code>Foo</code>對象。</p>
+<p>這個最小的例子編碼了兩個狀態:</p>
+<ul>
+<li><code>FooBuilder</code>，其表示一個"沒有被配置"，或者"正在配置"狀態</li>
+<li><code>Foo</code>，其表示了一個"被配置"，或者"可以使用"狀態。</li>
+</ul>
+<h2 id="強類型"><a class="header" href="#強類型">強類型</a></h2>
+<p>因為Rust有一個<a href="https://en.wikipedia.org/wiki/Strong_and_weak_typing">強類型系統</a>，沒有什麼簡單的方法可以奇蹟般地生成一個<code>Foo</code>實例，也沒有簡單的方法可以不用調用<code>into_foo()</code>方法而把一個<code>FooBuilder</code>變成一個<code>Foo</code>。另外，調用<code>into_foo()</code>方法消費了最初的<code>FooBuilder</code>結構體，意味著不生成一個新的實例就不能被再次使用它。</p>
+<p>這允許我們可以將系統的狀態表示成類型，把狀態轉換必須的動作包括進轉換兩個類型的方法中。通過生成一個 <code>FooBuilder</code>，轉換成一個 <code>Foo</code> 對象，我們已經使用了一個基本的狀態機。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="作為狀態機的外設"><a class="header" href="#作為狀態機的外設">作為狀態機的外設</a></h1>
+<p>一個微控制器的外設可以被想成是一組狀態機。比如，一個簡化的<a href="https://en.wikipedia.org/wiki/General-purpose_input/output">GPIO管腳</a>的配置可以被表達成下列的狀態樹:</p>
+<ul>
+<li>關閉</li>
+<li>使能
+<ul>
+<li>配置成輸出
+<ul>
+<li>輸出: 高</li>
+<li>輸出: 低</li>
+</ul>
+</li>
+<li>配置成輸入
+<ul>
+<li>輸入: 高阻態</li>
+<li>輸入: 下拉</li>
+<li>輸入: 上拉</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>如果外設開始於<code>關閉</code>模式，切換到<code>輸入: 高阻態</code>模式，我們必須執行下面的步驟:</p>
+<ol>
+<li>關閉</li>
+<li>使能</li>
+<li>配置成輸入</li>
+<li>輸入: 高阻態</li>
+</ol>
+<p>如果我們想要從<code>輸入: 高阻態</code>切換到<code>輸入: 下拉</code>，我們必須執行下列的步驟:</p>
+<ol>
+<li>輸入: 高阻抗</li>
+<li>輸入: 下拉</li>
+</ol>
+<p>同樣地，如果我們想要把一個GPIO管腳從<code>輸入: 下拉</code>切換到<code>輸出: 高</code>，我們必須執行下列的步驟:</p>
+<ol>
+<li>輸入: 下拉</li>
+<li>配置成輸入</li>
+<li>配置成輸出</li>
+<li>輸出: 高</li>
+</ol>
+<h2 id="硬件表徵hardware-representation"><a class="header" href="#硬件表徵hardware-representation">硬件表徵(Hardware Representation)</a></h2>
+<p>通常，通過向映射到GPIO外設上的指定的寄存器中寫入值可以配置上面列出的狀態。讓我們定義一個假想的GPIO配置寄存器來解釋下它:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">名字</th><th style="text-align: right">位數(s)</th><th style="text-align: right">值</th><th style="text-align: right">含義</th><th style="text-align: right">註釋</th></tr></thead><tbody>
+<tr><td style="text-align: right">使能</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">關閉</td><td style="text-align: right">關閉GPIO</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">1</td><td style="text-align: right">使能</td><td style="text-align: right">使能GPIO</td></tr>
+<tr><td style="text-align: right">方向</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">輸入</td><td style="text-align: right">方向設置成輸入</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">1</td><td style="text-align: right">輸出</td><td style="text-align: right">方向設置成輸出</td></tr>
+<tr><td style="text-align: right">輸入模式</td><td style="text-align: right">2..3</td><td style="text-align: right">00</td><td style="text-align: right">hi-z</td><td style="text-align: right">輸入設置為高阻態</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">01</td><td style="text-align: right">下拉</td><td style="text-align: right">下拉輸入管腳</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">10</td><td style="text-align: right">上拉</td><td style="text-align: right">上拉輸入管腳</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">11</td><td style="text-align: right">n/a</td><td style="text-align: right">無效狀態。不要設置</td></tr>
+<tr><td style="text-align: right">輸出模式</td><td style="text-align: right">4</td><td style="text-align: right">0</td><td style="text-align: right">拉低</td><td style="text-align: right">輸出管腳變成地電平</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">1</td><td style="text-align: right">拉高</td><td style="text-align: right">輸出管腳變成高電平</td></tr>
+<tr><td style="text-align: right">輸入狀態</td><td style="text-align: right">5</td><td style="text-align: right">x</td><td style="text-align: right">in-val</td><td style="text-align: right">如果輸入 &lt; 1.5v為0，如果輸入 &gt;= 1.5v為1</td></tr>
+</tbody></table>
+</div>
+<p><em>可以</em> 在Rust中暴露下列的結構體來控制這個GPIO:</p>
+<pre><code class="language-rust ignore">/// GPIO接口
+struct GpioConfig {
+    /// 由svd2rust生成的GPIO配置結構體
+    periph: GPIO_CONFIG,
+}
+
+impl GpioConfig {
+    pub fn set_enable(&amp;mut self, is_enabled: bool) {
+        self.periph.modify(|_r, w| {
+            w.enable().set_bit(is_enabled)
+        });
+    }
+
+    pub fn set_direction(&amp;mut self, is_output: bool) {
+        self.periph.modify(|_r, w| {
+            w.direction().set_bit(is_output)
+        });
+    }
+
+    pub fn set_input_mode(&amp;mut self, variant: InputMode) {
+        self.periph.modify(|_r, w| {
+            w.input_mode().variant(variant)
+        });
+    }
+
+    pub fn set_output_mode(&amp;mut self, is_high: bool) {
+        self.periph.modify(|_r, w| {
+            w.output_mode.set_bit(is_high)
+        });
+    }
+
+    pub fn get_input_status(&amp;self) -&gt; bool {
+        self.periph.read().input_status().bit_is_set()
+    }
+}</code></pre>
+<p>然而，這會允許我們修改某些沒有意義的寄存器。比如，如果當我們的GPIO被配置為輸入時我們設置<code>output_mode</code>字段，將會發生什麼？</p>
+<p>通常使用這個結構體會允許我們訪問到上面的狀態機沒有定義的狀態：比如，一個被上拉的輸出，或者一個被拉高的輸入。對於一些硬件，這並沒有關係。對另外一些硬件來說，這將會導致不可預期或者沒有定義的行為！</p>
+<p>雖然這個接口很方便寫入，但是它沒有強制我們遵守硬件實現所設的設計約定。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="設計約定design-contracts"><a class="header" href="#設計約定design-contracts">設計約定(design contracts)</a></h1>
+<p>在我們的上個章節中，我們寫了一個接口，但沒有強制遵守設計約定。讓我們再看下我們假想的GPIO配置寄存器：</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">名字</th><th style="text-align: right">位數(s)</th><th style="text-align: right">值</th><th style="text-align: right">含義</th><th style="text-align: right">註釋</th></tr></thead><tbody>
+<tr><td style="text-align: right">使能</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">關閉</td><td style="text-align: right">關閉GPIO</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">1</td><td style="text-align: right">使能</td><td style="text-align: right">使能GPIO</td></tr>
+<tr><td style="text-align: right">方向</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">輸入</td><td style="text-align: right">方向設置成輸入</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">1</td><td style="text-align: right">輸出</td><td style="text-align: right">方向設置成輸出</td></tr>
+<tr><td style="text-align: right">輸入模式</td><td style="text-align: right">2..3</td><td style="text-align: right">00</td><td style="text-align: right">高阻態</td><td style="text-align: right">輸入設置為高阻態</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">01</td><td style="text-align: right">下拉</td><td style="text-align: right">下拉輸入管腳</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">10</td><td style="text-align: right">上拉</td><td style="text-align: right">上拉輸入管腳</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">11</td><td style="text-align: right">n/a</td><td style="text-align: right">無效狀態。不要設置</td></tr>
+<tr><td style="text-align: right">輸出模式</td><td style="text-align: right">4</td><td style="text-align: right">0</td><td style="text-align: right">拉低</td><td style="text-align: right">把管腳設置成低電平</td></tr>
+<tr><td style="text-align: right"></td><td style="text-align: right"></td><td style="text-align: right">1</td><td style="text-align: right">拉高</td><td style="text-align: right">把管腳設置成高電平</td></tr>
+<tr><td style="text-align: right">輸入狀態</td><td style="text-align: right">5</td><td style="text-align: right">x</td><td style="text-align: right">輸入電平</td><td style="text-align: right">如果輸入 &lt; 1.5v 為0，如果輸入 &gt;= 1.5v 為1</td></tr>
+</tbody></table>
+</div>
+<p>如果在使用底層硬件之前檢查硬件的狀態，在運行時強制用戶遵守設計約定，代碼可能像這一樣:</p>
+<pre><code class="language-rust ignore">/// GPIO接口
+struct GpioConfig {
+    /// 由svd2rust生成的GPIO配製結構體
+    periph: GPIO_CONFIG,
+}
+
+impl GpioConfig {
+    pub fn set_enable(&amp;mut self, is_enabled: bool) {
+        self.periph.modify(|_r, w| {
+            w.enable().set_bit(is_enabled)
+        });
+    }
+
+    pub fn set_direction(&amp;mut self, is_output: bool) -&gt; Result&lt;(), ()&gt; {
+        if self.periph.read().enable().bit_is_clear() {
+            // 必須被使能配置方向
+            return Err(());
+        }
+
+        self.periph.modify(|r, w| {
+            w.direction().set_bit(is_output)
+        });
+
+        Ok(())
+    }
+
+    pub fn set_input_mode(&amp;mut self, variant: InputMode) -&gt; Result&lt;(), ()&gt; {
+        if self.periph.read().enable().bit_is_clear() {
+            // 必須被使能配置輸入模式
+            return Err(());
+        }
+
+        if self.periph.read().direction().bit_is_set() {
+            // 方向必須被設置成輸入
+            return Err(());
+        }
+
+        self.periph.modify(|_r, w| {
+            w.input_mode().variant(variant)
+        });
+
+        Ok(())
+    }
+
+    pub fn set_output_status(&amp;mut self, is_high: bool) -&gt; Result&lt;(), ()&gt; {
+        if self.periph.read().enable().bit_is_clear() {
+            // 設置輸出狀態必須被使能
+            return Err(());
+        }
+
+        if self.periph.read().direction().bit_is_clear() {
+            // 方向必須是輸出
+            return Err(());
+        }
+
+        self.periph.modify(|_r, w| {
+            w.output_mode.set_bit(is_high)
+        });
+
+        Ok(())
+    }
+
+    pub fn get_input_status(&amp;self) -&gt; Result&lt;bool, ()&gt; {
+        if self.periph.read().enable().bit_is_clear() {
+            // 獲取狀態必須被使能
+            return Err(());
+        }
+
+        if self.periph.read().direction().bit_is_set() {
+            // 方向必須是輸入
+            return Err(());
+        }
+
+        Ok(self.periph.read().input_status().bit_is_set())
+    }
+}</code></pre>
+<p>因為需要強制遵守硬件上的限制，所以最後做了很多運行時檢查，它浪費了我們很多時間和資源，對於開發者來說，這個代碼用起來就沒那麼愉快了。</p>
+<h2 id="類型狀態type-states"><a class="header" href="#類型狀態type-states">類型狀態(Type states)</a></h2>
+<p>但是，如果我們讓Rust的類型系統去強制遵守狀態轉換的規則會怎樣？看下這個例子:</p>
+<pre><code class="language-rust ignore">/// GPIO接口
+struct GpioConfig&lt;ENABLED, DIRECTION, MODE&gt; {
+    /// 由svd2rust產生的GPIO配置結構體
+    periph: GPIO_CONFIG,
+    enabled: ENABLED,
+    direction: DIRECTION,
+    mode: MODE,
+}
+
+// GpioConfig中MODE的類型狀態
+struct Disabled;
+struct Enabled;
+struct Output;
+struct Input;
+struct PulledLow;
+struct PulledHigh;
+struct HighZ;
+struct DontCare;
+
+/// 這些函數可能被用於所有的GPIO管腳
+impl&lt;EN, DIR, IN_MODE&gt; GpioConfig&lt;EN, DIR, IN_MODE&gt; {
+    pub fn into_disabled(self) -&gt; GpioConfig&lt;Disabled, DontCare, DontCare&gt; {
+        self.periph.modify(|_r, w| w.enable.disabled());
+        GpioConfig {
+            periph: self.periph,
+            enabled: Disabled,
+            direction: DontCare,
+            mode: DontCare,
+        }
+    }
+
+    pub fn into_enabled_input(self) -&gt; GpioConfig&lt;Enabled, Input, HighZ&gt; {
+        self.periph.modify(|_r, w| {
+            w.enable.enabled()
+             .direction.input()
+             .input_mode.high_z()
+        });
+        GpioConfig {
+            periph: self.periph,
+            enabled: Enabled,
+            direction: Input,
+            mode: HighZ,
+        }
+    }
+
+    pub fn into_enabled_output(self) -&gt; GpioConfig&lt;Enabled, Output, DontCare&gt; {
+        self.periph.modify(|_r, w| {
+            w.enable.enabled()
+             .direction.output()
+             .input_mode.set_high()
+        });
+        GpioConfig {
+            periph: self.periph,
+            enabled: Enabled,
+            direction: Output,
+            mode: DontCare,
+        }
+    }
+}
+
+/// 這個函數可能被用於一個輸出管腳
+impl GpioConfig&lt;Enabled, Output, DontCare&gt; {
+    pub fn set_bit(&amp;mut self, set_high: bool) {
+        self.periph.modify(|_r, w| w.output_mode.set_bit(set_high));
+    }
+}
+
+/// 這些方法可能被用於任意一個使能的輸入GPIO
+impl&lt;IN_MODE&gt; GpioConfig&lt;Enabled, Input, IN_MODE&gt; {
+    pub fn bit_is_set(&amp;self) -&gt; bool {
+        self.periph.read().input_status.bit_is_set()
+    }
+
+    pub fn into_input_high_z(self) -&gt; GpioConfig&lt;Enabled, Input, HighZ&gt; {
+        self.periph.modify(|_r, w| w.input_mode().high_z());
+        GpioConfig {
+            periph: self.periph,
+            enabled: Enabled,
+            direction: Input,
+            mode: HighZ,
+        }
+    }
+
+    pub fn into_input_pull_down(self) -&gt; GpioConfig&lt;Enabled, Input, PulledLow&gt; {
+        self.periph.modify(|_r, w| w.input_mode().pull_low());
+        GpioConfig {
+            periph: self.periph,
+            enabled: Enabled,
+            direction: Input,
+            mode: PulledLow,
+        }
+    }
+
+    pub fn into_input_pull_up(self) -&gt; GpioConfig&lt;Enabled, Input, PulledHigh&gt; {
+        self.periph.modify(|_r, w| w.input_mode().pull_high());
+        GpioConfig {
+            periph: self.periph,
+            enabled: Enabled,
+            direction: Input,
+            mode: PulledHigh,
+        }
+    }
+}</code></pre>
+<p>現在讓我們看下代碼如何用這個API:</p>
+<pre><code class="language-rust ignore">/*
+ * 案例 1: 從未配置到高阻輸入
+ */
+let pin: GpioConfig&lt;Disabled, _, _&gt; = get_gpio();
+
+// 不能這麼做，pin沒有被使能
+// pin.into_input_pull_down();
+
+// 現在把管腳從未配置變為高阻輸入
+let input_pin = pin.into_enabled_input();
+
+// 從管腳讀取
+let pin_state = input_pin.bit_is_set();
+
+// 不能這麼做，輸入管腳沒有這個接口
+// input_pin.set_bit(true);
+
+/*
+ * 案例 2: 高阻輸入到下拉輸入
+ */
+let pulled_low = input_pin.into_input_pull_down();
+let pin_state = pulled_low.bit_is_set();
+
+/*
+ * 案例 3: 下拉輸入到輸出, 拉高
+ */
+let output_pin = pulled_low.into_enabled_output();
+output_pin.set_bit(true);
+
+// 不能這麼做，輸出管腳沒有這個接口
+// output_pin.into_input_pull_down();</code></pre>
+<p>這絕對是存儲管腳狀態的便捷方法，但是為什麼這麼做?為什麼這比把狀態當成一個<code>enum</code>存在我們的<code>GpioConfig</code>結構體中更好？</p>
+<h2 id="編譯時功能安全functional-safety"><a class="header" href="#編譯時功能安全functional-safety">編譯時功能安全(Functional Safety)</a></h2>
+<p>因為我們在編譯時完全強制遵守設計約定，這造成了沒有運行時開銷。當管腳處於輸入模式時時，是不可能設置輸出模式的。必須先把它設置成一個輸出管腳，然後再設置輸出模式。因為在執行一個函數前會檢查現在的狀態，因此沒有運行時消耗。</p>
+<p>也因為這些狀態被類型系統強制遵守，因此沒有為這個接口的使用者留太多的犯錯餘地。如果它們嘗試執行一個非法的狀態轉換，代碼將不會編譯成功！</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="零成本抽象"><a class="header" href="#零成本抽象">零成本抽象</a></h1>
+<p>類型狀態是一個零成本抽象的傑出案例 - 把某些行為移到編譯時執行或者分析的能力。這些類型狀態不包含真實的數據，只用來作為標記。因為它們不包含數據，在運行時它們在內存中不存在實際的表示。</p>
+<pre><code class="language-rust ignore">use core::mem::size_of;
+
+let _ = size_of::&lt;Enabled&gt;();    // == 0
+let _ = size_of::&lt;Input&gt;();      // == 0
+let _ = size_of::&lt;PulledHigh&gt;(); // == 0
+let _ = size_of::&lt;GpioConfig&lt;Enabled, Input, PulledHigh&gt;&gt;(); // == 0</code></pre>
+<h2 id="零大小的類型zero-sized-types"><a class="header" href="#零大小的類型zero-sized-types">零大小的類型(Zero Sized Types)</a></h2>
+<pre><code class="language-rust ignore">struct Enabled;</code></pre>
+<p>像這樣定義的結構體被稱為零大小的類型，因為它們不包含實際數據。雖然這些類型在編譯時像是"真實的"(real) - 你可以拷貝它們，移動它們，引用它們，等等，然而優化器將會完全跳過它們。</p>
+<p>在這個代碼片段裡:</p>
+<pre><code class="language-rust ignore">pub fn into_input_high_z(self) -&gt; GpioConfig&lt;Enabled, Input, HighZ&gt; {
+    self.periph.modify(|_r, w| w.input_mode().high_z());
+    GpioConfig {
+        periph: self.periph,
+        enabled: Enabled,
+        direction: Input,
+        mode: HighZ,
+    }
+}</code></pre>
+<p>我們返回的GpioConfig在運行時並不存在。對這個函數的調用通常會被歸納為一條彙編指令 - 把一個常量寄存器值存進一個寄存器裡。這意味著我們開發的類型狀態接口是一個零成本抽象 - 它不會用更多的CPU，RAM，或者代碼空間去跟蹤<code>GpioConfig</code>的狀態，會被渲染成和直接訪問寄存器一樣的機器碼。</p>
+<h2 id="嵌套"><a class="header" href="#嵌套">嵌套</a></h2>
+<p>通常，這些抽象可能會被深深地嵌套起來。一旦結構體使用的所有的組件是零大小類型的，整個結構體將不會在運行時存在。</p>
+<p>對於複雜或者深度嵌套的結構體，定義所有可能的狀態組合可能很乏味。在這些例子中，宏可能可以被用來生成所有的實現。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="可移植性"><a class="header" href="#可移植性">可移植性</a></h1>
+<p>在嵌入式環境中，可移植性是一個非常重要的主題: 每個供應商甚至同個製造商的不同系列間，都提供了不同的外設和功能。同樣地，與外設交互的方式也將會不一樣。</p>
+<p>通過一個被叫做硬件抽象層或者<strong>HAL</strong>的層去均等化這種差異是一種常見的方法。</p>
+<blockquote>
+<p>在軟件中硬件抽象是一組函數，其模仿了一些平臺特定的細節，讓程序可以直接訪問硬件資源。
+通過向硬件提供標準的操作系統(OS)調用，它可以讓程序員編寫獨立於設備的高性能應用。</p>
+<p><em>Wikipedia: <a href="https://en.wikipedia.org/wiki/Hardware_abstraction">Hardware Abstraction Layer</a></em></p>
+</blockquote>
+<p>在這方面，嵌入式系統有點特別，因為通常沒有操作系統和用戶可安裝的軟件，而只有固件鏡像，其作為一個整體被編譯且伴著許多約束。因此雖然維基百科定義的傳統方法可能有用，但是它不是確保可移植性最有效的方法。</p>
+<p>在Rust中我們要怎麼實現這個目標呢?讓我們進入<strong>embedded-hal</strong>...</p>
+<h2 id="什麼是embedded-hal"><a class="header" href="#什麼是embedded-hal">什麼是embedded-hal？</a></h2>
+<p>簡而言之，它是一組traits，其定義了<strong>HAL implementations</strong>，<strong>驅動</strong>，<strong>應用(或者固件)</strong> 之間的實現約定(implementation contracts)。這些約定包括功能(即約定，如果為某個類型實現了某個trait，<strong>HAL implementation</strong>就提供了某個功能)和方法(即，如果構造一個實現了某個trait的類型，約定保障類型肯定有在trait中指定的方法)。</p>
+<p>典型的分層可能如下所示:</p>
+<p><img src="portability/../assets/rust_layers.svg" alt="" /></p>
+<p>一些在<strong>embedded-hal</strong>中被定義的traits:</p>
+<ul>
+<li>GPIO (input and output pins)</li>
+<li>Serial communication</li>
+<li>I2C</li>
+<li>SPI</li>
+<li>Timers/Countdowns</li>
+<li>Analog Digital Conversion</li>
+</ul>
+<p>使用<strong>embedded-hal</strong> traits和依賴<strong>embedded-hal</strong>的crates的主要原因是為了控制複雜性。如果發現一個應用可能必須要實現對硬件外設的使用，以及需要實現應用程序和其它硬件組件間潛在的驅動，那麼其應該很容易被看作是可複用性有限的。用數學語言來說就是，如果<strong>M</strong>是外設HAL implementations的數量，<strong>N</strong>是驅動的數量，那麼如果我們要為每個應用重新發明輪子我們最終會有<strong>M*N</strong>個實現，然而通過使用<strong>embedded-hal</strong>的traits提供的 <em>API</em> 將會使實現複雜性變成<strong>M+N</strong> 。當然還有其它好處，比如由於API定義良好，開箱即用，導致試錯減少。</p>
+<h2 id="embedded-hal的用戶"><a class="header" href="#embedded-hal的用戶">embedded-hal的用戶</a></h2>
+<p>像上面所說的，HAL有三個主要用戶:</p>
+<h3 id="hal-implementation"><a class="header" href="#hal-implementation">HAL implementation</a></h3>
+<p>HAL implentation提供硬件和HAL traits的用戶之間的接口。典型的實現由三部分組成:</p>
+<ul>
+<li>一個或者多個硬件特定的類型</li>
+<li>生成和初始化這個類型的函數，函數經常提供不同的配置選項(速度，操作模式，使用的管腳，etc 。)</li>
+<li>與這個類型有關的一個或者多個 <strong>embedded-hal</strong> traits 的 <code>trait</code> <code>impl</code></li>
+</ul>
+<p>這樣的一個 <strong>HAL implementation</strong> 可以有多個方法來實現:</p>
+<ul>
+<li>通過低級硬件訪問，比如通過寄存器。</li>
+<li>通過操作系統，比如通過使用Linux下的 <code>sysfs</code></li>
+<li>通過適配器，比如一個與單元測試有關的類型的仿真</li>
+<li>通過相關硬件適配器的驅動，e.g. I2C多路複用器或者GPIO擴展器(I2C multiplexer or GPIO expander)</li>
+</ul>
+<h3 id="驅動"><a class="header" href="#驅動">驅動</a></h3>
+<p>驅動為一個外部或者內部組件實現了一組自定義的功能，被連接到一個實現了embedded-hal traits的外設上。這種驅動的典型的例子包括多種傳感器(溫度計，磁力計，加速度計，光照計)，顯示設備(LED陣列，LCD顯示屏)和執行器(電機，發送器)。</p>
+<p>必須使用實現了embedded-hal的某個<code>trait</code>的類型的實例來初始化驅動，這是通過trait bound來確保的，驅動也提供了它自己的類型實例，這個實例具有一組自定義的方法，這些方法允許與被驅動的設備交互。</p>
+<h3 id="應用"><a class="header" href="#應用">應用</a></h3>
+<p>應用把多個部分結合在一起並確保需要的功能被實現。當在不同的系統間移植時，這部分的適配是花費最多精力的地方，因為應用需要通過HAL implementation正確地初始化真實的硬件，而且不同硬件的初始化也不相同，甚至有時候差別非常大。用戶的選擇也在其中扮演了非常重大的角色，因為組件能被物理連接到不同的端口，硬件總線有時候需要外部硬件去匹配配置，或者用戶在內部外設的使用上有不同的考量。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="併發"><a class="header" href="#併發">併發</a></h1>
+<p>當程序的不同部分有可能會在不同的時刻被執行或者不按順序地被執行時，那併發就出現了。在一個嵌入式環境中，這包括:</p>
+<ul>
+<li>中斷處理函數，一旦相關的中斷髮生時，中斷處理函數就會運行，</li>
+<li>不同的多線程形式，在這塊，微處理器通常會在程序的不同部分間進行切換，</li>
+<li>在一些多核微處理器系統中，每個核可以同時獨立地運行程序的不同部分。</li>
+</ul>
+<p>因為許多嵌入式程序需要處理中斷，因此併發遲早會出現，這也是許多微妙和困難的bugs會出現的地方。幸運地是，Rust提供了許多抽象和安全保障去幫助我們寫正確的代碼。</p>
+<h2 id="沒有併發"><a class="header" href="#沒有併發">沒有併發</a></h2>
+<p>對於一個嵌入式程序來說最簡單的併發是沒有併發: 軟件由一個保持運行的main循環組成，一點中斷也沒有。有時候這非常適合手邊的問題! 通常你的循環將會讀取一些輸入，執行一些處理，且寫入一些輸出。</p>
+<pre><code class="language-rust ignore">#[entry]
+fn main() {
+    let peripherals = setup_peripherals();
+    loop {
+        let inputs = read_inputs(&amp;peripherals);
+        let outputs = process(inputs);
+        write_outputs(&amp;peripherals, outputs);
+    }
+}</code></pre>
+<p>因為這裡沒有併發，因此不需要擔心程序不同部分間的共享數據或者同步對外設的訪問。如果可以使用一個簡單的方法來解決問題，這種方法是個不錯的選擇。</p>
+<h2 id="全局可變數據"><a class="header" href="#全局可變數據">全局可變數據</a></h2>
+<p>不像非嵌入式Rust，我們通常不會奢侈地在堆上分配數據，並將對該數據的引用傳遞到新創建的線程中。相反，我們的中斷處理函數隨時可能被調用，且必須知道如何訪問我們正在使用的共享內存。從最底層看來，這意味著我們必須有 <em>靜態分配的</em> 可變的內存，中斷處理函數和main代碼都可以引用這塊內存。</p>
+<p>在Rust中，<a href="https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html#accessing-or-modifying-a-mutable-static-variable"><code>static mut</code></a>這樣的變量讀取或者寫入總是unsafe的，因為不特別關注它們的話，可能會觸發一個競態條件，對變量的訪問在中途就被一個也訪問那個變量的中斷打斷了。</p>
+<p>為了舉例這種行為如何在代碼中導致了微妙的錯誤，思考一個嵌入式程序，這個程序在每一秒的週期內計數一些輸入信號的上升沿(一個頻率計數器):</p>
+<pre><code class="language-rust ignore">static mut COUNTER: u32 = 0;
+
+#[entry]
+fn main() -&gt; ! {
+    set_timer_1hz();
+    let mut last_state = false;
+    loop {
+        let state = read_signal_level();
+        if state &amp;&amp; !last_state {
+            // 危險 - 實際不安全! 可能導致數據競爭。
+            unsafe { COUNTER += 1 };
+        }
+        last_state = state;
+    }
+}
+
+#[interrupt]
+fn timer() {
+    unsafe { COUNTER = 0; }
+}</code></pre>
+<p>每秒計時器中斷會把計數器設置回0。這期間，main循環連續地測量信號，且當看到從低電平到高電平的變化時，增加計數器的值。因為它是<code>static mut</code>的，我們不得不使用<code>unsafe</code>去訪問<code>COUNTER</code>，意思是我們向編譯器保證我們的操作不會導致任何未定義的行為。你能發現競態條件嗎？<code>COUNTER</code>上的增加並不一定是原子的 - 事實上，在大多數嵌入式平臺上，它將被分開成一個讀取操作，然後是增加，然後是寫回。如果中斷在計數器被讀取之後但是在被寫回之前被激活，在中斷返回後，重置回0的操作會被忽略掉 - 那期間，我們會算出兩倍的轉換次數。</p>
+<h2 id="臨界區critical-sections"><a class="header" href="#臨界區critical-sections">臨界區(Critical Sections)</a></h2>
+<p>因此，關於數據競爭可以做些什麼？一個簡單的方法是使用 <em>臨界區(critical sections）</em> ，在臨界區的上下文中中斷被關閉了。通過把對<code>main</code>中的<code>COUNTER</code>訪問封裝進一個臨界區，我們能確保計時器中斷將不會激活，直到我們完成了增加<code>COUNTER</code>的操作:</p>
+<pre><code class="language-rust ignore">static mut COUNTER: u32 = 0;
+
+#[entry]
+fn main() -&gt; ! {
+    set_timer_1hz();
+    let mut last_state = false;
+    loop {
+        let state = read_signal_level();
+        if state &amp;&amp; !last_state {
+            // 新的臨界區確保對COUNTER的同步訪問
+            cortex_m::interrupt::free(|_| {
+                unsafe { COUNTER += 1 };
+            });
+        }
+        last_state = state;
+    }
+}
+
+#[interrupt]
+fn timer() {
+    unsafe { COUNTER = 0; }
+}</code></pre>
+<p>在這個例子裡，我們使用 <code>cortex_m::interrupt::free</code>，但是其它平臺將會有更簡單的機制在一個臨界區中執行代碼。它們都有一樣的邏輯，關閉中斷，運行一些代碼，然後重新使能中斷。</p>
+<p>注意，有兩個理由，不需要把一個臨界區放進計時器中斷中:</p>
+<ul>
+<li>向<code>COUNTER</code>寫入0不會被一個競爭影響，因為我們不需要讀取它</li>
+<li>無論如何，它永遠不會被<code>main</code>線程中斷</li>
+</ul>
+<p>如果<code>COUNTER</code>被多個可能相互 <em>搶佔</em> 的中斷處理函數共享，那麼每一個也需要一個臨界區。</p>
+<p>這解決了我們眼前的問題，但是我們仍然要編寫許多unsafe的代碼，我們需要仔細推敲這些代碼，有些我們可能不需要使用臨界區。因為每個臨界區暫時暫停了中斷處理，就會帶來一些相關的成本，一些額外的代碼大小，更高的中斷延遲和抖動(中斷可能花費很長時間去處理，等待被處理的時間變化非常大)。這是否是個問題取決於你的系統，但是通常，我們想要避免它。</p>
+<p>值得注意的是，雖然一個臨界區保障了不會發生中斷，但是它在多核系統上不提供一個排他性保證(exclusivity guarantee)！其它核可能很開心地訪問與你的核一樣的內存區域，即使沒有中斷。如果你正在使用多核，你將需要更強的同步原語(synchronisation primitives)。</p>
+<h2 id="原子訪問"><a class="header" href="#原子訪問">原子訪問</a></h2>
+<p>在一些平臺上，可以使用特定的原子指令，它保障了讀取-修改-寫回操作。針對Cortex-M: <code>thumbv6</code>(Cortex-M0，Cortex-M0+)只提供原子讀取和存取指令，而<code>thumv7</code>(Cortex-M3及以上)提供完整的比較和交換(CAS)指令。這些CAS指令可以替代過重的禁用所有中斷的方法: 我們可以嘗試執行加法操作，它在大多數情況下都會成功，但是如果它被中斷了它將會自動重試完整的加法操作。這些原子操作甚至在多核間也是安全的。</p>
+<pre><code class="language-rust ignore">use core::sync::atomic::{AtomicUsize, Ordering};
+
+static COUNTER: AtomicUsize = AtomicUsize::new(0);
+
+#[entry]
+fn main() -&gt; ! {
+    set_timer_1hz();
+    let mut last_state = false;
+    loop {
+        let state = read_signal_level();
+        if state &amp;&amp; !last_state {
+            // 使用 `fetch_add` 原子性地給 COUNTER 加一
+            COUNTER.fetch_add(1, Ordering::Relaxed);
+        }
+        last_state = state;
+    }
+}
+
+#[interrupt]
+fn timer() {
+    // 使用 `store` 將 0 直接寫入 COUNTER
+    COUNTER.store(0, Ordering::Relaxed)
+}</code></pre>
+<p>這時，<code>COUNTER</code>是一個safe的<code>static</code>變量。多虧了<code>AtomicUsize</code>類型，不需要禁用中斷，<code>COUNTER</code>能從中斷處理函數和main線程被安全地修改。當可以這麼做時，這是一個更好的解決方案 - 然而平臺上可能不支持這麼做。</p>
+<p>關於<a href="https://doc.rust-lang.org/core/sync/atomic/enum.Ordering.html"><code>Ordering</code></a>的提醒: 它可能影響編譯器和硬件如何重新排序指令，也會影響緩存可見性。假設目標是個單核平臺，在這個案例裡<code>Relaxed</code>是充足的和最有效的選擇。更嚴格的排序將導致編譯器在原子操作周圍產生內存屏障(Memory Barriers)；取決於你做什麼原子操作，你可能需要或者不需要這個排序！原子模型的精確細節是複雜的，最好寫在其它地方。</p>
+<p>關於原子操作和排序的更多細節，可以看這裡<a href="https://doc.rust-lang.org/nomicon/atomics.html">nomicon</a>。</p>
+<h2 id="抽象send和sync"><a class="header" href="#抽象send和sync">抽象，Send和Sync</a></h2>
+<p>上面的解決方案都不是特別令人滿意。它們需要<code>unsafe</code>塊，<code>unsafe</code>塊必須要被十分小心地檢查且不符合人體工程學。確實，我們在Rust中可以做得更好！</p>
+<p>我們可以把我們的計數器抽象進一個安全的接口中，它可以在代碼的其它地方被安全地使用。在這個例子裡，我們將使用臨界區的(cirtical-section)計數器，但是你可以用原子操作做一些非常類似的事情。</p>
+<pre><code class="language-rust ignore">use core::cell::UnsafeCell;
+use cortex_m::interrupt;
+
+// 我們的計數器只是包圍UnsafeCell&lt;u32&gt;的一個封裝，它是Rust中內部可變性
+// (interior mutability)的關鍵。通過使用內部可變性，我們能讓COUNTER
+// 變成`static`而不是`static mut`，但是仍能改變它的計數器值。
+struct CSCounter(UnsafeCell&lt;u32&gt;);
+
+const CS_COUNTER_INIT: CSCounter = CSCounter(UnsafeCell::new(0));
+
+impl CSCounter {
+    pub fn reset(&amp;self, _cs: &amp;interrupt::CriticalSection) {
+        // 通過要求一個CriticalSection被傳遞進來，我們知道我們肯定正在一個
+        // CriticalSection中操作，且因此可以自信地使用這個unsafe塊(調用UnsafeCell::get的前提)。
+        unsafe { *self.0.get() = 0 };
+    }
+
+    pub fn increment(&amp;self, _cs: &amp;interrupt::CriticalSection) {
+        unsafe { *self.0.get() += 1 };
+    }
+}
+
+// 允許靜態CSCounter的前提。看下面的解釋。
+unsafe impl Sync for CSCounter {}
+
+// COUNTER不再是`mut`的因為它使用內部可變性;
+// 因此訪問它也不再需要unsafe塊。
+static COUNTER: CSCounter = CS_COUNTER_INIT;
+
+#[entry]
+fn main() -&gt; ! {
+    set_timer_1hz();
+    let mut last_state = false;
+    loop {
+        let state = read_signal_level();
+        if state &amp;&amp; !last_state {
+            // 這裡不用unsafe!
+            interrupt::free(|cs| COUNTER.increment(cs));
+        }
+        last_state = state;
+    }
+}
+
+#[interrupt]
+fn timer() {
+    // 這裡我們需要進入一個臨界區，只是為了傳遞進一個有效的cs token，儘管我們知道
+    // 沒有其它中斷可以搶佔這個中斷。 
+    interrupt::free(|cs| COUNTER.reset(cs));
+
+    // 如果我們真的需要，我們可以使用unsafe代碼去生成一個假CriticalSection，
+    // 避免開銷:
+    // let cs = unsafe { interrupt::CriticalSection::new() };
+}</code></pre>
+<p>我們已經把我們的<code>unsafe</code>代碼移進了精心安排的抽象中，現在我們的應用代碼不包含任何<code>unsafe</code>塊。</p>
+<p>這個設計要求應用傳遞一個<code>CriticalSection</code> token進來: 這些tokens僅由<code>interrupt::free</code>安全地產生，因此通過要求傳遞進一個<code>CriticalSection</code> token，我們確保我們正在一個臨界區中操作，不用自己動手鎖起來。這個保障由編譯器靜態地提供: 這將不會帶來任何與<code>cs</code>有關的運行時消耗。如果我們有多個計數器，它們都可以被指定同一個<code>cs</code>，而不用要求多個嵌套的臨界區。</p>
+<p>這也帶來了Rust中關於併發的一個重要主題: <a href="https://doc.rust-lang.org/nomicon/send-and-sync.html"><code>Send</code> and <code>Sync</code></a> traits。總結一下Rust book，當一個類型能夠安全地被移動到另一個線程，它是Send，當一個類型能被安全地在多個線程間共享的時候，它是Sync。在一個嵌入式上下文中，我們認為中斷是在應用代碼的一個獨立線程中執行的，因此在一箇中斷和main代碼中都能被訪問的變量必須是Sync。</p>
+<p>在Rust中的大多數類型，這兩個traits都會由你的編譯器為你自動地產生。然而，因為<code>CSCounter</code>包含了一個<a href="https://doc.rust-lang.org/core/cell/struct.UnsafeCell.html"><code>UnsafeCell</code></a>，它不是Sync，因此我們不能使用一個<code>static CSCounter</code>: <code>static</code> 變量 <em>必須</em> 是Sync，因此它們能被多個線程訪問。</p>
+<p>為了告訴編譯器我們已經注意到<code>CSCounter</code>事實上在線程間共享是安全的，我們顯式地實現了Sync trait。與之前使用的臨界區一樣，這隻在單核平臺上是安全的: 對於多核，你需要做更多的事來確保安全。</p>
+<h2 id="互斥量mutexs"><a class="header" href="#互斥量mutexs">互斥量(Mutexs)</a></h2>
+<p>我們已經為我們的計數器問題創造了一個有用的抽象，但是關於併發這裡還存在許多通用的抽象。</p>
+<p>一個互斥量(mutex)，互斥(mutual exclusion)的縮寫，就是這樣的一個 <em>同步原語</em> 。這些構造確保了對一個變量的排他訪問，比如我們的計數器。一個線程會嘗試 <em>lock</em> (或者 <em>acquire</em>) 互斥量，或者當互斥量不能被鎖住時返回一個錯誤。當線程持有鎖時，它有權訪問被保護的數據，當線程工作完成了，它 <em>unlocks</em> (或者 <em>releases</em>) 互斥量，允許其它線程鎖住它。在Rust中，我們通常使用<a href="https://doc.rust-lang.org/core/ops/trait.Drop.html"><code>Drop</code></a> trait實現unlock去確保當互斥量超出作用域時它總是被釋放。</p>
+<p>將中斷處理函數與一個互斥量一起使用可能有點棘手: 阻塞中斷處理函數通常是不可接受的，如果它阻塞等待main線程去釋放一個鎖，那將是一場災難。因為我們會 <em>死鎖</em> (因為執行停留在中斷處理函數中，主線程將永遠不會釋放鎖)。死鎖被認為是不安全的: 即使在安全的Rust中這也是可能發生的。</p>
+<p>為了完全避免這個行為，我們可以實現一個要求臨界區的互斥量去鎖住，就像我們的計數器例子一樣。臨界區的存在時間必須和鎖存在的時間一樣長，我們能確保我們對被封裝的變量有排他式訪問，甚至不需要跟蹤互斥量的 lock/unlock 狀態。</p>
+<p>實際上我們在 <code>cortex_m</code> crate中就是這麼做的！我們可以用它來寫入我們的計數器:</p>
+<pre><code class="language-rust ignore">use core::cell::Cell;
+use cortex_m::interrupt::Mutex;
+
+static COUNTER: Mutex&lt;Cell&lt;u32&gt;&gt; = Mutex::new(Cell::new(0));
+
+#[entry]
+fn main() -&gt; ! {
+    set_timer_1hz();
+    let mut last_state = false;
+    loop {
+        let state = read_signal_level();
+        if state &amp;&amp; !last_state {
+            interrupt::free(|cs|
+                COUNTER.borrow(cs).set(COUNTER.borrow(cs).get() + 1));
+        }
+        last_state = state;
+    }
+}
+
+#[interrupt]
+fn timer() {
+    // 這裡我們仍然需要進入一個臨界區去滿足互斥量。
+    interrupt::free(|cs| COUNTER.borrow(cs).set(0));
+}</code></pre>
+<p>我們現在使用了<a href="https://doc.rust-lang.org/core/cell/struct.Cell.html"><code>Cell</code></a>，它與它的兄弟<code>RefCell</code>一起被用於提供safe的內部可變性。我們已經見過<code>UnsafeCell</code>了，在Rust中它是內部可變性的底層: 它允許你去獲得對某個值的多個可變引用，但是隻能與不安全的代碼一起工作。一個<code>Cell</code>像一個<code>UnsafeCell</code>一樣但是它提供了一個安全的接口: 它只允許拷貝現在的值或者替換它，不允許獲取一個引用，因此它不是Sync，它不能被在線程間共享。這些限制意味著它用起來是safe的，但是我們不能直接將它用於<code>static</code>變量因為一個<code>static</code>必須是Sync。</p>
+<p>因此為什麼上面的例子可以工作?<code>Mutex&lt;T&gt;</code>對於任何是Send的<code>T</code>實現了Sync - 比如一個<code>Cell</code>。因為它只能在臨界區對它的內容進行訪問，所以它這麼做是safe的。因此我們可以即使沒有一點unsafe的代碼我們也能獲取一個safe的計數器！</p>
+<p>對於我們的簡單類型，像是我們的計數器的<code>u32</code>來說是很棒的，但是對於更復雜的不能拷貝的類型呢？在一個嵌入式上下文中一個極度常見的例子是一個外設結構體，通常它們不是Copy。針對那種情況，我們可以使用<code>RefCell</code>。</p>
+<h2 id="共享外設"><a class="header" href="#共享外設">共享外設</a></h2>
+<p>使用<code>svd2rust</code>生成的設備crates和相似的抽象，通過強制要求同時只能存在一個外設結構體的實例，提供了對外設的安全的訪問。這個確保了安全性，但是使得它很難從main線程和一箇中斷處理函數一起訪問一個外設。</p>
+<p>為了安全地共享對外設的訪問，我們能使用我們之前看到的<code>Mutex</code>。我們也將需要使用<a href="https://doc.rust-lang.org/core/cell/struct.RefCell.html"><code>RefCell</code></a>，它使用一個運行時檢查去確保對一個外設每次只有一個引用被給出。這個比純<code>Cell</code>消耗更多，但是因為我們正給出引用而不是拷貝，我們必須確保每次只有一個引用存在。</p>
+<p>最終，我們也必須考慮在main代碼中初始化外設後，如何將外設移到共享變量中。為了做這個，我們使用<code>Option</code>類型，初始成<code>None</code>，之後設置成外設的實例。</p>
+<pre><code class="language-rust ignore">use core::cell::RefCell;
+use cortex_m::interrupt::{self, Mutex};
+use stm32f4::stm32f405;
+
+static MY_GPIO: Mutex&lt;RefCell&lt;Option&lt;stm32f405::GPIOA&gt;&gt;&gt; =
+    Mutex::new(RefCell::new(None));
+
+#[entry]
+fn main() -&gt; ! {
+    // 獲得外設的單例並配置它。這個例子來自一個svd2rust生成的crate，
+    // 但是大多數的嵌入式設備crates都相似。
+    let dp = stm32f405::Peripherals::take().unwrap();
+    let gpioa = &amp;dp.GPIOA;
+
+    // 某個配置函數。假設它把PA0設置成一個輸入和把PA1設置成一個輸出。
+    configure_gpio(gpioa);
+
+    // 把GPIOA存進互斥量中，移動它。
+    interrupt::free(|cs| MY_GPIO.borrow(cs).replace(Some(dp.GPIOA)));
+    // 我可以不再用`gpioa`或者`dp.GPIOA`，反而必須通過互斥量訪問它。
+
+    // 請注意，只有在設置MY_GPIO後才能使能中斷: 要不然當MY_GPIO還是包含None的時候，
+    // 中斷可能會發生，然後像上面寫的那樣操作(使用`unwrap()`)，它將發生運行時恐慌。
+    set_timer_1hz();
+    let mut last_state = false;
+    loop {
+        // 我們現在將通過互斥量，讀取其作為數字輸入時的狀態。
+        let state = interrupt::free(|cs| {
+            let gpioa = MY_GPIO.borrow(cs).borrow();
+            gpioa.as_ref().unwrap().idr.read().idr0().bit_is_set()
+        });
+
+        if state &amp;&amp; !last_state {
+            // 如果我們在PA0上已經看到了一個上升沿，拉高PA1。
+            interrupt::free(|cs| {
+                let gpioa = MY_GPIO.borrow(cs).borrow();
+                gpioa.as_ref().unwrap().odr.modify(|_, w| w.odr1().set_bit());
+            });
+        }
+        last_state = state;
+    }
+}
+
+#[interrupt]
+fn timer() {
+    // 這次在中斷中，我們將清除PA0。
+    interrupt::free(|cs| {
+        // 我們可以使用`unwrap()` 因為我們知道直到MY_GPIO被設置後，中斷都是禁用的；
+        // 否則我應該處理會出現一個None值的潛在可能
+        let gpioa = MY_GPIO.borrow(cs).borrow();
+        gpioa.as_ref().unwrap().odr.modify(|_, w| w.odr1().clear_bit());
+    });
+}</code></pre>
+<p>這需要理解的內容很多，所以讓我們把重要的內容分解一下。</p>
+<pre><code class="language-rust ignore">static MY_GPIO: Mutex&lt;RefCell&lt;Option&lt;stm32f405::GPIOA&gt;&gt;&gt; =
+    Mutex::new(RefCell::new(None));</code></pre>
+<p>我們的共享變量現在是一個包圍了一個<code>RefCell</code>的<code>Mutex</code>，<code>RefCell</code>包含一個<code>Option</code>。<code>Mutex</code>確保只在一個臨界區中的時候可以訪問，因此使變量變成了Sync，甚至即使一個純<code>RefCell</code>不是Sync。<code>RefCell</code>賦予了我們引用的內部可變性，我們將需要使用我們的<code>GPIOA</code>。<code>Option</code>讓我們可以初始化這個變量成空的東西，只在隨後實際移動變量進來。只有在運行時，我們才能靜態地訪問外設單例，因此這是必須的。</p>
+<pre><code class="language-rust ignore">interrupt::free(|cs| MY_GPIO.borrow(cs).replace(Some(dp.GPIOA)));</code></pre>
+<p>在一個臨界區中，我們可以在互斥量上調用<code>borrow()</code>，其給了我們一個指向<code>RefCell</code>的引用。然後我們調用<code>replace()</code>去移動我們的新值進來<code>RefCell</code>。</p>
+<pre><code class="language-rust ignore">interrupt::free(|cs| {
+    let gpioa = MY_GPIO.borrow(cs).borrow();
+    gpioa.as_ref().unwrap().odr.modify(|_, w| w.odr1().set_bit());
+});</code></pre>
+<p>最終，我們用一種安全和併發的方式使用<code>MY_GPIO</code>。臨界區禁止了中斷像往常一樣發生，讓我們借用互斥量。<code>RefCell</code>然後給了我們一個<code>&amp;Option&lt;GPIOA&gt;</code>並追蹤它還要借用多久 - 一旦引用超出作用域，<code>RefCell</code>將會被更新去指出引用不再被借用。</p>
+<p>因為我不能把<code>GPIOA</code>移出<code>&amp;Option</code>，我們需要用<code>as_ref()</code>將它轉換成一個<code>&amp;Option&lt;&amp;GPIOA&gt;</code>，最終我們能使用<code>unwrap()</code>獲得<code>&amp;GPIOA</code>，其讓我們可以修改外設。</p>
+<p>如果我們需要一個共享的資源的可變引用，那麼<code>borrow_mut</code>和<code>deref_mut</code>應該被使用。下面的代碼展示了一個使用TIM2計時器的例子。</p>
+<pre><code class="language-rust ignore">use core::cell::RefCell;
+use core::ops::DerefMut;
+use cortex_m::interrupt::{self, Mutex};
+use cortex_m::asm::wfi;
+use stm32f4::stm32f405;
+
+static G_TIM: Mutex&lt;RefCell&lt;Option&lt;Timer&lt;stm32::TIM2&gt;&gt;&gt;&gt; =
+	Mutex::new(RefCell::new(None));
+
+#[entry]
+fn main() -&gt; ! {
+    let mut cp = cm::Peripherals::take().unwrap();
+    let dp = stm32f405::Peripherals::take().unwrap();
+
+    // 某個計時器配置函數。假設它配置了TIM2計時器和它的NVIC中斷，
+    // 最終啟動計時器。
+    let tim = configure_timer_interrupt(&amp;mut cp, dp);
+
+    interrupt::free(|cs| {
+        G_TIM.borrow(cs).replace(Some(tim));
+    });
+
+    loop {
+        wfi();
+    }
+}
+
+#[interrupt]
+fn timer() {
+    interrupt::free(|cs| {
+        if let Some(ref mut tim) =  G_TIM.borrow(cs).borrow_mut().deref_mut() {
+            tim.start(1.hz());
+        }
+    });
+}
+</code></pre>
+<p>呼！這是安全的，但也有點笨拙。我們還能做些什麼嗎？</p>
+<h2 id="rtic"><a class="header" href="#rtic">RTIC</a></h2>
+<p>另一個方法是使用<a href="https://github.com/rtic-rs/cortex-m-rtic">RTIC框架</a>，Real Time Interrupt-driven Concurrency的縮寫。它強制執行靜態優先級並追蹤對<code>static mut</code>變量("資源")的訪問去確保共享資源總是能被安全地訪問，而不需要總是進入臨界區和使用引用計數帶來的消耗(如<code>RefCell</code>中所示)。這有許多好處，比如保證沒有死鎖且時間和內存的消耗極度低。</p>
+<p>這個框架也包括了其它的特性，像是消息傳遞(message passing)，消息傳遞減少了對顯式共享狀態的需要，還提供了在一個給定時間調度任務去運行的功能，這功能能被用來實現週期性的任務。看下<a href="https://rtic.rs">文檔</a>可以知道更多的信息！</p>
+<h2 id="實時操作系統"><a class="header" href="#實時操作系統">實時操作系統</a></h2>
+<p>與嵌入式併發有關的另一個模型是實時操作系統(RTOS)。雖然現在在Rust中的研究較少，但是它們被廣泛用於傳統的嵌入式開發。開源的例子包括<a href="https://freertos.org/">FreeRTOS</a>和<a href="http://chibios.org/">ChibiOS</a>(譯者注: 目前有個純Rust實現的<a href="https://www.tockos.org/">Tock</a>)。這些RTOSs提供對運行多個應用線程的支持，CPU在這些線程間進行切換，切換要麼發生在當線程讓出控制權的時候(被稱為非搶佔式多任務)，要麼是基於一個常規計時器或者中斷(搶佔式多任務)。RTOS通常提供互斥量或者其它的同步原語，經常與硬件功能相互使用，比如DMA引擎。</p>
+<p>在撰寫本文時，沒有太多的Rust RTOS示例可供參考，但這是一個有趣的領域，所以請關注這塊！</p>
+<h2 id="多個核心"><a class="header" href="#多個核心">多個核心</a></h2>
+<p>在嵌入式處理器中有兩個或者多個核心很正常，其為併發添加了額外一層複雜性。所有使用臨界區的例子(包括<code>cortex_m::interrupt::Mutex</code>)都假設了另一個執行的線程僅是中斷線程，但是在一個多核系統中，這不再是正確的假設。反而，我們將需要為多核設計的同步原語(也被叫做SMP，symmetric multi-processing的縮寫)。</p>
+<p>我們之前看到的，這些通常使用原子指令，因為處理系統將確保原子性在所有的核中都保持著。</p>
+<p>覆蓋這些主題的細節已經超出了本書的範圍，但是常規的模式與單核的相似。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="集合"><a class="header" href="#集合">集合</a></h1>
+<p>最後，還希望在程序裡使用動態數據結構(也稱為集合)。<code>std</code> 提供了一組常見的集合: <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html"><code>Vec</code></a>，<a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a>，<a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a>，等等。所有這些在<code>std</code>中被實現的集合都使用一個全局動態分配器(也稱為堆)。</p>
+<p>因為<code>core</code>的定義中是沒有內存分配的，所以這些實現在<code>core</code>中是沒有的，但是我們可以在編譯器附帶的<code>alloc</code> crate中找到。</p>
+<p>如果需要集合，一個基於堆分配的實現不是唯一的選擇。也可以使用 <em>fixed capacity</em> 集合; 其實現可以在 <a href="https://crates.io/crates/heapless"><code>heapless</code></a> crate中被找到。</p>
+<p>在這部分，我們將研究和比較這兩個實現。</p>
+<h2 id="使用-alloc"><a class="header" href="#使用-alloc">使用 <code>alloc</code></a></h2>
+<p><code>alloc</code> crate與標準的Rust發行版在一起。你可以直接 <code>use</code> 導入這個crate，而不需要在<code>Cargo.toml</code>文件中把它聲明為一個依賴。</p>
+<pre><code class="language-rust ignore">#![feature(alloc)]
+
+extern crate alloc;
+
+use alloc::vec::Vec;</code></pre>
+<p>為了能使用集合，首先需要使用<code>global_allocator</code>屬性去聲明程序將使用的全局分配器。它要求選擇的分配器實現了<a href="https://doc.rust-lang.org/core/alloc/trait.GlobalAlloc.html"><code>GlobalAlloc</code></a> trait 。</p>
+<p>為了完整性和儘可能保持本節的自包含性，我們將實現一個簡單線性指針分配器且用它作為全局分配器。然而，我們 <em>強烈地</em> 建議你在你的程序中使用一個來自crates.io的久經戰鬥測試的分配器而不是這個分配器。</p>
+<pre><code class="language-rust ignore">// 線性指針分配器實現
+
+use core::alloc::{GlobalAlloc, Layout};
+use core::cell::UnsafeCell;
+use core::ptr;
+
+use cortex_m::interrupt;
+
+// 用於單核系統的線性指針分配器
+struct BumpPointerAlloc {
+    head: UnsafeCell&lt;usize&gt;,
+    end: usize,
+}
+
+unsafe impl Sync for BumpPointerAlloc {}
+
+unsafe impl GlobalAlloc for BumpPointerAlloc {
+    unsafe fn alloc(&amp;self, layout: Layout) -&gt; *mut u8 {
+        // `interrupt::free`是一個臨界區，臨界區讓我們的分配器在中斷中用起來安全
+        interrupt::free(|_| {
+            let head = self.head.get();
+            let size = layout.size();
+            let align = layout.align();
+            let align_mask = !(align - 1);
+
+            // 將start移至下一個對齊邊界。
+            let start = (*head + align - 1) &amp; align_mask;
+
+            if start + size &gt; self.end {
+                // 一個空指針通知內存不足
+                ptr::null_mut()
+            } else {
+                *head = start + size;
+                start as *mut u8
+            }
+        })
+    }
+
+    unsafe fn dealloc(&amp;self, _: *mut u8, _: Layout) {
+        // 這個分配器從不釋放內存
+    }
+}
+
+// 全局內存分配器的聲明
+// 注意 用戶必須確保`[0x2000_0100, 0x2000_0200]`內存區域
+// 沒有被程序的其它部分使用
+#[global_allocator]
+static HEAP: BumpPointerAlloc = BumpPointerAlloc {
+    head: UnsafeCell::new(0x2000_0100),
+    end: 0x2000_0200,
+};</code></pre>
+<p>除了選擇一個全局分配器，用戶也必須要定義如何使用<em>不穩定的</em><code>alloc_error_handler</code>屬性來處理內存溢出錯誤。</p>
+<pre><code class="language-rust ignore">#![feature(alloc_error_handler)]
+
+use cortex_m::asm;
+
+#[alloc_error_handler]
+fn on_oom(_layout: Layout) -&gt; ! {
+    asm::bkpt();
+
+    loop {}
+}</code></pre>
+<p>一旦一切都完成了，用戶最後就可以在<code>alloc</code>中使用集合。</p>
+<pre><code class="language-rust ignore">#[entry]
+fn main() -&gt; ! {
+    let mut xs = Vec::new();
+
+    xs.push(42);
+    assert!(xs.pop(), Some(42));
+
+    loop {
+        // ..
+    }
+}</code></pre>
+<p>如果你已經使用了<code>std</code> crate中的集合，那麼這些對你來說將非常熟悉，因為他們的實現一樣。</p>
+<h2 id="使用-heapless"><a class="header" href="#使用-heapless">使用 <code>heapless</code></a></h2>
+<p><code>heapless</code>無需設置，因為它的集合不依賴一個全局內存分配器。只是<code>use</code>它的集合然後實例化它們:</p>
+<pre><code class="language-rust ignore">// heapless version: v0.4.x
+use heapless::Vec;
+use heapless::consts::*;
+
+#[entry]
+fn main() -&gt; ! {
+    let mut xs: Vec&lt;_, U8&gt; = Vec::new();
+
+    xs.push(42).unwrap();
+    assert_eq!(xs.pop(), Some(42));
+    loop {}
+}</code></pre>
+<p>你會注意到這些集合與<code>alloc</code>中的集合有兩個不一樣的地方。</p>
+<p>第一，你必須預先聲明集合的容量。<code>heapless</code>集合從來不會發生重分配且具有固定的容量;這個容量是集合的類型簽名的一部分。在這個例子裡，我們已經聲明瞭<code>xs</code>的容量為8個元素，也就是說，這個vector最多隻能有八個元素。這是通過類型簽名中的<code>U8</code> (看<a href="https://crates.io/crates/typenum"><code>typenum</code></a>)來指定的。</p>
+<p>第二，<code>push</code>方法和另外一些方法返回的是一個<code>Result</code>。因為<code>heapless</code>集合有一個固定的容量，所以所有插入的操作都可能會失敗。通過返回一個<code>Result</code>，API反應了這個問題，指出操作是否成功還是失敗。相反，<code>alloc</code>集合自己將會在堆上重新分配去增加它的容量。</p>
+<p>自v0.4.x版本起，所有的<code>heapless</code>集合將所有的元素內聯地存儲起來了。這意味著像是<code>let x = heapless::Vec::new()</code>這樣的一個操作將會在棧上分配集合，但是它也能夠在一個<code>static</code>變量上分配集合，或者甚至在堆上(<code>Box&lt;Vec&lt;_, _&gt;&gt;</code>)。</p>
+<h2 id="取捨"><a class="header" href="#取捨">取捨</a></h2>
+<p>當在堆分配的可重定位的集合和固定容量的集合間進行選擇的時候，記住這些內容。</p>
+<h3 id="內存溢出和錯誤處理"><a class="header" href="#內存溢出和錯誤處理">內存溢出和錯誤處理</a></h3>
+<p>使用堆分配，內存溢出總是有可能出現的且會發生在任何一個集合需要增長的地方: 比如，所有的 <code>alloc::Vec.push</code> 調用會潛在地產生一個OOM(Out of Memory)條件。因此一些操作可能會<em>隱式地</em>失敗。一些<code>alloc</code>集合暴露了<code>try_reserve</code>方法，可以當增加集合時讓你檢查潛在的OOM條件，但是你需要主動地使用它們。</p>
+<p>如果你只使用<code>heapless</code>集合，而不使用內存分配器，那麼一個OOM條件不可能出現。反而，你必須逐個處理容量不足的集合。也就是必須處理<em>所有</em>的<code>Result</code>，<code>Result</code>由像是<code>Vec.push</code>這樣的方法返回的。</p>
+<p>與在所有由<code>heapless::Vec.push</code>返回的<code>Result</code>上調用<code>unwrap</code>相比，OOM錯誤更難調試，因為錯誤被發現的位置可能與導致問題的位置<em>不</em>一致。比如，甚至如果分配器接近消耗完<code>vec.reserve(1)</code>都能觸發一個OOM，因為一些其它的集合正在洩露內存(內存洩露在安全的Rust是會發生的)。</p>
+<h3 id="內存使用"><a class="header" href="#內存使用">內存使用</a></h3>
+<p>推理堆分配集合的內存使用是很難的因為長期使用的集合的大小會在運行時改變。一些操作可能隱式地重分配集合，增加了它的內存使用，一些集合暴露的方法，像是<code>shrink_to_fit</code>，會潛在地減少集合使用的內存 -- 最終，它由分配器去決定是否確定減小內存的分配或者不。另外，分配器可能不得不處理內存碎片，它會<em>明顯</em>增加內存的使用。</p>
+<p>另一方面，如果你只使用固定容量的集合，請把大多數的數據保存在<code>static</code>變量中，併為調用棧設置一個最大尺寸，隨後如果你嘗試使用大於可用的物理內存的內存大小時，鏈接器會發現它。</p>
+<p>另外，在棧上分配的固定容量的集合可以通過<a href="https://doc.rust-lang.org/beta/unstable-book/compiler-flags/emit-stack-sizes.html"><code>-Z emit-stack-sizes</code></a>標識來報告，其意味著用來分析棧使用的工具(像是<a href="https://crates.io/crates/stack-sizes"><code>stack-sizes</code></a>)將會把在棧上分配的集合包含進它們的分析中。</p>
+<p>然而，固定容量的集合<em>不</em>能被減少，與可重定位集合所能達到的負載係數(集合的大小和它的容量之間的比值)相比，它能產生更低的負載係數。</p>
+<h3 id="最壞執行時間-wcet"><a class="header" href="#最壞執行時間-wcet">最壞執行時間 (WCET)</a></h3>
+<p>如果你正在搭建時間敏感型應用或者硬實時應用，那麼你可能更關心你程序的不同部分的最壞執行時間。</p>
+<p><code>alloc</code>集合能重分配，所以操作的WCET可能會增加，集合也將包括它用來重分配集合所需的時間，它取決於集合的<em>運行時</em>容量。這使得它更難去決定操作，比如<code>alloc::Vec.push</code>，的WCET，因為它依賴被使用的分配器和它的運行時容量。</p>
+<p>另一方面固定容量的集合不會重分配，因此所有的操作有個可預期的執行時間。比如，<code>heapless::Vec.push</code>以固定時間執行。</p>
+<h3 id="易用性"><a class="header" href="#易用性">易用性</a></h3>
+<p><code>alloc</code>要求配置一個全局分配器而<code>heapless</code>不需要。然而，<code>heapless</code>要求你去選擇你要實例化的每一個集合的容量。</p>
+<p><code>alloc</code> API幾乎為每一個Rust開發者所熟知。<code>heapless</code> API嘗試模仿<code>alloc</code> API，但是因為<code>heapless</code>的顯式錯誤處理，它們不可能會一模一樣 -- 一些開發者可能會覺得顯式的錯誤處理過多或太麻煩。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="設計模式"><a class="header" href="#設計模式">設計模式</a></h1>
+<p>這個章節的目標是為嵌入式Rust收集不同的有用的設計模式。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hal設計模式"><a class="header" href="#hal設計模式">HAL設計模式</a></h1>
+<p>這是一組關於使用Rust為微控制器寫硬件抽象層的常見的和推薦的模式。當為微控制器編寫HALs時，除了現有的 <a href="https://rust-lang.github.io/api-guidelines/">Rust API 指南</a> 外，也可以使用這些模式。</p>
+<p><a href="design-patterns/hal/checklist.html">檢查清單</a></p>
+<ul>
+<li><a href="design-patterns/hal/naming.html">命名</a></li>
+<li><a href="design-patterns/hal/interoperability.html">互用性</a></li>
+<li><a href="design-patterns/hal/predictability.html">可預見性</a></li>
+<li><a href="design-patterns/hal/gpio.html">GPIO</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hal設計檢查清單"><a class="header" href="#hal設計檢查清單">HAL設計檢查清單</a></h1>
+<ul>
+<li><strong>命名</strong> <em>(crate要符合Rust命名規則)</em>
+<ul>
+<li><input disabled="" type="checkbox"/>
+crate被恰當地命名 (<a href="design-patterns/hal/naming.html#c-crate-name">C-CRATE-NAME</a>)</li>
+</ul>
+</li>
+<li><strong>互用性</strong> <em>(crate要很好地與其它的庫功能交互)</em>
+<ul>
+<li><input disabled="" type="checkbox"/>
+封裝類型提供一種析構方法 (<a href="design-patterns/hal/interoperability.html#c-free">C-FREE</a>)</li>
+<li><input disabled="" type="checkbox"/>
+HALs重新導出了它們的寄存器訪問crate (<a href="design-patterns/hal/interoperability.html#c-reexport-pac">C-REEXPORT-PAC</a>)</li>
+<li><input disabled="" type="checkbox"/>
+類型實現了 <code>embedded-hal</code> traits (<a href="design-patterns/hal/interoperability.html#c-hal-traits">C-HAL-TRAITS</a>)</li>
+</ul>
+</li>
+<li><strong>可預見性</strong> <em>(crate的代碼清晰可讀，行為和看起來的一樣)</em>
+<ul>
+<li><input disabled="" type="checkbox"/>
+使用構造函數而不是擴展traits (<a href="design-patterns/hal/predictability.html#c-ctor">C-CTOR</a>)</li>
+</ul>
+</li>
+<li><strong>GPIO接口</strong> <em>(GPIO接口要遵循一個公共的模式)</em>
+<ul>
+<li><input disabled="" type="checkbox"/>
+Pin類型默認是零大小類型 (<a href="design-patterns/hal/gpio.html#c-zst-pin">C-ZST-PIN</a>)</li>
+<li><input disabled="" type="checkbox"/>
+Pin類型提供擦除管腳和端口的方法 (<a href="design-patterns/hal/gpio.html#c-erased-pin">C-ERASED-PIN</a>)</li>
+<li><input disabled="" type="checkbox"/>
+Pin狀態應該被編碼為類型參數 (<a href="design-patterns/hal/gpio.html#c-pin-state">C-PIN-STATE</a>)</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="命名"><a class="header" href="#命名">命名</a></h1>
+<p><a id="c-crate-name"></a></p>
+<h2 id="crate要被恰當地命名c-crate-name"><a class="header" href="#crate要被恰當地命名c-crate-name">crate要被恰當地命名(C-CRATE-NAME)</a></h2>
+<p>HAL crates應該在目標支持的芯片或者芯片系列之後被命名。它們的名字應該以<code>-hal</code>結尾，為了將它們與PAC區分開來。名字不應該包含下劃線(請改用破折號)。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="互用性"><a class="header" href="#互用性">互用性</a></h1>
+<p><a id="c-free"></a></p>
+<h2 id="封裝類型提供一個析構方法-c-free"><a class="header" href="#封裝類型提供一個析構方法-c-free">封裝類型提供一個析構方法 (C-FREE)</a></h2>
+<p>任何由HAL提供的非<code>Copy</code>封裝類型應該提供一個<code>free</code>方法，這個方法消費封裝類且返回最初生成它的外設(可能是其它對象)。</p>
+<p>如果有必要，方法應該關閉和重置外設。使用由<code>free</code>返回的原始外設去調用<code>new</code>不應該由於設備的意外狀態而失敗，</p>
+<p>如果HAL類型要求構造其它的非<code>Copy</code>對象(比如 I/O 管腳)，任何這樣的對象應該也由<code>free</code>返回和釋放。在這種情況下<code>free</code>應該返回一個元組。</p>
+<p>比如:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct TIMER0;
+</span>pub struct Timer(TIMER0);
+
+impl Timer {
+    pub fn new(periph: TIMER0) -&gt; Self {
+        Self(periph)
+    }
+
+    pub fn free(self) -&gt; TIMER0 {
+        self.0
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p><a id="c-reexport-pac"></a></p>
+<h2 id="hals重新導出它們的寄存器訪問cratec-reexport-pac"><a class="header" href="#hals重新導出它們的寄存器訪問cratec-reexport-pac">HALs重新導出它們的寄存器訪問crate(C-REEXPORT-PAC)</a></h2>
+<p>可以在<a href="https://github.com/rust-embedded/svd2rust">svd2rust</a>生成的PACs之上，或在其它純寄存器訪問的crates之上編寫HALs。HALs需要在crate root中重新導出它們所基於的寄存器訪問crate</p>
+<p>一個PAC應該被重新導出在<code>pac</code>名下，無論這個crate實際的名字是什麼，因為HAL的名字應該已經明確了正被訪問的是什麼PAC 。</p>
+<p><a id="c-hal-traits"></a></p>
+<h2 id="類型實現embedded-hal-traits-c-hal-traits"><a class="header" href="#類型實現embedded-hal-traits-c-hal-traits">類型實現<code>embedded-hal</code> traits (C-HAL-TRAITS)</a></h2>
+<p>HAL提供的類型應該實現所有的由<a href="https://github.com/rust-embedded/embedded-hal"><code>embedded-hal</code></a> crate提供的能用的traits。</p>
+<p>同個類型可能實現多個traits。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="可預見性"><a class="header" href="#可預見性">可預見性</a></h1>
+<p><a id="c-ctor"></a></p>
+<h2 id="使用構造函數而不是擴展traits"><a class="header" href="#使用構造函數而不是擴展traits">使用構造函數而不是擴展traits</a></h2>
+<p>所有由HAL添加功能的外設應該被封裝進一個新類型，即使該功能不需要額外的字段。</p>
+<p>應該避免為基本外設擴展traits。</p>
+<p><a id="c-inline"></a></p>
+<h2 id="方法在適當的地方用inline修飾"><a class="header" href="#方法在適當的地方用inline修飾">方法在適當的地方用<code>#[inline]</code>修飾</a></h2>
+<p>Rust編譯器默認不會越過crate邊界執行完全內聯。因為嵌入式應用對於不可預期的代碼大小的增加很敏感，<code>#[inline]</code>應該如下所示用來指導編譯器:</p>
+<ul>
+<li>所有的"小"函數應該被標記<code>#[inline]</code>。什麼是"小"是主觀的，但是通常所有有可能被編譯成一位數的指令序列(single-digit instruction sequences)都可以被視為"小"。</li>
+<li>非常有可能把一個常量數值作為參數的函數應該被標記為<code>#[inline]</code>。這讓編譯器在編譯時就可以進行計算甚至是複雜的初始化邏輯，前提是函數輸入是已知的。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="關於gpio接口的建議"><a class="header" href="#關於gpio接口的建議">關於GPIO接口的建議</a></h1>
+<p><a id="c-zst-pin"></a></p>
+<h2 id="pin類型默認是零大小的c-zst-pin"><a class="header" href="#pin類型默認是零大小的c-zst-pin">Pin類型默認是零大小的(C-ZST-PIN)</a></h2>
+<p>由HAL暴露的GPIO接口應該為所有接口或者端口上的每一個管腳提供一個專用的零大小類型，從而當所有的管腳分配靜態已知時，提供一個零開銷抽象。</p>
+<p>每個GPIO接口或者端口應該實現一個<code>split</code>方法，它返回一個擁有所有管腳的結構體。</p>
+<p>案例:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct PA0;
+pub struct PA1;
+// ...
+
+pub struct PortA;
+
+impl PortA {
+    pub fn split(self) -&gt; PortAPins {
+        PortAPins {
+            pa0: PA0,
+            pa1: PA1,
+            // ...
+        }
+    }
+}
+
+pub struct PortAPins {
+    pub pa0: PA0,
+    pub pa1: PA1,
+    // ...
+}
+<span class="boring">}</span></code></pre></pre>
+<p><a id="c-erased-pin"></a></p>
+<h2 id="管腳類型提供方法去擦除管腳和端口c-erased-pin"><a class="header" href="#管腳類型提供方法去擦除管腳和端口c-erased-pin">管腳類型提供方法去擦除管腳和端口(C-ERASED-PIN)</a></h2>
+<p>從編譯時到運行時，管腳都應該提供可以改變屬性的類型擦出方法，允許在應用中有更多的靈活性。</p>
+<p>案例:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 端口 A, 管腳 0。
+pub struct PA0;
+
+impl PA0 {
+    pub fn erase_pin(self) -&gt; PA {
+        PA { pin: 0 }
+    }
+}
+
+/// 端口A上的A管腳。
+pub struct PA {
+    /// 管腳號。
+    pin: u8,
+}
+
+impl PA {
+    pub fn erase_port(self) -&gt; Pin {
+        Pin {
+            port: Port::A,
+            pin: self.pin,
+        }
+    }
+}
+
+pub struct Pin {
+    port: Port,
+    pin: u8,
+    // (這些字段)
+    // (這些字段可以打包以減少內存佔用)
+}
+
+enum Port {
+    A,
+    B,
+    C,
+    D,
+}
+<span class="boring">}</span></code></pre></pre>
+<p><a id="c-pin-state"></a></p>
+<h2 id="管腳狀態應該被編碼成類型參數-c-pin-state"><a class="header" href="#管腳狀態應該被編碼成類型參數-c-pin-state">管腳狀態應該被編碼成類型參數 (C-PIN-STATE)</a></h2>
+<p>取決於芯片或者芯片系列，管腳可能被配置為具有不同特性的輸出或者輸入。這個狀態應該編碼進類型系統中以避免在錯誤的狀態中使用管腳。</p>
+<p>另外，也可以用這個方法使用額外的類型參數編碼芯片特定的狀態(eg. 驅動強度)。</p>
+<p>用來改變管腳狀態的方法應該被實現成<code>into_input</code>和<code>into_output</code>方法。</p>
+<p>另外，應該提供<code>with_{input,output}_state</code>方法，在一個不同的狀態中臨時配置一個管腳而不是移動它。</p>
+<p>應該為每個的管腳類型提供下列的方法(也就是說，已擦除和未擦除的管腳類型應該提供一樣的API):</p>
+<ul>
+<li><code>pub fn into_input&lt;N: InputState&gt;(self, input: N) -&gt; Pin&lt;N&gt;</code></li>
+<li><code>pub fn into_output&lt;N: OutputState&gt;(self, output: N) -&gt; Pin&lt;N&gt;</code></li>
+<li>
+<pre><code class="language-ignore">pub fn with_input_state&lt;N: InputState, R&gt;(
+    &amp;mut self,
+    input: N,
+    f: impl FnOnce(&amp;mut PA1&lt;N&gt;) -&gt; R,
+) -&gt; R
+</code></pre>
+</li>
+<li>
+<pre><code class="language-ignore">pub fn with_output_state&lt;N: OutputState, R&gt;(
+    &amp;mut self,
+    output: N,
+    f: impl FnOnce(&amp;mut PA1&lt;N&gt;) -&gt; R,
+) -&gt; R
+</code></pre>
+</li>
+</ul>
+<p>管腳狀態應該用sealed traits來綁定。HAL的用戶不必添加他們自己的狀態。這個traits能提供HAL特定的方法，實現管腳狀態API需要這些方法。</p>
+<p>案例:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::marker::PhantomData;
+</span>mod sealed {
+    pub trait Sealed {}
+}
+
+pub trait PinState: sealed::Sealed {}
+pub trait OutputState: sealed::Sealed {}
+pub trait InputState: sealed::Sealed {
+    // ...
+}
+
+pub struct Output&lt;S: OutputState&gt; {
+    _p: PhantomData&lt;S&gt;,
+}
+
+impl&lt;S: OutputState&gt; PinState for Output&lt;S&gt; {}
+impl&lt;S: OutputState&gt; sealed::Sealed for Output&lt;S&gt; {}
+
+pub struct PushPull;
+pub struct OpenDrain;
+
+impl OutputState for PushPull {}
+impl OutputState for OpenDrain {}
+impl sealed::Sealed for PushPull {}
+impl sealed::Sealed for OpenDrain {}
+
+pub struct Input&lt;S: InputState&gt; {
+    _p: PhantomData&lt;S&gt;,
+}
+
+impl&lt;S: InputState&gt; PinState for Input&lt;S&gt; {}
+impl&lt;S: InputState&gt; sealed::Sealed for Input&lt;S&gt; {}
+
+pub struct Floating;
+pub struct PullUp;
+pub struct PullDown;
+
+impl InputState for Floating {}
+impl InputState for PullUp {}
+impl InputState for PullDown {}
+impl sealed::Sealed for Floating {}
+impl sealed::Sealed for PullUp {}
+impl sealed::Sealed for PullDown {}
+
+pub struct PA1&lt;S: PinState&gt; {
+    _p: PhantomData&lt;S&gt;,
+}
+
+impl&lt;S: PinState&gt; PA1&lt;S&gt; {
+    pub fn into_input&lt;N: InputState&gt;(self, input: N) -&gt; PA1&lt;Input&lt;N&gt;&gt; {
+        todo!()
+    }
+
+    pub fn into_output&lt;N: OutputState&gt;(self, output: N) -&gt; PA1&lt;Output&lt;N&gt;&gt; {
+        todo!()
+    }
+
+    pub fn with_input_state&lt;N: InputState, R&gt;(
+        &amp;mut self,
+        input: N,
+        f: impl FnOnce(&amp;mut PA1&lt;N&gt;) -&gt; R,
+    ) -&gt; R {
+        todo!()
+    }
+
+    pub fn with_output_state&lt;N: OutputState, R&gt;(
+        &amp;mut self,
+        output: N,
+        f: impl FnOnce(&amp;mut PA1&lt;N&gt;) -&gt; R,
+    ) -&gt; R {
+        todo!()
+    }
+}
+
+// 對於`PA`和`Pin`一樣的，對於其它管腳類型來說也是。
+<span class="boring">}</span></code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="給嵌入式c開發者的貼士"><a class="header" href="#給嵌入式c開發者的貼士">給嵌入式C開發者的貼士</a></h1>
+<p>這個章節收集了可能對於剛開始編寫Rust的，有經驗的嵌入式C開發者來說，有用的各種各樣的貼士。它將解釋你在C中可能已經用到的那些東西與Rust中的有何不同。</p>
+<h2 id="預處理器"><a class="header" href="#預處理器">預處理器</a></h2>
+<p>在嵌入式C中，為了各種各樣的目的使用預處理器是很常見的，比如:</p>
+<ul>
+<li>使用<code>#ifdef</code>編譯時選擇代碼塊</li>
+<li>編譯時的數組大小和計算</li>
+<li>用來簡化常見的模式的宏(避免調用函數的開銷)</li>
+</ul>
+<p>在Rust中沒有預處理器，所以許多案例有不同的處理方法。本章節剩下的部分，我們將介紹各種替代預處理器的方法。</p>
+<h3 id="編譯時的代碼選擇"><a class="header" href="#編譯時的代碼選擇">編譯時的代碼選擇</a></h3>
+<p>Rust中最接近<code>#ifdef ... #endif</code>的是<a href="https://doc.rust-lang.org/cargo/reference/manifest.html#the-features-section">Cargo features</a>。這些比C預處理器更正式一點: 每個crate顯式列舉的，所有可能的features只能是關了的或者打開了的。當你把一個crate列為依賴項時，Features被打開，且是可添加的：如果你依賴樹中的任何crate為另一個crate打開了一個feature，那麼這個feature將為所有使用那個crate的用戶而打開。</p>
+<p>比如，你可能有一個crate，其提供一個信號處理的基本類型庫(library of signal processing primitives)。每個基本類型可能帶來一些額外的時間去編譯大量的常量，你想要避開這些常量。你可以為你的<code>Cargo.toml</code>中每個組件聲明一個Cargo feature。</p>
+<pre><code class="language-toml">[features]
+FIR = []
+IIR = []
+</code></pre>
+<p>然後，在你的代碼中，使用<code>#[cfg(feature="FIR")]</code>去控制要包含什麼東西。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 在你的頂層的lib.rs中
+#[cfg(feature="FIR")]
+pub mod fir;
+
+#[cfg(feature="IIR")]
+pub mod iir;
+<span class="boring">}</span></code></pre></pre>
+<p>同樣地，你可以控制，只有當某個feature <em>沒有</em> 被打開時，包含代碼塊，或者某些features的組合被打開或者被關閉時。</p>
+<p>另外，Rust提供了許多可以使用的自動配置了的條件，比如<code>target_arch</code>用來選擇不同的代碼所基於的架構。對於條件編譯的全部細節，可以參看the Rust reference的<a href="https://doc.rust-lang.org/reference/conditional-compilation.html">conditional compilation</a>章節。</p>
+<p>條件編譯將只應用於下一條語句或者塊。如果一個塊不能在現在的作用域中被使用，那麼<code>cfg</code>屬性將需要被多次使用。值得注意的是大多數時間，僅是包含所有的代碼而讓編譯器在優化時去刪除死代碼(dead code)更好，通常，在移除不使用的代碼方面的工作，編譯器做得很好。</p>
+<h3 id="編譯時大小和計算"><a class="header" href="#編譯時大小和計算">編譯時大小和計算</a></h3>
+<p>Rust支持<code>const fn</code>，<code>const fn</code>是在編譯時可以被計算的函數，因此可以被用在需要常量的地方，比如在數組的大小中。這個能與上述的features一起使用，比如:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const fn array_size() -&gt; usize {
+    #[cfg(feature="use_more_ram")]
+    { 1024 }
+    #[cfg(not(feature="use_more_ram"))]
+    { 128 }
+}
+
+static BUF: [u32; array_size()] = [0u32; array_size()];
+<span class="boring">}</span></code></pre></pre>
+<p>這些對於stable版本的Rust來說是新的特性，從1.31開始引入，因此文檔依然很少。在寫這篇文章的時候<code>const fn</code>可用的功能也非常有限; 在未來的Rust release版本中，我們可以期望<code>const fn</code>將帶來更多的功能。</p>
+<h3 id="宏"><a class="header" href="#宏">宏</a></h3>
+<p>Rust提供一個極度強大的<a href="https://doc.rust-lang.org/book/ch19-06-macros.html">宏系統</a>。雖然C預處理器幾乎直接在你的源代碼之上進行操作，但是Rust宏系統可以在一個更高的級別上操作。存在兩種Rust宏: <em>聲明宏</em> 和 <em>過程宏</em> 。前者更簡單也最常見; 它們看起來像是函數調用，且能擴展成一個完整的表達式，語句，項，或者模式。過程宏更復雜但是卻能讓Rust更強大: 它們可以把任一條Rust語法變成一個新的Rust語法。</p>
+<p>通常，你可能想知道在那些使用一個C預處理器宏的地方，能否使用一個聲明宏做同樣的工作。你可以在crate中定義它們，且在你的crate中輕鬆使用它們或者導出給其他人用。但是請注意，因為它們必須擴展成完整的表達式，語句，項或者模式，因此C預處理器宏的某些用例沒法用，比如可以擴展成一個變量名的一部分的宏或者可以把列表中的項擴展成不完整的集合的宏。</p>
+<p>和Cargo features一樣，值得考慮下你是否真的需要宏。在一些例子中一個常規的函數更容易被理解，它也能被內聯成和一個和宏一樣的代碼。<code>#[inline]</code>和<code>#[inline(always)]</code> <a href="https://doc.rust-lang.org/reference/attributes.html#inline-attribute">attributes</a> 能讓你更深入控制這個過程，這裡也要小心 - 編譯器會從同一個crate的恰當的地方自動地內聯函數，因此不恰當地強迫它內聯函數實際可能會導致性能下降。</p>
+<p>研究完整的Rust宏系統超出了本節內容，因此我們鼓勵你去查閱Rust文檔瞭解完整的細節。</p>
+<h2 id="編譯系統"><a class="header" href="#編譯系統">編譯系統</a></h2>
+<p>大多數Rust crates使用Cargo編譯 (即使這不是必須的)。這解決了傳統編譯系統帶來的許多難題。然而，你可能希望自定義編譯過程。為了實現這個目的，Cargo提供了<a href="https://doc.rust-lang.org/cargo/reference/build-scripts.html"><code>build.rs</code>腳本</a>。它們是可以根據需要與Cargo編譯系統進行交互的Rust腳本。</p>
+<p>與編譯腳本有關的常見用例包括:</p>
+<ul>
+<li>提供編譯時信息，比如靜態嵌入編譯日期或者Git commit hash進你的可執行文件中</li>
+<li>根據被選擇的features或者其它邏輯在編譯時生成鏈接腳本</li>
+<li>改變Cargo的編譯配置</li>
+<li>添加額外的靜態鏈接庫以進行鏈接</li>
+</ul>
+<p>現在還不支持post-build腳本，通常將它用於像是從編譯的對象自動生生成二進制文件或者打印編譯信息這類任務中。</p>
+<h3 id="交叉編譯-1"><a class="header" href="#交叉編譯-1">交叉編譯</a></h3>
+<p>為你的編譯系統使用Cargo也能簡化交叉編譯。在大多數例子裡，告訴Cargo <code>--target thumbv6m-none-eabi</code>就行了，可以在<code>target/thumbv6m-none-eabi/debug/myapp</code>中找到一個合適的可執行文件。</p>
+<p>對於那些並不是Rust原生支持的平臺，將需要自己為那個目標平臺編譯<code>libcore</code>。遇到這樣的平臺，<a href="https://github.com/japaric/xargo">Xargo</a>可以作為Cargo的替代來使用，它可以自動地為你編譯<code>libcore</code>。</p>
+<h2 id="迭代器與數組訪問"><a class="header" href="#迭代器與數組訪問">迭代器與數組訪問</a></h2>
+<p>在C中，你可能習慣於通過索引直接訪問數組:</p>
+<pre><code class="language-c">int16_t arr[16];
+int i;
+for(i=0; i&lt;sizeof(arr)/sizeof(arr[0]); i++) {
+    process(arr[i]);
+}
+</code></pre>
+<p>在Rust中，這是一個反模式(anti-pattern)：索引訪問可能會更慢(因為它可能需要做邊界檢查)且可能會阻止編譯器的各種優化。這是一個重要的區別，值得再重複一遍: Rust會在手動的數組索引上進行越界檢查以保障內存安全性，而C允許索引數組外的內容。</p>
+<p>可以使用迭代器來替代:</p>
+<pre><code class="language-rust ignore">let arr = [0u16; 16];
+for element in arr.iter() {
+    process(*element);
+}</code></pre>
+<p>迭代器提供了一個有強大功能的數組，在C中你不得不手動實現它，比如chaining，zipping，enumerating，找到最小或最大值，summing，等等。迭代器方法也能被鏈式調用，提供了可讀性非常高的數據處理代碼。</p>
+<p>閱讀<a href="https://doc.rust-lang.org/book/ch13-02-iterators.html">Iterators in the Book</a>和<a href="https://doc.rust-lang.org/core/iter/trait.Iterator.html">Iterator documentation</a>獲取更多細節。</p>
+<h2 id="引用和指針"><a class="header" href="#引用和指針">引用和指針</a></h2>
+<p>在Rust中，存在指針(被叫做 <a href="https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html#dereferencing-a-raw-pointer"><em>裸指針</em></a>)但是隻能在特殊的環境中被使用，因為解引用裸指針總是被認為是<code>unsafe</code>的 -- Rust通常不能保障指針背後有什麼。</p>
+<p>在大多數例子裡，我們使用 <em>引用</em> 來替代，由<code>&amp;</code>符號指出，或者 <em>可變引用</em>，由<code>&amp;mut</code>指出。引用與指針相似，因為它能被解引用來訪問底層的數據，但是它們是Rust的所有權系統的一個關鍵部分: Rust將嚴格強迫你在任何給定時間只有一個可變引用 <em>或者</em> 對相同數據的多個不變引用。</p>
+<p>在實踐中，這意味著你必須要更加小心你是否需要對數據的可變訪問：在C中默認是可變的，你必須顯式地使用<code>const</code>，在Rust中正好相反。</p>
+<p>某個情況下，你可能仍然要使用裸指針直接與硬件進行交互(比如，寫入一個指向DMA外設寄存器中的緩存的指針)，它們也被所有的外設訪問crates在底層使用，讓你可以讀取和寫入存儲映射寄存器。</p>
+<h2 id="volatile訪問"><a class="header" href="#volatile訪問">Volatile訪問</a></h2>
+<p>在C中，某個變量可能被標記成<code>volatile</code>，向編譯器指出，變量中的值在訪問間可能改變。Volatile變量通常用於一個與存儲映射的寄存器有關的嵌入式上下文中。</p>
+<p>在Rsut中，並不使用<code>volatile</code>標記變量，我們使用特定的方法去執行volatile訪問: <a href="https://doc.rust-lang.org/core/ptr/fn.read_volatile.html"><code>core::ptr::read_volatile</code></a> 和 <a href="https://doc.rust-lang.org/core/ptr/fn.write_volatile.html"><code>core::ptr::write_volatile</code></a>。這些方法使用一個 <code>*const T</code> 或者一個 <code>*mut T</code> (上面說的 <em>裸指針</em> )，執行一個volatile讀取或者寫入。</p>
+<p>比如，在C中你可能這樣寫:</p>
+<pre><code class="language-c">volatile bool signalled = false;
+
+void ISR() {
+    // 提醒中斷已經發生了
+    signalled = true;
+}
+
+void driver() {
+    while(true) {
+        // 睡眠直到信號來了
+        while(!signalled) { WFI(); }
+        // 重置信號提示符
+        signalled = false;
+        // 執行一些正在等待這個中斷的任務
+        run_task();
+    }
+}
+</code></pre>
+<p>在Rust中對每個訪問使用volatile方法能達到相同的效果:</p>
+<pre><code class="language-rust ignore">static mut SIGNALLED: bool = false;
+
+#[interrupt]
+fn ISR() {
+    // 提醒中斷已經發生
+    // (在正在的代碼中，你應該考慮一個更高級的基本類型,
+    // 比如一個原子類型)
+    unsafe { core::ptr::write_volatile(&amp;mut SIGNALLED, true) };
+}
+
+fn driver() {
+    loop {
+        // 睡眠直到信號來了
+        while unsafe { !core::ptr::read_volatile(&amp;SIGNALLED) } {}
+        // 重置信號指示符
+        unsafe { core::ptr::write_volatile(&amp;mut SIGNALLED, false) };
+        // 執行一些正在等待中斷的任務
+        run_task();
+    }
+}</code></pre>
+<p>在示例代碼中有些事情值得注意:</p>
+<ul>
+<li>我們可以把<code>&amp;mut SIGNALLED</code>傳遞給要求<code>*mut T</code>的函數中，因為<code>&amp;mut T</code>會自動轉換成一個<code>*mut T</code> (對於<code>*const T</code>來說是一樣的)</li>
+<li>我們需要為<code>read_volatile</code>/<code>write_volatile</code>方法使用<code>unsafe</code>塊，因為它們是<code>unsafe</code>的函數。確保操作安全變成了程序員的責任：看方法的文檔獲得更多細節。</li>
+</ul>
+<p>在你的代碼中直接使用這些函數是很少見的，因為它們通常由更高級的庫封裝起來為你提供服務。對於存儲映射的外設，提供外設訪問的crates將自動實現volatile訪問，而對於併發的基本類型，存在更好的抽象可用。(看<a href="c-tips/../concurrency/index.html">併發章節</a>)</p>
+<h2 id="填充和對齊類型"><a class="header" href="#填充和對齊類型">填充和對齊類型</a></h2>
+<p>在嵌入式C中，告訴編譯器一個變量必須遵守某個對齊或者一個結構體必須被填充而不是對齊，是很常見的行為，通常是為了滿足特定的硬件或者協議要求。</p>
+<p>在Rust中，這由一個結構體或者聯合體上的<code>repr</code>屬性來控制。默認的表示(representation)不保障佈局，因此不應該被用於與硬件或者C互用的代碼。編譯器可能會對結構體成員重新排序或者插入填充，且這種行為可能在未來的Rust版本中改變。</p>
+<pre><pre class="playground"><code class="language-rust">struct Foo {
+    x: u16,
+    y: u8,
+    z: u16,
+}
+
+fn main() {
+    let v = Foo { x: 0, y: 0, z: 0 };
+    println!("{:p} {:p} {:p}", &amp;v.x, &amp;v.y, &amp;v.z);
+}
+
+// 0x7ffecb3511d0 0x7ffecb3511d4 0x7ffecb3511d2
+// 注意為了改進填充，順序已經被變成了x, z, y</code></pre></pre>
+<p>使用<code>repr(C)</code>可以確保佈局可以與C互用。</p>
+<pre><pre class="playground"><code class="language-rust">#[repr(C)]
+struct Foo {
+    x: u16,
+    y: u8,
+    z: u16,
+}
+
+fn main() {
+    let v = Foo { x: 0, y: 0, z: 0 };
+    println!("{:p} {:p} {:p}", &amp;v.x, &amp;v.y, &amp;v.z);
+}
+
+// 0x7fffd0d84c60 0x7fffd0d84c62 0x7fffd0d84c64
+// 順序被保留了，佈局將不會隨著時間而改變
+// `z`是兩個字節對齊，因此在`y`和`z`之間填充了一個字節。</code></pre></pre>
+<p>使用<code>repr(packed)</code>去確保表示(representation)被填充了:</p>
+<pre><pre class="playground"><code class="language-rust">#[repr(packed)]
+struct Foo {
+    x: u16,
+    y: u8,
+    z: u16,
+}
+
+fn main() {
+    let v = Foo { x: 0, y: 0, z: 0 };
+    // 引用必須總是對齊的，因此為了檢查結構體字段的地址，我們使用
+    // `std::ptr::addr_of!()`去獲取一個裸指針而不僅是打印`&amp;v.x`
+    let px = std::ptr::addr_of!(v.x);
+    let py = std::ptr::addr_of!(v.y);
+    let pz = std::ptr::addr_of!(v.z);
+    println!("{:p} {:p} {:p}", px, py, pz);
+}
+
+// 0x7ffd33598490 0x7ffd33598492 0x7ffd33598493
+// 在`y`和`z`沒有填充被插入，因此現在`z`沒有被對齊。</code></pre></pre>
+<p>注意使用<code>repr(packed)</code>也會將類型的對齊設置成<code>1</code> 。</p>
+<p>最後，為了指定一個特定的對齊，可以使用<code>repr(align(n))</code>，<code>n</code>是要對齊的字節數(必須是2的冪):</p>
+<pre><pre class="playground"><code class="language-rust">#[repr(C)]
+#[repr(align(4096))]
+struct Foo {
+    x: u16,
+    y: u8,
+    z: u16,
+}
+
+fn main() {
+    let v = Foo { x: 0, y: 0, z: 0 };
+    let u = Foo { x: 0, y: 0, z: 0 };
+    println!("{:p} {:p} {:p}", &amp;v.x, &amp;v.y, &amp;v.z);
+    println!("{:p} {:p} {:p}", &amp;u.x, &amp;u.y, &amp;u.z);
+}
+
+// 0x7ffec909a000 0x7ffec909a002 0x7ffec909a004
+// 0x7ffec909b000 0x7ffec909b002 0x7ffec909b004
+// `u`和`v`兩個實例已經被放置在4096字節的對齊上。
+// 它們地址結尾處的`000`證明了這件事。</code></pre></pre>
+<p>注意我們可以結合<code>repr(C)</code>和<code>repr(align(n))</code>來獲取一個對齊的c兼容的佈局。不允許將<code>repr(align(n))</code>和<code>repr(packed)</code>一起使用，因為<code>repr(packed)</code>將對齊設置為<code>1</code>。也不允許一個<code>repr(packed)</code>類型包含一個<code>repr(align(n))</code>類型。</p>
+<p>關於類型佈局更多的細節，參考the Rust Reference的<a href="https://doc.rust-lang.org/reference/type-layout.html">type layout</a>章節。</p>
+<h2 id="其它資源-1"><a class="header" href="#其它資源-1">其它資源</a></h2>
+<ul>
+<li>這本書中:
+<ul>
+<li><a href="c-tips/../interoperability/c-with-rust.html">使用C的Rust</a></li>
+<li><a href="c-tips/../interoperability/rust-with-c.html">使用Rust的C</a></li>
+</ul>
+</li>
+<li><a href="https://docs.rust-embedded.org/faq.html">The Rust Embedded FAQs</a></li>
+<li><a href="http://blahg.josefsipek.net/?p=580">Rust Pointers for C Programmers</a></li>
+<li><a href="https://github.com/diwic/reffers-rs/blob/master/docs/Pointers.md">I used to use pointers - now what?</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="互操性"><a class="header" href="#互操性">互操性</a></h1>
+<p>Rust和C代碼之間的互操性始終依賴於數據在兩個語言間的轉換．為了互操性，在<code>stdlib</code>中有一個專用的模塊，叫作
+<a href="https://doc.rust-lang.org/std/ffi/index.html"><code>std::ffi</code></a>.</p>
+<p><code>std::ffi</code>提供了與C基礎類型對應的類型定義，比如<code>char</code>， <code>int</code>，和<code>long</code>．
+它也提供了一些工具用於更復雜的類型之間的轉換，比如字符串，可以把<code>&amp;str</code>和<code>String</code>映射成更容易和安全處理的C類型．</p>
+<p>從Rust 1.30以來，<code>std::ffi</code>的功能也出現在<code>core::ffi</code>或者<code>alloc::ffi</code>中，取決於是否涉及到內存分配．
+<a href="https://crates.io/crates/cty"><code>cty</code></a>庫和<a href="https://crates.io/crates/cstr_core"><code>cstr_core</code></a>庫也提供了相同的功能．</p>
+<div class="table-wrapper"><table><thead><tr><th>Rust類型</th><th>間接</th><th>C類型</th></tr></thead><tbody>
+<tr><td><code>String</code></td><td><code>CString</code></td><td><code>char *</code></td></tr>
+<tr><td><code>&amp;str</code></td><td><code>CStr</code></td><td><code>const char *</code></td></tr>
+<tr><td><code>()</code></td><td><code>c_void</code></td><td><code>void</code></td></tr>
+<tr><td><code>u32</code> or <code>u64</code></td><td><code>c_uint</code></td><td><code>unsigned int</code></td></tr>
+<tr><td>etc</td><td>...</td><td>...</td></tr>
+</tbody></table>
+</div>
+<p>一個C基本類型的值可以被用來作為相關的Rust類型的值，反之亦然，因此前者僅僅是後者的一個類型偽名．
+比如，下列的代碼可以在<code>unsigned int</code>是32位寬的平臺上編譯．</p>
+<pre><code class="language-rust ignore">fn foo(num: u32) {
+    let c_num: c_uint = num;
+    let r_num: u32 = c_num;
+}</code></pre>
+<h2 id="與其它編譯系統的互用性"><a class="header" href="#與其它編譯系統的互用性">與其它編譯系統的互用性</a></h2>
+<p>在嵌入式項目中引入Rust的一個常見需求是，把Cargo結合進你現存的編譯系統中，比如make或者cmake。</p>
+<p>在<a href="https://github.com/rust-embedded/book/issues/61">issue #61</a>的issue tracker上，我們正在為這個需求收集例子和用例。</p>
+<h2 id="與rtoss的互操性"><a class="header" href="#與rtoss的互操性">與RTOSs的互操性</a></h2>
+<p>將Rust和一個RTOS集成在一起，比如FreeRTOS或者ChibiOS仍然在進行中; 尤其是從Rust調用RTOS函數可能很棘手。</p>
+<p>在<a href="https://github.com/rust-embedded/book/issues/62">issue #62</a>的issue tracker上，我們正為這件事收集例子和用例。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="使用c的rust"><a class="header" href="#使用c的rust">使用C的Rust</a></h1>
+<p>要在一個Rust項目中使用C或者C++，主要有兩個步驟:</p>
+<ul>
+<li>用Rust封裝要暴露出來使用的C API</li>
+<li>編譯要和Rust代碼集成在一起的C或者C++代碼</li>
+</ul>
+<p>因為對於Rust編譯器來說，C++沒有一個穩定的ABI，當要將Rust和C或者C++結合時，建議優先選擇<code>C</code>。</p>
+<h2 id="定義接口"><a class="header" href="#定義接口">定義接口</a></h2>
+<p>在Rust消費C或者C++代碼之前，必須定義(在Rust中定義)，在要被鏈接的代碼中存在什麼數據類型和函數簽名。在C或者C++中，你要包含一個頭文件(<code>.h</code>或者<code>.hpp</code>)，其定義了這個數據。而在Rust中，必須手動地將這些定義翻譯成Rust，或者使用一個工具去生成這些定義。</p>
+<p>首先，我們將介紹如何將這些定義從C/C++手動地轉換為Rust。</p>
+<h3 id="封裝c函數和數據類型"><a class="header" href="#封裝c函數和數據類型">封裝C函數和數據類型</a></h3>
+<p>通常，用C或者C++寫的庫會提供一個頭文件，頭文件定義了所有的類型和用於公共接口的函數。如下是一個示例文件:</p>
+<pre><code class="language-C">/* 文件: cool.h */
+typedef struct CoolStruct {
+    int x;
+    int y;
+} CoolStruct;
+
+void cool_function(int i, char c, CoolStruct* cs);
+</code></pre>
+<p>當翻譯成Rust時，這個接口將看起來像是:</p>
+<pre><code class="language-rust ignore">/* File: cool_bindings.rs */
+#[repr(C)]
+pub struct CoolStruct {
+    pub x: cty::c_int,
+    pub y: cty::c_int,
+}
+
+extern "C" {
+    pub fn cool_function(
+        i: cty::c_int,
+        c: cty::c_char,
+        cs: *mut CoolStruct
+    );
+}</code></pre>
+<p>讓我們一次看一個語句，來解釋每個部分。</p>
+<pre><code class="language-rust ignore">#[repr(C)]
+pub struct CoolStruct { ... }</code></pre>
+<p>默認，Rust不會保證包含在<code>struct</code>中的數據的大小，填充，或者順序。為了保證與C代碼兼容，我們使用<code>#[repr(C)]</code>屬性，它指示Rust編譯器總是使用和C一樣的規則去組織一個結構體中的數據。</p>
+<pre><code class="language-rust ignore">pub x: cty::c_int,
+pub y: cty::c_int,</code></pre>
+<p>由於C或者C++定義一個<code>int</code>或者<code>char</code>的方式很靈活，所以建議使用在<code>cty</code>中定義的基礎類型，它將類型從C映射到Rust中的類型。</p>
+<pre><code class="language-rust ignore">extern "C" { pub fn cool_function( ... ); }</code></pre>
+<p>這個語句定義了一個使用C ABI的函數的簽名，叫做<code>cool_function</code>。因為只定義了簽名而沒有定義函數的主體，所以這個函數的定義將需要在其它地方定義，或者從一個靜態庫鏈接進最終的庫或者一個二進制文件中。</p>
+<pre><code class="language-rust ignore">    i: cty::c_int,
+    c: cty::c_char,
+    cs: *mut CoolStruct</code></pre>
+<p>與我們上面的數據類型一樣，我們使用C兼容的定義去定義函數參數的數據類型。為了清晰可見，我們還保留了相同的參數名。</p>
+<p>這裡我們有了一個新類型，<code>*mut CoolStruct</code> 。因為C沒有Rust中像 <code>&amp;mut CoolStruct</code> 這樣的引用，替代的是一個裸指針。所以解引用這個指針是<code>unsafe</code>的，因為這個指針實際上可能是一個<code>null</code>指針，因此當與C或者C++代碼交互時必須要小心對待那些Rust做出的安全保證。</p>
+<h3 id="自動產生接口"><a class="header" href="#自動產生接口">自動產生接口</a></h3>
+<p>有一個叫做<a href="https://github.com/rust-lang/rust-bindgen">bindgen</a>的工具，它可以自動執行這些轉換，而不用手動生成這些接口，手動進行這樣的操作非常繁瑣且容易出錯。關於<a href="https://github.com/rust-lang/rust-bindgen">bindgen</a>的使用指令，可以參考<a href="https://rust-lang.github.io/rust-bindgen/">bindgen user's manual</a>，常用的步驟大致如下:</p>
+<ol>
+<li>收集所有定義了你可能在Rust中會用到的數據類型或者接口的C或者C++頭文件。</li>
+<li>寫一個<code>bindings.h</code>文件，其<code>#include "..."</code>每一個你在步驟一中收集的文件。</li>
+<li>將這個<code>bindings.h</code>文件和任何用來編譯你代碼的編譯標識發給<code>bindgen</code>。貼士: 使用<code>Builder.ctypes_prefix("cty")</code> / <code>--ctypes-prefix=cty</code> 和 <code>Builder.use_core()</code> / <code>--use-core</code> 去使生成的代碼兼容<code>#![no_std]</code></li>
+<li><code>bindgen</code>將會在終端窗口輸出生成的Rust代碼。這個文件可能會被通過管道發送給你項目中的一個文件，比如<code>bindings.rs</code> 。你可能要在你的Rust項目中使用這個文件來與被編譯和鏈接成一個外部庫的C/C++代碼交互。貼士: 如果你的類型在生成的綁定中被前綴了<code>cty</code>，不要忘記使用<a href="https://crates.io/crates/cty"><code>cty</code></a> crate 。</li>
+</ol>
+<h2 id="編譯你的-cc-代碼"><a class="header" href="#編譯你的-cc-代碼">編譯你的 C/C++ 代碼</a></h2>
+<p>因為Rust編譯器並不直接知道如何編譯C或者C++代碼(或者從其它語言來的代碼，其提供了一個C接口)，所以必須要靜態編譯你的非Rust代碼。</p>
+<p>對於嵌入式項目，這通常意味著把C/C++代碼編譯成一個靜態庫文檔(比如 <code>cool-library.a</code>)，然後其能在最後鏈接階段與你的Rust代碼組合起來。</p>
+<p>如果你要使用的庫已經作為一個靜態庫文檔被髮布，那就沒必要重新編譯你的代碼。只需按照上面所述轉換提供的接口頭文件，且在編譯/鏈接時包含靜態庫文檔。</p>
+<p>如果你的代碼作為一個源項目(source project)存在，將你的C/C++代碼編譯成一個靜態庫將是必須的，要麼通過使用你現存的編譯系統(比如 <code>make</code>，<code>CMake</code>，等等)，要麼通過使用一個被叫做<code>cc</code> crate的工具移植必要的編譯步驟。關於這兩個，都必須使用一個<code>build.rs</code>腳本。</p>
+<h3 id="rust的-buildrs-編譯腳本"><a class="header" href="#rust的-buildrs-編譯腳本">Rust的 <code>build.rs</code> 編譯腳本</a></h3>
+<p>一個 <code>build.rs</code> 腳本是一個用Rust語法編寫的文件，它被運行在你的編譯機器上，發生在你項目的依賴項被編譯<strong>之後</strong>，但是在你的項目被編譯<strong>之前</strong> 。</p>
+<p>可能能在<a href="https://doc.rust-lang.org/cargo/reference/build-scripts.html">這裡</a>發現完整的參考。<code>build.rs</code> 腳本能用來生成代碼(比如通過<a href="https://github.com/rust-lang/rust-bindgen">bindgen</a>)，調用外部編譯系統，比如<code>Make</code>，或者直接通過使用<code>cc</code> crate來直接編譯C/C++ 。</p>
+<h3 id="使用外部編譯系統"><a class="header" href="#使用外部編譯系統">使用外部編譯系統</a></h3>
+<p>對於有複雜的外部項或者編譯系統的項目，使用<a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>std::process::Command</code></a>通過遍歷相對路徑來向其它編譯系統"輸出"，調用一個固定的命令(比如 <code>make library</code>)，然後拷貝最終的靜態庫到<code>target</code>編譯文件夾中恰當的位置，可能是最簡單的方法。</p>
+<p>雖然你的crate目標可能是一個<code>no_std</code>嵌入式平臺，但你的<code>build.rs</code>只運行在負責編譯你的crate的機器上。這意味著你能使用任何Rust crates，其將運行在你的編譯主機上。</p>
+<h3 id="使用cc-crate構建cc代碼"><a class="header" href="#使用cc-crate構建cc代碼">使用<code>cc</code> crate構建C/C++代碼</a></h3>
+<p>對於具有有限的依賴項或者複雜度的項目，或者對於那些難以修改編譯系統去生成一個靜態庫(而不是一個二進制文件或者可執行文件)的項目，使用<a href="https://github.com/alexcrichton/cc-rs"><code>cc</code> crate</a>可能更容易，它提供了一個符合Rust語法的接口，這個接口是關於主機提供的編譯器的。</p>
+<p>在把一個C文件編譯成一個靜態庫的依賴項的最簡單的場景下，可以使用<a href="https://github.com/alexcrichton/cc-rs"><code>cc</code> crate</a>，示例<code>build.rs</code>腳本看起來像這樣:</p>
+<pre><code class="language-rust ignore">fn main() {
+    cc::Build::new()
+        .file("src/foo.c")
+        .compile("foo");
+}</code></pre>
+<p>要把<code>build.rs</code>放在包的根目錄下．然後<code>cargo build</code>會在構建包之前編譯和執行它．一個靜態的名為<code>libfoo.a</code>的歸檔文件會生成並被放在<code>target</code>文件夾中．</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="使用rust的c"><a class="header" href="#使用rust的c">使用Rust的C</a></h1>
+<p>在C或者C++中使用Rust代碼通常由兩部分組成。</p>
+<ul>
+<li>用Rust生成一個C友好的API</li>
+<li>將你的Rust項目嵌入一個外部的編譯系統</li>
+</ul>
+<p>除了<code>cargo</code>和<code>meson</code>，大多數編譯系統沒有原生Rust支持。因此你最好只用<code>cargo</code>編譯你的crate和依賴。</p>
+<h2 id="設置一個項目"><a class="header" href="#設置一個項目">設置一個項目</a></h2>
+<p>像往常一樣創建一個新的<code>cargo</code>項目。有一些標誌可以告訴<code>cargo</code>去生成一個系統庫，而不是常規的rust目標文件。如果你想要它與crate的其它部分不一樣，你也可以為你的庫設置一個不同的輸出名。</p>
+<pre><code class="language-toml">[lib]
+name = "your_crate"
+crate-type = ["cdylib"]      # 生成動態鏈接庫
+# crate-type = ["staticlib"] # 生成靜態鏈接庫
+</code></pre>
+<h2 id="構建一個c-api"><a class="header" href="#構建一個c-api">構建一個<code>C</code> API</a></h2>
+<p>因為對於Rust編譯器來說，C++沒有穩定的ABI，因此對於不同語言間的互操性我們使用<code>C</code>。在C和C++代碼的內部使用Rust時也不例外。</p>
+<h3 id="no_mangle"><a class="header" href="#no_mangle"><code>#[no_mangle]</code></a></h3>
+<p>Rust對符號名的修飾與主機的代碼鏈接器所期望的不同。因此，需要告知任何被Rust導出到Rust外部去使用的函數不要被編譯器修飾。</p>
+<h3 id="extern-c"><a class="header" href="#extern-c"><code>extern "C"</code></a></h3>
+<p>默認，任何用Rust寫的函數將使用Rust ABI(這也不穩定)。當編譯面向外部的FFI APIs時，我們需要告訴編譯器去使用系統ABI 。</p>
+<p>取決於你的平臺，你可能想要針對一個特定的ABI版本，其記錄在<a href="https://doc.rust-lang.org/reference/items/external-blocks.html">這裡</a>。</p>
+<hr />
+<p>把這些部分放在一起，你得到一個函數，其粗略看起來像是這個。</p>
+<pre><code class="language-rust ignore">#[no_mangle]
+pub extern "C" fn rust_function() {
+
+}</code></pre>
+<p>就像在Rust項目中使用<code>C</code>代碼時那樣，現在需要把數據轉換為應用中其它部分可以理解的形式。</p>
+<h2 id="鏈接和更大的項目上下文"><a class="header" href="#鏈接和更大的項目上下文">鏈接和更大的項目上下文</a></h2>
+<p>問題只解決了一半。</p>
+<p>你現在要如何使用它?</p>
+<p><strong>這很大程度上取決於你的項目或者編譯系統</strong></p>
+<p><code>cargo</code>將生成一個<code>my_lib.so</code>/<code>my_lib.dll</code>或者<code>my_lib.a</code>文件，取決於你的平臺和配置。可以通過編譯系統簡單地鏈接這個庫。</p>
+<p>然而，從C調用一個Rust函數要求一個頭文件去聲明函數的簽名。</p>
+<p>在Rust-ffi API中的每個函數需要有一個相關的頭文件函數。</p>
+<pre><code class="language-rust ignore">#[no_mangle]
+pub extern "C" fn rust_function() {}</code></pre>
+<p>將會變成</p>
+<pre><code class="language-C">void rust_function();
+</code></pre>
+<p>等等。</p>
+<p>這裡有個工具可以自動化這個過程，叫做<a href="https://github.com/eqrion/cbindgen">cbindgen</a>，其會分析你的Rust代碼然後為C和C++項目生成頭文件。</p>
+<p>此時從C中使用Rust函數非常簡單，只需包含頭文件和調用它們！</p>
+<pre><code class="language-C">#include "my-rust-project.h"
+rust_function();
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="沒有排序的主題"><a class="header" href="#沒有排序的主題">沒有排序的主題</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="優化-速度與大小之間的博弈"><a class="header" href="#優化-速度與大小之間的博弈">優化: 速度與大小之間的博弈</a></h1>
+<p>每個人都想要程序變得即快又小，但是同時滿足這兩個條件是不可能的。這部分討論<code>rustc</code>提供的不同的優化等級，和它們是如何影響執行時間和一個程序的二進制項的大小。</p>
+<h2 id="無優化"><a class="header" href="#無優化">無優化</a></h2>
+<p>這是默認的。當你調用<code>cargo build</code>時，你使用的是development(又叫<code>dev</code>)配置。這個配置優化的目的是為了調試，因此它使能了調試信息且<em>關閉</em>了所有優化，i.e. 它使用 <code>-C opt-level = 0</code> 。</p>
+<p>至少對於裸機開發來說，調試信息不會佔用Flash/ROM中的空間，意味著在這種情況下，調試信息是零開銷的，因此實際上我們推薦你在release配置中使能調試信息 -- 默認它被關閉了。那會讓你調試release版本的固件時可以使用斷點。</p>
+<pre><code class="language-toml">[profile.release]
+# 調試符號很好且它們不會增加Flash上的大小
+debug = true
+</code></pre>
+<p>無優化對於調試來說是最好的選擇，因為單步調試代碼感覺像是你正在逐條語句地執行程序，且你能在GDB中<code>print</code>棧變量和函數參數。當代碼被優化了，嘗試打印變量會導致<code>$0 = &lt;value optimized out&gt;</code>被打印出來。</p>
+<p><code>dev</code>配置最大的缺點就是最終的二進制項將會變得巨大且緩慢。大小通常是一個更大的問題，因為未優化的二進制項會佔據大量KiB的Flash，你的目標設備可能沒這麼多Flash -- 結果: 你未優化的二進制項無法燒錄進你的設備中！</p>
+<p>我們可以有更小的，調試友好的二進制項嗎?是的，這裡有一個技巧。</p>
+<h3 id="優化依賴"><a class="header" href="#優化依賴">優化依賴</a></h3>
+<p>這裡有個名為<a href="https://doc.rust-lang.org/cargo/reference/profiles.html#overrides"><code>profile-overrides</code></a>的Cargo feature，其可以讓你覆蓋依賴項的優化等級。你能使用這個feature去優化所有依賴的大小，而保持頂層的crate沒有被優化以致調試起來友好。</p>
+<p>需要知道，泛型代碼有時是在它被實例化的庫中被優化的，而不是它被定義的地方．如果你在你的應用中生成了一個泛型結構體的實例，
+並且發現它讓代碼體積變得更大，那可能是因為相關的依賴的優化等級的增加沒有造成影響．</p>
+<p>這是一個示例:</p>
+<pre><code class="language-toml"># Cargo.toml
+[package]
+name = "app"
+# ..
+
+[profile.dev.package."*"] # +
+opt-level = "z" # +
+</code></pre>
+<p>沒有覆蓋:</p>
+<pre><code class="language-text">$ cargo size --bin app -- -A
+app  :
+section               size        addr
+.vector_table         1024   0x8000000
+.text                 9060   0x8000400
+.rodata               1708   0x8002780
+.data                    0  0x20000000
+.bss                     4  0x20000000
+</code></pre>
+<p>有覆蓋:</p>
+<pre><code class="language-text">$ cargo size --bin app -- -A
+app  :
+section               size        addr
+.vector_table         1024   0x8000000
+.text                 3490   0x8000400
+.rodata               1100   0x80011c0
+.data                    0  0x20000000
+.bss                     4  0x20000000
+</code></pre>
+<p>在Flash的使用上減少了6KiB，而不會損害頂層crate的可調試性。如果你步進一個依賴項，然後你將開始再次看到那些<code>&lt;value optimized out&gt;</code>信息，但是通常的情況下你只想調試頂層的crate而不是依賴項。如果你 <em>需要</em> 調試一個依賴項，那麼你可以使用<code>profile-overrides</code> feature去防止一個特定的依賴項被優化。看下面的例子:</p>
+<pre><code class="language-toml"># ..
+
+# 不要優化`cortex-m-rt` crate
+[profile.dev.package.cortex-m-rt] # +
+opt-level = 0 # +
+
+# 但是優化所有其它依賴項
+[profile.dev.package."*"]
+codegen-units = 1 # better optimizations
+opt-level = "z"
+</code></pre>
+<p>現在頂層的crate和<code>cortex-m-rt</code>對調試器很友好！</p>
+<h2 id="優化速度"><a class="header" href="#優化速度">優化速度</a></h2>
+<p>自2018-09-18開始 <code>rustc</code> 支持三個 "優化速度" 的等級: <code>opt-level = 1</code>, <code>2</code> 和 <code>3</code> 。當你運行 <code>cargo build --release</code> 時，你正在使用的是release配置，其默認是 <code>opt-level = 3</code> 。</p>
+<p><code>opt-level = 2</code> 和 <code>3</code> 都以二進制項大小為代價優化速度，但是等級<code>3</code>比等級<code>2</code>做了更多的向量化和內聯。特別是，你將看到在<code>opt-level</code>等於或者大於<code>2</code>時LLVM將展開循環。循環展開在 Flash / ROM 方面的成本相當高(e.g. from 26 bytes to 194 for a zero this array loop)但是如果條件合適(迭代次數足夠大)，也可以將執行時間減半。</p>
+<p>現在還沒有辦法在<code>opt-level = 2</code>和<code>3</code>的情況下關閉循環展開，因此如果你不能接受它的開銷，你應該選擇優化你的程序的大小。</p>
+<h2 id="優化大小"><a class="header" href="#優化大小">優化大小</a></h2>
+<p>自2018-09-18開始<code>rustc</code>支持兩個"優化大小"的等級: <code>opt-level = "s"</code> 和 <code>"z"</code> 。這些名字傳承自 clang / LLVM 且不具有描述性，但是<code>"z"</code>意味著它產生的二進制文件比<code>"s"</code>更小。</p>
+<p>如果你想要發佈一個優化了大小的二進制項，那麼改變下面展示的<code>Cargo.toml</code>中的<code>profile.release.opt-level</code>配置。</p>
+<pre><code class="language-toml">[profile.release]
+# or "z"
+opt-level = "s"
+</code></pre>
+<p>這兩個優化等級極大地減小了LLVM的內聯閾值，一個用來決定是否內聯或者不內聯一個函數的度量。Rust其中一個概念是零成本抽象；這些抽象趨向於去使用許多新類型和小函數去保持不變量(e.g. 像是<code>deref</code>，<code>as_ref</code>這樣借用內部值的函數)因此一個低內聯閾值會使LLVM失去優化的機會(e.g. 去掉死分支(dead branches)，內聯對閉包的調用)。</p>
+<p>當優化大小時，你可能想要嘗試增加內聯閾值去觀察是否會對你的二進制項的大小有影響。推薦的改變內聯閾值的方法是在<code>.cargo/config.toml</code>中往其它rustflags後插入<code>-C inline-threshold</code> 。</p>
+<pre><code class="language-toml"># .cargo/config.toml
+# 這裡假設你正在使用cortex-m-quickstart模板
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+rustflags = [
+  # ..
+  "-C", "inline-threshold=123", # +
+]
+</code></pre>
+<p>用什麼值?<a href="https://github.com/rust-lang/rust/blob/1.29.0/src/librustc_codegen_llvm/back/write.rs#L2105-L2122">從1.29.0開始，這些是不同優化級別使用的內聯閾值</a>:</p>
+<ul>
+<li><code>opt-level = 3</code> 使用 275</li>
+<li><code>opt-level = 2</code> 使用 225</li>
+<li><code>opt-level = "s"</code> 使用 75</li>
+<li><code>opt-level = "z"</code> 使用 25</li>
+</ul>
+<p>當優化大小時，你應該嘗試<code>225</code>和<code>275</code> 。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="在no_std下執行數學運算"><a class="header" href="#在no_std下執行數學運算">在<code>#[no_std]</code>下執行數學運算</a></h1>
+<p>如果你想要執行數學相關的函數，像是計算平方根或者一個數的指數並有完整的標準庫支持，代碼可能看起來像這樣:</p>
+<pre><code class="language-rs">//! 可用一些標準支持的數學函數
+
+fn main() {
+    let float: f32 = 4.82832;
+    let floored_float = float.floor();
+
+    let sqrt_of_four = floored_float.sqrt();
+
+    let sinus_of_four = floored_float.sin();
+
+    let exponential_of_four = floored_float.exp();
+    println!("Floored test float {} to {}", float, floored_float);
+    println!("The square root of {} is {}", floored_float, sqrt_of_four);
+    println!("The sinus of four is {}", sinus_of_four);
+    println!(
+        "The exponential of four to the base e is {}",
+        exponential_of_four
+    )
+}
+</code></pre>
+<p>沒有標準庫支持的時候，這些函數不可用。反而可以使用像是<a href="https://crates.io/crates/libm"><code>libm</code></a>這樣一個外部庫。示例的代碼將會看起來像這樣:</p>
+<pre><code class="language-rs">#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::{debug, hprintln};
+use libm::{exp, floorf, sin, sqrtf};
+
+#[entry]
+fn main() -&gt; ! {
+    let float = 4.82832;
+    let floored_float = floorf(float);
+
+    let sqrt_of_four = sqrtf(floored_float);
+
+    let sinus_of_four = sin(floored_float.into());
+
+    let exponential_of_four = exp(floored_float.into());
+    hprintln!("Floored test float {} to {}", float, floored_float).unwrap();
+    hprintln!("The square root of {} is {}", floored_float, sqrt_of_four).unwrap();
+    hprintln!("The sinus of four is {}", sinus_of_four).unwrap();
+    hprintln!(
+        "The exponential of four to the base e is {}",
+        exponential_of_four
+    )
+    .unwrap();
+    // 退出QEMU
+    // 注意不要在硬件上使用這個; 它能破壞OpenOCD的狀態
+    // debug::exit(debug::EXIT_SUCCESS);
+
+    loop {}
+}
+</code></pre>
+<p>如果需要在MCU上執行更復雜的操作，像是DSP信號處理或者更高級的線性代數，下列的crates可能可以幫到你</p>
+<ul>
+<li><a href="https://github.com/jacobrosenthal/cmsis-dsp-sys">CMSIS DSP library binding</a></li>
+<li><a href="https://crates.io/crates/constgebra"><code>constgebra</code></a></li>
+<li><a href="https://github.com/tarcieri/micromath"><code>micromath</code></a></li>
+<li><a href="https://crates.io/crates/microfft"><code>microfft</code></a></li>
+<li><a href="https://github.com/dimforge/nalgebra"><code>nalgebra</code></a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="附錄a-詞彙表"><a class="header" href="#附錄a-詞彙表">附錄A: 詞彙表</a></h1>
+<p>嵌入式生態系統中充滿了不同的協議，硬件組件，還有許多與生產商相關的東西，它們都使用自己的縮寫和項目名。這個詞彙表嘗試列出它們以便更好理解它們。</p>
+<h3 id="bsp"><a class="header" href="#bsp">BSP</a></h3>
+<p>板級支持的Crate(Board Support Crate)提供為某個特定板子配置的高級接口。它通常依賴一個<a href="appendix/glossary.html#hal">HAL</a> crate 。在<a href="appendix/../start/registers.html">存儲映射的寄存器那頁</a>有更多細節的描述或者看<a href="https://youtu.be/vLYit_HHPaY">這個視頻</a>來獲取一個更廣泛的概述。</p>
+<h3 id="fpu"><a class="header" href="#fpu">FPU</a></h3>
+<p>浮點單元(Floating-Point Unit)。一個只運行在浮點數上的'數學處理器'。</p>
+<h3 id="hal"><a class="header" href="#hal">HAL</a></h3>
+<p>硬件抽象層(Hardware Abstraction Layer) crate為微控制器的功能和外設提供一個開發者友好的接口。它通常在<a href="appendix/glossary.html#pac">Peripheral Access Crate (PAC)</a>之上被實現。它可能也會實現來自<a href="https://crates.io/crates/embedded-hal"><code>embedded-hal</code></a> crate的traits 。在<a href="appendix/../start/registers.html">存儲映射的寄存器那頁</a>上有更多的細節或者看<a href="https://youtu.be/vLYit_HHPaY">這個視頻</a>獲取一個更廣泛的概述。</p>
+<h3 id="i2c"><a class="header" href="#i2c">I2C</a></h3>
+<p>有時又被稱為 <code>I²C</code> 或者 Intere-IC 。它是一種用於在單個集成電路中進行硬件通信的協議。看<a href="https://en.wikipedia.org/wiki/I2c">這裡</a>來獲取更多細節。</p>
+<h3 id="pac"><a class="header" href="#pac">PAC</a></h3>
+<p>一個外設訪問 Crate (Peripheral Access Crate)提供了對一個微控制器的外設的訪問。它是一個底層的crates且通常從提供的<a href="appendix/glossary.html#svd">SVD</a>被直接生成，經常使用<a href="https://github.com/rust-embedded/svd2rust/">svd2rust</a>。<a href="appendix/glossary.html#hal">硬件抽象層</a>應該依賴這個crate。在<a href="appendix/../start/registers.html">存儲映射的寄存器那頁</a>有更細節的描述或者看<a href="https://youtu.be/vLYit_HHPaY">這個視頻</a>獲取一個更廣泛的概述。</p>
+<h3 id="spi"><a class="header" href="#spi">SPI</a></h3>
+<p>串行外設接口。看<a href="https://en.wikipedia.org/wiki/Serial_peripheral_interface">這裡</a>獲取更多信息。</p>
+<h3 id="svd"><a class="header" href="#svd">SVD</a></h3>
+<p>系統視圖描述文件(System View Description)是一個XML文件格式，以程序員視角來描述一個微控制器設備。你能在<a href="https://www.keil.com/pack/doc/CMSIS/SVD/html/index.html">the ARM CMSIS documentation site</a>上獲取更多信息。</p>
+<h3 id="uart"><a class="header" href="#uart">UART</a></h3>
+<p>通用異步收發器。看<a href="https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter">這裡</a>獲取更多信息。</p>
+<h3 id="usart"><a class="header" href="#usart">USART</a></h3>
+<p>通用同步異步收發器。看<a href="https://en.wikipedia.org/wiki/Universal_synchronous_and_asynchronous_receiver-transmitter">這裡</a>獲取更多信息。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
